@@ -4,7 +4,7 @@
     --primary: #fe2c55;
     --black: #000;
     --white: #fff;
-    --text-color: #161823;
+    --text-color: rgba(51, 51, 51, .5);
     --paleyellow: #f0ad4e;
 }
 
@@ -19,7 +19,7 @@ body {
     box-sizing: border-box;
     font-family: Roboto-thin;
     font-size: 1.2rem;
-    // color: var(--text-color);
+    color: var(--text-color);
     margin: 0;
 }
 
