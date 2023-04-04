@@ -1,6 +1,5 @@
 import {BsTextCenter, BsSearch} from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-import MapNote from "./MapNote";
 
 import "./MapNav.scss";
 
@@ -42,7 +41,6 @@ function MapNav() {
           ))}
         </div>
       </div>
-      <MapNote />
    </>
   );
 }
