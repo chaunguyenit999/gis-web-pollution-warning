@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//mongoose.Promise = global.Promise;
+const bodyParser = require('body-parser');
+
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 const port = 3000;
 const db = require('./db.js');
 const route = require('./routes/dataRoutes.js');
