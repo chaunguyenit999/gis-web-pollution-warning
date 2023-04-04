@@ -1,16 +1,16 @@
 import { MapContainer, TileLayer, LayerGroup, Circle, Marker, Popup, LayersControl } from 'react-leaflet';
-import { caculateCenterRadius, filterDataByAddress, iconBlack, iconRed, iconYellow } from "./exten.js";
+import { caculateCenterRadius, iconBlack, iconRed, iconYellow } from "./exten.js";
 import "leaflet/dist/leaflet.css";
 import "./Mapbody.scss";
-import data from 'data.json'
 
 
-function Mapbody() {
-  const points = filterDataByAddress(data)
+function Mapbody(props) {
+  const points = props.data
   const center = caculateCenterRadius(points)[0]
 
-  let markers = [];// khởi tạo mảng để chứa các marker
-  let circle = []
+  let markers = [];
+  let circle = [];
+
   for (let i = 0; i < points.length; i++) {
     const latlng = points[i];
     markers.push(
@@ -38,12 +38,12 @@ function Mapbody() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LayersControl position="topright">
-          <LayersControl.Overlay name checked="Marker with popup">
+          <LayersControl.Overlay checked name ="Marker">
             <LayerGroup>
               {markers}
             </LayerGroup>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name checked="Layer group with circles">
+          <LayersControl.Overlay checked name ="Circles">
             <LayerGroup>
             {circle}
             </LayerGroup>

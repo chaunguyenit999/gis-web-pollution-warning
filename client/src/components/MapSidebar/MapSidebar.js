@@ -2,7 +2,11 @@ import "./MapSidebar.scss";
 import {Accordion} from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function MapSidebar() {
+function MapSidebar(props) {
+  const handleOptionChange = (event) => {
+    props.onOptionChange(event);
+  };
+
   return (
     <div className="body-sidebar-wrapper">
       <div className="sidebar-logo">
@@ -14,10 +18,10 @@ function MapSidebar() {
           <Accordion.Item eventKey="0" className="accordion-item-toggle">
             <Accordion.Header>Theo tỉnh thành</Accordion.Header>
             <Accordion.Body className="accordion-item-toggle-body">
-              <select>
-                <option>Hà Nam</option>
-                <option>Hà Tây</option>
-                <option>Bắc Ninh</option>
+              <select onChange={handleOptionChange}>
+                <option value="Ha Nam">Hà Nam</option>
+                <option value="Ha Tay">Hà Tây</option>
+                <option value="Bac Ninh">Bắc Ninh</option>
               </select>
             </Accordion.Body>
           </Accordion.Item>
