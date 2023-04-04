@@ -3,7 +3,7 @@ import iconRedImg from "./../../assets/images/PointRed.png";
 import iconYellowImg from "./../../assets/images/PointYellow.png";
 import L from 'leaflet';
 
-// function
+// function get center of multiple points
 function caculateCenterRadius(array){
 
     // get lat long center point
@@ -24,6 +24,19 @@ function caculateCenterRadius(array){
     return [center, radius];
   }
 
+// function filter data by address
+function filterDataByAddress(dataInput, addressInput = "Ha Nam") {
+  const points = []; 
+  for (let index = 0; index < dataInput.length; index++) {
+    const element = dataInput[index];
+    if (element.location.address === addressInput) {
+      points.push([element.location.latitude, element.location.longitude]);
+    }
+  }
+  return points
+}
+
+
 // icon
 const iconBlack = L.icon({
     iconUrl: iconBlackImg,
@@ -43,4 +56,4 @@ const iconBlack = L.icon({
     iconAnchor: [15, 40],
   });
 
-  export { caculateCenterRadius, iconBlack, iconRed, iconYellow };
+  export { caculateCenterRadius, filterDataByAddress, iconBlack, iconRed, iconYellow };
