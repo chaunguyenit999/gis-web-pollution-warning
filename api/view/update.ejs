@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cập nhật</title>
+  </head>
+  <body>
+    <h1>Cập nhật</h1>
+    <form method="POST" action="/update2/<%= data._id %>">
+      <table border="0">
+        <tr>
+          <th><label for="address">Vị trí quan trắc:</label></th> 
+          <td><input type="text" id="address" name="address" value= '<%= data.location.address %>'></td>
+        </tr>
+        <tr>
+          <th><label for="latitude">Vĩ độ:</label></th>
+          <td><input type="number" id="latitude" name="latitude" value= '<%= data.location.latitude %>'></td>
+        </tr>
+        <tr>  
+          <th><label for="longitude">Kinh độ:</label></th>
+          <td><input type="number" id="longitude" name="longitude" value= '<%= data.location.longitude %>'></td>
+        </tr>
+        <tr> 
+          <th><label for="wind_degree">Nhiệt độ:</label></th>
+          <td><input type="number" id="wind_degree" name="wind_degree" value= '<%= data.wind_degree %>'></td>
+        </tr> 
+        <tr>
+          <th><label for="humidity">Độ ẩm:</label></th>
+          <td><input type="number" id="humidity" name="humidity" value= '<%= data.humidity %>'></td>
+        </tr>
+        <tr>
+          <th><label for="wind_speed">Tốc độ gió:</label></th>
+          <td><input type="number" id="wind_speed" name="wind_speed" value= '<%= data.wind_speed %>'></td>
+        </tr>  
+        <tr>
+          <th><label for="pressure">Áp suất:</label></th>
+          <td><input type="number" id="pressure" name="pressure" value= '<%= data.pressure %>'></td>
+        </tr>
+        <tr>
+          <th><label for="wind_dust">Bụi tổng số:</label></th>
+          <td><input type="number" id="wind_dust" name="wind_dust" value= '<%= data.wind_dust %>'></td>
+        </tr>
+        <tr>
+          <th><label for="sulfur_dioxide">SO2:</label></th>
+          <td><input type="number" id="sulfur_dioxide" name="sulfur_dioxide" value= '<%= data.sulfur_dioxide %>'></td>
+        </tr>
+        <tr>
+          <th><label for="carbon_monoxide">CO:</label>
+          <td><input type="number" id="carbon_monoxide" name="carbon_monoxide" value= '<%= data.carbon_monoxide %>'></td>
+        </tr>
+        <tr>
+          <th><label for="nito_dioxit">NO2:</label>
+          <td><input type="text" id="nito_dioxit" name="nito_dioxit" value= '<%= data.nito_dioxit %>'></td>
+        </tr>
+        <tr>
+          <th><label for="equivalent_noise">Tiếng ồn tương đương:</label>
+          <td><input type="number" id="equivalent_noise" name="equivalent_noise" value= '<%= data.equivalent_noise %>'></td>
+        </tr>
+        <tr>
+          <th><label for="extreme_noise">Tiếng ồn cực đại:</label></th>
+          <td><input type="number" id="extreme_noise" name="extreme_noise" value= '<%= data.extreme_noise %>'></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><button type="submit">Cập nhật</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
+
+
+
+
+

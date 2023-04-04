@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Thêm dữ liệu</title>
+  </head>
+  <body>
+    <h1>Thêm dữ liệu</h1>
+    <form method="POST" action="/insert2">
+      <table border="0">
+        <tr>
+          <th><label for="address">Vị trí quan trắc:</label></th> 
+          <td><input type="text" id="address" name="address"></td>
+        </tr>
+        <tr>
+          <th><label for="latitude">Vĩ độ:</label></th>
+          <td><input type="number" id="latitude" name="latitude"></td>
+        </tr>
+        <tr>  
+          <th><label for="longitude">Kinh độ:</label></th>
+          <td><input type="number" id="longitude" name="longitude"></td>
+        </tr>
+        <tr> 
+          <th><label for="wind_degree">Nhiệt độ:</label></th>
+          <td><input type="number" id="wind_degree" name="wind_degree"></td>
+        </tr> 
+        <tr>
+          <th><label for="humidity">Độ ẩm:</label></th>
+          <td><input type="number" id="humidity" name="humidity"></td>
+        </tr>
+        <tr>
+          <th><label for="wind_speed">Tốc độ gió:</label></th>
+          <td><input type="number" id="wind_speed" name="wind_speed"></td>
+        </tr>  
+        <tr>
+          <th><label for="pressure">Áp suất:</label></th>
+          <td><input type="number" id="pressure" name="pressure"></td>
+        </tr>
+        <tr>
+          <th><label for="wind_dust">Bụi tổng số:</label></th>
+          <td><input type="number" id="wind_dust" name="wind_dust"></td>
+        </tr>
+        <tr>
+          <th><label for="sulfur_dioxide">SO2:</label></th>
+          <td><input type="number" id="sulfur_dioxide" name="sulfur_dioxide"></td>
+        </tr>
+        <tr>
+          <th><label for="carbon_monoxide">CO:</label>
+          <td><input type="number" id="carbon_monoxide" name="carbon_monoxide"></td>
+        </tr>
+        <tr>
+          <th><label for="nito_dioxit">NO2:</label>
+          <td><input type="text" id="nito_dioxit" name="nito_dioxit"></td>
+        </tr>
+        <tr>
+          <th><label for="equivalent_noise">Tiếng ồn tương đương:</label>
+          <td><input type="number" id="equivalent_noise" name="equivalent_noise"></td>
+        </tr>
+        <tr>
+          <th><label for="extreme_noise">Tiếng ồn cực đại:</label></th>
+          <td><input type="number" id="extreme_noise" name="extreme_noise"></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><button type="submit">Thêm mới</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
