@@ -1,57 +1,74 @@
-const mongoose = require('mongoose');
-
-const airQuality = mongoose.model('airqualities', {});
-
+const dataAirQuality = require("../models/airQuality-schema");
+const excelToJson = require('convert-excel-to-json');
+const fs = require('fs');
 const dataController = {
-    getAllData: async(req, res) => {
+    getData : async(req, res) =>{
+    try{
+        const data = await dataAirQuality.findOne({_id:"642a5a84b77cb5936c77737e"})
+        res.status(200).json(data.humidity)
+    }catch(err){
+        res.status(500).json({message: err});
+    }
+    },
+    insertData: async(req, res) =>{
         try {
-            const allData = await airQuality.find({});
-            res.status(200).json(allData);
-            //return render("../controller/update.html", allData=allData)
-        } catch (error) {
-            res.status(500).json
+            const result = excelToJson({
+                source: fs.readFileSync('Không_Khí_2018.xlsx'),
+                  columnToKey: {
+                    A:'location.address',
+                    B:'location.latitude',
+                    C:"location.longitude",
+                    D:"date",
+                    E:"wind_degree",
+                    F:"humidity",
+                    G:"wind_speed",
+                    H:"wind_direction",
+                    I:"pressure",
+                    J:"wind_dust",
+                    K:"sulfur_dioxide",
+                    L:"carbon_monoxide",
+                    M:"nito_dioxit",
+                    N:"equivalent_noise",
+                    O:"extreme_noise",
+                  }
+              });
+        const data = await dataAirQuality.insertMany(result.data1)
+        res.status(200).json(data)
+        }catch (error) {
+            res.status(500).json({message:error.message});
         }
     },
-    getAData: async(req, res) => {
-        try {
-            //lat = request.args.get("lat")
-            //long = request.args.get("long")
-            const add = req.query.add;
-            //const lat = parseInt(req.query.lat);
-            //const long = parseInt(req.query.long);
-            const aData = await airQuality.findOne({address: add})
-            //document.getElementById("info").value = json(aData)
-            //return render("../controller/update.html", aData=aData)
-            res.status(200).json(aData);
-        } catch (error) {
-            res.status(500).json
+    updateData: async(req, res) => {
+        try{
+            updateData = await dataAirQuality.updateOne(
+                {
+                    location:{
+                        address:"Ha Tay",
+                        latitude:324,
+                        longitude:342
+                }
+                },
+                {
+                    location:{
+                        address:"Ha NAm",
+                        latitude:324,
+                        longitude:342
+                }
+                }
+            );
+            res.status(200).json(updateData);    
+        }catch (error) {
+            res.status(500).json({message: error});
         }
-    },
-    addAData: async(req, res) => {
+    },data_partition: async(req, res)=>{
         try {
-            //lat = request.args.get("lat")
-            //long = request.args.get("long")
-            
-            const aData = new airQuality(req.query)
-            aData.save()
-            //document.getElementById("info").value = json(aData)
-            //return render("../controller/update.html", aData=aData)
-            res.status(200).json(aData);
-        } catch (error) {
-            res.status(500).json
-        }
-    },
-    deleteAData: async(req, res) => {
-        try {
-            const add = req.query.add;
-            const lat = parseInt(req.query.lat);
-            const long = parseInt(req.query.long);
-            await airQuality.findOneAndDelete({location: {address: add, latitude: lat,  longitude: long}});
-            res.status(200).json('Đã xóa');
-        } catch (error) {
-            res.status(500).json
-        }
-    }, 
+            const data = await dataAirQuality.find({})
+            for(let i=0; i<data.length; i++) {
+                console.log(data[i])
+            }
+            res.send('Ok')
+        }catch(e){}
+    }
 }
 
-module.exports = dataController;
+module.exports = dataController
