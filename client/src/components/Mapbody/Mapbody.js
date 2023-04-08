@@ -1,23 +1,56 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, LayerGroup, Circle, Marker, Popup, LayersControl } from 'react-leaflet';
+import { caculateCenterRadius, iconBlack, iconRed, iconYellow } from "./exten.js";
 import "leaflet/dist/leaflet.css";
 import "./Mapbody.scss";
 
-function Mapbody() {
+
+function Mapbody(props) {
+  const points = props.data
+  const center = caculateCenterRadius(points)[0]
+
+  let markers = [];
+  let circle = [];
+
+  for (let i = 0; i < points.length; i++) {
+    const latlng = points[i];
+    markers.push(
+      <Marker position={latlng} icon={iconRed}>
+        <Popup>
+          {/* {data[i][0]} */}
+          {i}
+        </Popup>
+      </Marker>
+    );
+
+    circle.push(
+    <Circle
+      center={latlng}
+      color={'red'}
+      radius={400}
+    />);
+  }
+
   return (
     <div className="body-content-wrapper">
-      <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer center={center} zoom={12} scrollWheelZoom={true} style={{ height: '700px', width: '100%' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        <LayersControl position="topright">
+          <LayersControl.Overlay checked name ="Marker">
+            <LayerGroup>
+              {markers}
+            </LayerGroup>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked name ="Circles">
+            <LayerGroup>
+            {circle}
+            </LayerGroup>
+          </LayersControl.Overlay>
+        </LayersControl>
       </MapContainer>
     </div>
   );
 }
-
 export default Mapbody;
