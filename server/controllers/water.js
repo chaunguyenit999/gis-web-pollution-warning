@@ -1,81 +1,53 @@
-const mongoose = require('mongoose')
+const Water = require("../models/WaterModel");
 
-const waterQualitySchema = new mongoose.Schema({
-    location:{
-        address:{
-            type:String,
-            required:true,
-        },
-        latitude:{
-            type:Number,
-            required:true,
-        },
-        longitude:{
-            type:Number,
-            required:true,
-        }
-    },
-    date:{
-        type:Date,
-        default: Date.now(),
-    },
-    pH:{
-        type:Number,
-        required:true,
-    },
-    degree:{
-        type:Number,
-        required:true,
-    },
-    DO:{
-        type:Number,
-        required:true,
-    },
-    EC:{
-        type:Number,
-        required:true,
-    },
-    TDS:{
-        type:Number,
-        required:true,
-    },
-    SS:{
-        type:Number,
-        required:true,
-    },
-    BOD5:{
-        type:Number,
-        required:true,
-    },
-    COD:{
-        type:Number,
-        required:true,
-    },
-    NO2:{
-        type:Number,
-        required:true,
-    },
-    NO3:{
-        type:Number,
-        required:true,
-    },
-    NH4:{
-        type:Number,
-        required:true,
-    },
-    P3O4:{
-        type:Number,
-        required:true,
-    },
-    Coliform:{
-        type:Number,
-        required:true,
-    },
-    Oil:{
-        type:Number,
-        required:true,
-    },
-    
+const waterController = {
+  //ADD AUTHOR
+  addWaterInfo: async (req, res) => {
+    try {
+      const newWater = new Water(req.body);
+      const savedWater = await newWater.save();
+      res.status(200).json(savedWater);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
 
-})
-module.exports = mongoose.model('waterQuality', waterQualitySchema);
+  getAllWaterInfor: async (req, res) => {
+    try {
+      const waters = await Water.find();
+      res.status(200).json(waters);
+    } catch (error) {
+      res.status(500).json;
+    }
+  },
+
+  getWaterInforById: async (req, res) => {
+    try {
+      const waterRes = await Water.findById(req.params.id);
+      res.status(200).json(waterRes);
+    } catch (error) {
+      res.status(500).json;
+    }
+  },
+
+  updateWaterInforById: async (req, res) => {
+    try {
+      const water = await Water.findById(req.params.id);
+      await water.updateOne({ $set: req.body }); // in mongoDB 5.0 we can use the operator $set
+      res.status(200).json("Updated successfully!");
+    } catch (error) {
+      res.status(500).json({ message: error });
+    }
+  },
+
+  deleteWaterInforById: async (req, res) => {
+    try {
+      await Water.findByIdAndDelete(req.params.id);
+      res.status(200).json("Deleted successfully!");
+    } catch (error) {
+      res.status(500).json(err);
+    }
+  },
+};
+
+module.exports = waterController;

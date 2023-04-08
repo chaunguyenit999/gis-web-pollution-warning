@@ -4,7 +4,6 @@ const airController = {
   //ADD AUTHOR
   addAirInfo: async (req, res) => {
     try {
-      reqData = req.body;
       const newAir = new Air(req.body);
       const savedAir = await newAir.save();
       res.status(200).json(savedAir);
@@ -15,8 +14,8 @@ const airController = {
 
   getAllAirInfor: async (req, res) => {
     try {
-      const allData = await Air.find();
-      res.status(200).json(allData);
+      const airs = await Air.find();
+      res.status(200).json(airs);
     } catch (error) {
       res.status(500).json;
     }
@@ -24,9 +23,8 @@ const airController = {
 
   getAirInforById: async (req, res) => {
     try {
-      const id = req.params.id;
-      const oneData = await Air.findById(id);
-      res.status(200).json(oneData);
+      const airRes= await Air.findById(req.params.id);
+      res.status(200).json(airRes);
     } catch (error) {
       res.status(500).json;
     }

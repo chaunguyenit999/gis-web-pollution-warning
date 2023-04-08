@@ -75,7 +75,5 @@ const waterQualitySchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    
-
 })
 module.exports = mongoose.model('waterQuality', waterQualitySchema);
