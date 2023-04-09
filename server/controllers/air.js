@@ -1,4 +1,5 @@
 const Air = require("../models/AirModel");
+const resultAir = require("./resultAir.js");
 
 const airController = {
   //ADD AUTHOR
@@ -48,6 +49,64 @@ const airController = {
       res.status(500).json(err);
     }
   },
+
+  getAllAirInforAdmin: async(req, res) => {
+    try {
+        const airs = await Air.find({});
+        res.render('getAllInforAirs.ejs', { airs: airs });
+    } catch (error) {
+        res.status(500).json
+    }
+  },
+
+  getOneAirInforAdmin: async(req, res) => {
+    try {
+        const add = req.params.add;
+        const oneData = await Air.findOne({"location.address": add})
+        res.status(200).json(oneData);
+    } catch (error) {
+        res.status(500).json
+    }
+  },
+
+  deleteAirInforByIdAdmin: async(req, res) => {
+    try {
+        const id = req.params.id;
+        await Air.findOneAndDelete({"_id": id});
+    } catch (error) {
+        res.status(500).json
+    }
+  },
+
+  addAirInfoAdmin: async(req, res) =>{
+    try {
+        const newData = await Air(req.body);
+        const saveData = await newData.save()
+        const result = resultAir.result(saveData._id)
+        await Air.findByIdAndUpdate(saveData._id,{ result: result },{ new: true });
+        }catch (error) {
+            res.status(500).json({message:error.message});
+        }
+    },    
+  updateAirInforByIdAdmin: async(req, res) => {
+    try{
+        const id = req.params.id;
+        data = await Air.findById(id);
+        res.render('updateInforAirs.ejs', { data: data})    
+    }catch (error) {
+            res.status(500).json({message: error});
+        }
+    },
+
+  updateAirInforByIdAdmin2: async(req, res) => {
+    try{
+        const id = req.params.id;
+        data = await Air.findByIdAndUpdate(id,{ $set: req.body },{ new: true });
+        res.render('updateInforAirs.ejs')    
+    }catch (error) {
+            res.status(500).json({message: error});
+        }
+    },    
 };
 
 module.exports = airController;
