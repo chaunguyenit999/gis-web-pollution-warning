@@ -4,7 +4,7 @@ const connectDB = async () => {
     try{
         // mongodb connection string
         mongoose.set('strictQuery', false)
-        const con = await mongoose.connect("mongodb+srv://long:1234@cluster0.angauf4.mongodb.net/project?retryWrites=true&w=majority", {
+        const con = await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })

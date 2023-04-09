@@ -1,18 +1,17 @@
 const express = require("express");
 const dotenv = require("dotenv")
-const path = require("path")
 const morgan = require('morgan');
 const bodyparser = require("body-parser");
 const helmet = require("helmet");
 const cors = require("cors");
+const route = require("./routes/apiWeather");
 const methodOverride = require('method-override')
 
 
 // MODULES
-// const configViewEngine = require("./configs/viewEngine");
+const configViewEngine = require("./configs/viewEngine");
 const connectDB = require("./configs/database");
-const initWebRoute = require("./routes/web");
-const initAPIRoute = require("./routes/api");
+const apiWeather = require("./routes/apiWeather");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -31,11 +30,11 @@ app.use(helmet()); // Defender HTTP headers
 app.use(cors()); // allow sharing of resources between websites
 
 // SETUP VIEW ENGINE
-// configViewEngine(app);
+configViewEngine(app);
+apiWeather(app)
 
 // LOAD ROUTES
-initWebRoute(app); // web routes
-initAPIRoute(app); // api routes
+
 
 // SERVER RUNNING
 app.listen(PORT, () => {
