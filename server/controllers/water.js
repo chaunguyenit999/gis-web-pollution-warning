@@ -48,6 +48,61 @@ const waterController = {
       res.status(500).json(err);
     }
   },
-};
 
-module.exports = waterController;
+  
+  getAllWaterInforAdmin: async(req, res) => {
+    try {
+        const Waters = await Water.find({});
+        res.render('getAllInforWaters.ejs', { Waters: Waters });
+    } catch (error) {
+        res.status(500).json
+    }
+  },
+
+  getOneWaterInforAdmin: async(req, res) => {
+    try {
+        const add = req.params.add;
+        const oneData = await Water.findOne({"location.address": add})
+        res.status(200).json(oneData);
+    } catch (error) {
+        res.status(500).json
+    }
+  },
+
+  deleteWaterInforByIdAdmin: async(req, res) => {
+    try {
+        const id = req.params.id;
+        await Water.findOneAndDelete({"_id": id});
+    } catch (error) {
+        res.status(500).json
+    }
+  },
+
+  addWaterInfoAdmin: async(req, res) =>{
+    try {
+        const newData = await Water(req.body);
+        const saveData = await newData.save()
+        }catch (error) {
+            res.status(500).json({message:error.message});
+        }
+    },    
+  updateWaterInforByIdAdmin: async(req, res) => {
+    try{
+        const id = req.params.id;
+        data = await Water.findById(id);
+        res.render('../view/update.ejs', { data: data})    
+    }catch (error) {
+            res.status(500).json({message: error});
+        }
+    },
+
+  updateWaterInforByIdAdmin2: async(req, res) => {
+    try{
+        const id = req.params.id;
+        data = await Water.findByIdAndUpdate(id, {$set: req.body }, { new: true });
+        res.render('../view/update.ejs')    
+    }catch (error) {
+            res.status(500).json({message: error});
+        }
+    },    
+};

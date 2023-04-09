@@ -48,7 +48,7 @@ const airQualitySchema = new mongoose.Schema({
         required:true,
     },
     carbon_monoxide:{
-        type:String,
+        type:Number,
         required:true,
     },
     nito_dioxit:{
@@ -63,5 +63,9 @@ const airQualitySchema = new mongoose.Schema({
         type:Number,
         default:0,
     },
+    result:{
+        type:Number,
+        default:0
+    }
 })
 module.exports = mongoose.model('airQuality', airQualitySchema);

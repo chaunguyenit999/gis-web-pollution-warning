@@ -1,23 +1,35 @@
-// const express = require("express");
-// let router = express.Router();
+const router = require("express").Router();
+const airController = require("../controllers/air");
+const waterController = require("../controllers/water");
 
-// const initWebRoute = (app) => {
-//   router.get("/", homeController.getHomepage);
-//   router.get("/detail/user/:id", homeController.getDetailPage);
-//   router.post("/create-new-user", homeController.createNewUser);
 
-//   router.post("/delete-user", homeController.deleteUser);
-//   router.get("/edit-user/:id", homeController.getEditPage);
-//   router.post("/update-user", homeController.postUpdateUser);
+const initWebRoute = (app) => {
 
-//   router.get("/upload", homeController.getUploadFilePage);
-//   router.post(
-//     "/upload-profile-pic",
-//     upload.single("profile_pic"),
-//     homeController.handleUploadFile
-//   );
+    /**
+    * @description AIR ROUTES
+    */
 
-//   return app.use("/", router);
-// };
+    router.get('/airs', airController.getAllAirInforAdmin);
+    router.get('/airs/:add', airController.getOneAirInforAdmin);//
+    router.delete('/airs/:id', airController.deleteAirInforByIdAdmin);
+    router.post('/airs', airController.addAirInfoAdmin);
+    router.get('/airs/:id', airController.updateAirInforByIdAdmin);//
+    router.put('/airs/:id', airController.updateAirInforByIdAdmin2);//
 
-// export default initWebRoute;
+    /**
+    * @description WATER ROUTES
+    */
+
+    router.get('/waters', waterController.getAllWaterInforAdmin);
+    router.get('/waters/:add', waterController.getOneWaterInforAdmin);//
+    router.delete('/waters/:id', waterController.deleteWaterInforByIdAdmin);
+    router.post('/waters', waterController.addWaterInfoAdmin);
+    router.get('/waters/:id', waterController.updateWaterInforByIdAdmin);//
+    router.put('/waters/:id', waterController.updateWaterInforByIdAdmin2);//
+
+
+    return app.use("/api/v1/admin", router);
+}
+
+
+module.exports = initWebRoute

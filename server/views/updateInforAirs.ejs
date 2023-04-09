@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1>Cập nhật</h1>
-    <form method="POST" action="/update2/<%= data._id %>">
+    <form method="POST" action="api/v1/admin/airs/<%= data._id %>?_method=PUT">
       <table border="0">
         <tr>
           <th><label for="address">Vị trí quan trắc:</label></th> 
