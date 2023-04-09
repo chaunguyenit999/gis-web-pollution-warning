@@ -1,5 +1,5 @@
 // const route = require('express').Router();
-const { getData, updateData, insertData, data_partition} = require('../controller/dataController.js');
+const { getData, updateData, insertData, data_partition} = require('../controllers/air');
 const axios = require('axios');
 
 

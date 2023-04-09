@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cập nhật</title>
+  </head>
+  <body>
+    <h1>Cập nhật</h1>
+    <form method="POST" action="api/v1/admin/waters/<%= data._id %>?_method=PUT">
+      <table border="0">
+        <tr>
+          <th><label for="address">Vị trí quan trắc:</label></th> 
+          <td><input type="text" id="address" name="address" value="<%= data.location.address %>"></td>
+        </tr>
+        <tr>
+          <th><label for="latitude">Vĩ độ:</label></th>
+          <td><input type="number" id="latitude" name="latitude" value="<%= data.location.latitude %>"></td>
+        </tr>
+        <tr>  
+          <th><label for="longitude">Kinh độ:</label></th>
+          <td><input type="number" id="longitude" name="longitude" value="<%= data.location.longitude %>"></td>
+        </tr>
+        <tr> 
+          <th><label for="pH">pH:</label></th>
+          <td><input type="number" id="pH" name="pH" value="<%= data.pH %>"></td>
+        </tr> 
+        <tr>
+          <th><label for="degree">Nhiệt độ:</label></th>
+          <td><input type="number" id="degree" name="degree" value="<%= data.degree %>"></td>
+        </tr>
+        <tr>
+          <th><label for="DO">DO:</label></th>
+          <td><input type="number" id="DO" name="DO" value="<%= data.DO %>"></td>
+        </tr>  
+        <tr>
+          <th><label for="EC">EC:</label></th>
+          <td><input type="number" id="EC" name="EC" value="<%= data.EC %>"></td>
+        </tr>
+        <tr>
+          <th><label for="TDS">TDS:</label></th>
+          <td><input type="number" id="TDS" name="TDS" value="<%= data.TDS %>"></td>
+        </tr>
+        <tr>
+          <th><label for="SS">SS:</label></th>
+          <td><input type="number" id="SS" name="SS" value="<%= data.SS %>"></td>
+        </tr>
+        <tr>
+          <th><label for="BOD5">BOD5:</label>
+          <td><input type="number" id="BOD5" name="BOD5" value="<%= data.BOD5 %>"></td>
+        </tr>
+        <tr>
+          <th><label for="COD">COD:</label>
+          <td><input type="text" id="COD" name="COD" value="<%= data.COD %>"></td>
+        </tr>
+        <tr>
+          <th><label for="NO2">NO2-:</label>
+          <td><input type="number" id="NO2" name="NO2" value="<%= data.NO2 %>"></td>
+        </tr>
+        <tr>
+          <th><label for="NO3">NO3-:</label></th>
+          <td><input type="number" id="NO3" name="NO3" value="<%= data.NO3 %>"></td>
+        </tr>
+        <tr>
+          <th><label for="NH4">NH4+:</label>
+          <td><input type="text" id="NH4" name="NH4" value="<%= data.NH4 %>"></td>
+        </tr>
+        <tr>
+          <th><label for="P3O4">PO43-:</label>
+          <td><input type="number" id="P3O4" name="P3O4" value="<%= data.P3O4 %>"></td>
+        </tr>
+        <tr>
+          <th><label for="Coliform">Coliform:</label></th>
+          <td><input type="number" id="Coliform" name="Coliform" value="<%= data.Coliform %>"></td>
+        </tr>
+        <tr>
+          <th><label for="Oil">Dầu mỡ:</label></th>
+          <td><input type="number" id="Oil" name="Oil" value="<%= data.Oil %>"></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><button type="submit">Cập nhật</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
