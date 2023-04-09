@@ -1,6 +1,5 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const path = require("path");
 const morgan = require('morgan');
 const bodyparser = require("body-parser");
 const helmet = require("helmet");
@@ -12,7 +11,7 @@ const methodOverride = require('method-override')
 const configViewEngine = require("./configs/viewEngine");
 const connectDB = require("./configs/database");
 const initWebRoute = require("./routes/web");
-// const initAPIRoute = require("./routes/api");
+const initAPIRoute = require("./routes/api");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
