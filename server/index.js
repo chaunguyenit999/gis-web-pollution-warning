@@ -1,5 +1,6 @@
 // LIBARIES
 const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
 const dotenv = require("dotenv");
 const path = require("path");
 const morgan = require('morgan');
@@ -8,9 +9,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 // MODULES
-const configViewEngine = require("./configs/viewEngine");
 const connectDB = require("./configs/database");
-// const initWebRoute = require("./routes/web");
+const initWebRoute = require("./routes/web");
 const initAPIRoute = require("./routes/api");
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -29,10 +29,13 @@ app.use(helmet()); // Defender HTTP headers
 app.use(cors()); // allow sharing of resources between websites
 
 // SETUP VIEW ENGINE
-configViewEngine(app);
+app.use(expressLayouts); // using express-ejs-layouts libary
+app.set("view engine", "ejs"); // using ejs template engine
+app.set("views", path.resolve(__dirname, "views")); // Set views foler path
+app.use(express.static(path.resolve(__dirname, "assets"))); // load assets
 
 // LOAD ROUTES
-// initWebRoute(app); // web routes
+initWebRoute(app); // web routes
 initAPIRoute(app); // api routes
 
 // SERVER RUNNING

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= locals.title %></title>
+    <%- include('../requires/_meta'); -%> <%- include('../requires/_css'); -%>
+  </head>
+
+  <body id="main-container" class="default">
+    <!-- START: Pre Loader-->
+    <%- include('../partials/_pre-loader'); -%>
+    <!-- END: Pre Loader-->
+
+    <!-- START: Header-->
+    <%- include('../partials/_header'); -%>
+    <!-- END: Header-->
+
+    <!-- START: Sidebar-->
+    <%- include('../partials/_sidebar'); -%>
+    <!-- END: Sidebar-->
+
+    <!-- START: Main Content-->
+    <main>
+      <div class="container-fluid site-width">
+        <!-- START: Sidebar-->
+        <div class="row"><%- include('../partials/_breadcrumb'); -%></div>
+        <!-- END: Sidebar-->
+
+        <!-- START: Card Data-->
+        <div class="row"><%- body %></div>
+        <!-- END: Card DATA-->
+      </div>
+    </main>
+    <!-- END: Content-->
+
+    <!-- START: Footer-->
+    <%- include('../partials/_footer'); -%>
+    <!-- END: Footer-->
+
+    <!-- START: Back to top-->
+    <%- include('../partials/_back-to-top'); -%>
+    <!-- END: Back to top-->
+  </body>
+  <%- include('../requires/_script'); -%>
+</html>

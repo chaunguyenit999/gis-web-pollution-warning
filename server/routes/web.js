@@ -1,23 +1,21 @@
-// const express = require("express");
-// let router = express.Router();
+const router = require("express").Router();
+const pageRender = require("../controllers/webController/render");
 
-// const initWebRoute = (app) => {
-//   router.get("/", homeController.getHomepage);
-//   router.get("/detail/user/:id", homeController.getDetailPage);
-//   router.post("/create-new-user", homeController.createNewUser);
+const initAPIRoute = (app) => {
+  /**
+   * @description HOME ROUTES
+   * 
+   */
+  router.get("/", pageRender.getHomePage);
+  /**
+   * @description WATER ROUTES
+   */
 
-//   router.post("/delete-user", homeController.deleteUser);
-//   router.get("/edit-user/:id", homeController.getEditPage);
-//   router.post("/update-user", homeController.postUpdateUser);
+  /**
+   * @description SOIL ROUTES
+   */
 
-//   router.get("/upload", homeController.getUploadFilePage);
-//   router.post(
-//     "/upload-profile-pic",
-//     upload.single("profile_pic"),
-//     homeController.handleUploadFile
-//   );
+  return app.use("/", router);
+};
 
-//   return app.use("/", router);
-// };
-
-// export default initWebRoute;
+module.exports = initAPIRoute;
