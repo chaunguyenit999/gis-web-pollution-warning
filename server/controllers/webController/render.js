@@ -4,7 +4,17 @@ const pageRender = {
   // GET HOME PAGE
   getHomePage: async (req, res) => {
     const locals = {
-      title: "Admin | Dashboard",
+      directories: [
+        {
+          tag: "Bảng điều khiển",
+          link: "/",
+        },
+        {
+          tag: "Trang chủ",
+          link: "/",
+        },
+      ],
+      title: "Admin | Trang chủ",
       description: "Gis Web Management",
     };
     return res.render("pages/index.ejs", {

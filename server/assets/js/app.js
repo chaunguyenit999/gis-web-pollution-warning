@@ -158,10 +158,9 @@
                 <h5 class="mb-0"><i class="icon-settings"></i></h5>
             </a>
             <div class="sidbarchat p-3">
-                <h5 class="mb-0">TEMPLATE CUSTOMIZER</h5>
-                <p>Customize your template</p>
+                <h5 class="mb-0">GIAO DIỆN</h5>
                 <hr/>
-                <h6>TEMPLATE COLOR</h6>
+                <h6>MÀU SẮC</h6>
                 <ul class="list-inline float-left claerfix">
                     <li class="color-box m-2 list-inline-item float-left color1" data-color="#1e3d73"></li>
                     <li class="color-box m-2 list-inline-item float-left color2" data-color="#0bb2d4"></li>                    
@@ -173,7 +172,7 @@
                 </ul>
                 <hr class="float-left w-100"/>
                
-                <h6>TEMPLATE STYLE</h6>                              
+                <h6>CHỦ ĐỀ</h6>                              
                 <label class="chkbox">Light 
                     <input name="style" value="light" class="style" type="radio" >
                     <span class="checkmark"></span>
@@ -191,49 +190,16 @@
                     <span class="checkmark"></span>
                 </label> 
                 <br/><br/>
-                <div class="gradient-img float-left">
-                <h6>Gradient Image</h6>
-                <ul class="list-inline float-left claerfix p-0">                    
-                <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#396e94"  data-img="gradient-bg.jpg">
-                <img src="dist/images/g.jpg" alt="gradient" width="100"/>
-                </li> 
-      <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#49424a"  data-img="gradient-bg4.jpg">
-                <img src="dist/images/g4.jpg" alt="gradient" width="100"/>
-                </li>
-    <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#eb6709"  data-img="gradient-bg7.jpg">
-                <img src="dist/images/g7.jpg" alt="gradient" width="100"/>
-                </li>
-                <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#bb416b"  data-img="gradient-bg1.jpg">
-                <img src="dist/images/g1.jpg" alt="gradient" width="100"/>
-                </li>
-                <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#17b3a3"  data-img="gradient-bg2.jpg">
-                <img src="dist/images/g2.jpg" alt="gradient" width="100"/>
-                </li>
-                <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#4e7184"  data-img="gradient-bg3.jpg">
-                <img src="dist/images/g3.jpg" alt="gradient" width="100"/>
-                </li>
-              
-                <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#11d2d7"  data-img="gradient-bg5.jpg">
-                <img src="dist/images/g5.jpg" alt="gradient" width="100"/>
-                </li>
-                <li class="gradient-img-block m-2 list-inline-item float-left color2" data-primary="#da88d1"  data-img="gradient-bg6.jpg">
-                <img src="dist/images/g6.jpg" alt="gradient" width="100"/>
-                </li>
-                
-                </ul>
-                </div>
-                <br/><br/>
                 <hr class="float-left w-100"/>
-                <label class="chkbox horizontal mb-2">Horizontal Menu 
+                <h6>MENU</h6>
+                <label class="chkbox horizontal mb-2">Hợp nhất 
                     <input name="horizontal" value="horizontal-menu" class="horizontallayout" type="checkbox" >
                     <span class="checkmark"></span>
                 </label><br/>
-                <label class="chkbox compact">Compact Sidebar 
+                <label class="chkbox compact">Gọn gàng 
                     <input name="compact" value="compact" class="sidebar" type="checkbox" >
                     <span class="checkmark"></span>
                 </label>
-               
-
             </div>
         </div>`;
 
