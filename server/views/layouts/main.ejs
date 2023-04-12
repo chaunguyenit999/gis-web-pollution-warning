@@ -1,8 +1,20 @@
+<% 
+const DESCRIPTION = locals.description;
+const TITLE = locals.title;
+// directory location starting from file main.ejs
+const CSS_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_css';
+const SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_script';
+%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= locals.title %></title>
-    <%- include('../requires/_link'); -%> <%- include('../requires/_css'); -%>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="/images/favicon.ico" /> <!-- title icon -->
+    <meta name="description" content="<%= DESCRIPTION %>">
+    <title><%= TITLE %></title>
+    <%- include(CSS_REQUIRED); -%>
   </head>
 
   <body id="main-container" class="default">
@@ -40,5 +52,5 @@
     <%- include('../partials/_back-to-top'); -%>
     <!-- END: Back to top-->
   </body>
-  <%- include('../requires/_script'); -%>
+  <%- include(SCRIPT_REQUIRED); -%>
 </html>

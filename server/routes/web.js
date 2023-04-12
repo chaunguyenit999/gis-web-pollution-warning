@@ -3,16 +3,19 @@ const pageRender = require("../controllers/webController/render");
 
 const initAPIRoute = (app) => {
   /**
-   * @description HOME ROUTES
-   * 
+   * @description DASHBOARD ROUTES
    */
   router.get("/", pageRender.getHomePage);
   /**
-   * @description WATER ROUTES
+   * @description MANAGEMENT ROUTES
+   */
+  router.get("/mgmt-env-data", pageRender.getEnvDataMgmtPage);
+  /**
+   * @description CONFIG ROUTES
    */
 
   /**
-   * @description SOIL ROUTES
+   * @description SUPPORT ROUTES
    */
 
   return app.use("/", router);
