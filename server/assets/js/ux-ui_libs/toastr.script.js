@@ -20,4 +20,9 @@
         toastr.error('Error - This is a error notification');
     });
 
+    // Customize
+    $(".data-del-warning").on("click", function (event) {
+        toastr.warning("Warning - 1 record has been deleted");
+    });
+
 })(jQuery);

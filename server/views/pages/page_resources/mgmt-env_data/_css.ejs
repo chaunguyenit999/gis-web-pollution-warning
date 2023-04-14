@@ -1,17 +1,71 @@
-<!-- START: Template CSS-->
-<link rel="stylesheet" href="/vendors/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/vendors/jquery-ui/jquery-ui.min.css">
-<link rel="stylesheet" href="/vendors/jquery-ui/jquery-ui.theme.min.css">
-<link rel="stylesheet" href="/vendors/simple-line-icons/css/simple-line-icons.css">
-<link rel="stylesheet" href="/vendors/flags-icon/css/flag-icon.min.css">
+<!-- UX/UI LIBS -->
+    <!-- START: Page CSS-->
+        <!-- table-datatable -->
+        <link rel="stylesheet" href="/vendors/datatable/css/dataTables.bootstrap4.min.css" />
+        <link rel="stylesheet" href="/vendors/datatable/buttons/css/buttons.bootstrap4.min.css" />
+        <!-- table-footable -->
+        <link rel="stylesheet" href="/vendors/footable/css/footable.bootstrap.min.css" />
+        <!-- toastr -->
+        <link rel="stylesheet" href="/vendors/toastr/toastr.min.css" />
+        <!-- boostrap-icons -->
+        <link rel="stylesheet" href="/vendors/fontawesome/css/all.min.css">
+    <!-- END: Page CSS-->
+<!-- UX/UI LIBS -->
 
-<!-- END Template CSS-->
+<style>
+    /* Overwrite libs */
+    .table-responsive__action::after,
+    .table-responsive__action::before {
+        visibility: hidden;
+        display: none;
+        width: 0;
+    }
+    
+    .switch-table-selections a:hover {
+        color: white !important;
+        background-color: #1e3d73 !important;
+    }
 
-<!-- START: Page CSS-->
-<link rel="stylesheet" href="/vendors/jsgrid/jsgrid.min.css" />
-<link rel="stylesheet" href="/vendors/jsgrid/jsgrid-theme.css" />
-<!-- END: Page CSS-->
+    .add-btn, .insert-btn, .switch-table-btn {
+        font-size: 12px;
+    }
 
-<!-- START: Custom CSS-->
-<link rel="stylesheet" href="/css/main.css">
-<!-- END: Custom CSS-->
+    .insert-btn {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    /* Export btn */
+    .export-selections a,
+    .switch-table-selections a {
+        transition: 0.3s;
+    }
+
+    .export-selections a:hover {
+        color: white !important;
+        background-color: #117a8b !important;
+    }
+
+    /* Table CSS */
+    .table-responsive tbody tr {
+        transition: 0.3s;
+    }
+
+    .table-responsive tbody tr:hover {
+        opacity: 1;
+        background-color: #1e3d73;
+        color: white;
+    }
+
+    .table-edit-btn, .table-delete-btn {
+        padding: 3px;
+        display: block;
+        font-size: 16px;
+    }
+
+    .table-delete-btn {
+        margin-left: 5px;
+    }
+</style>
+
+

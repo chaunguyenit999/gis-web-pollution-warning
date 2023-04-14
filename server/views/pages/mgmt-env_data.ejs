@@ -1,70 +1,186 @@
-<div class="col-12 mt-3">
-    <div class="card">
-        <div class="card-header  justify-content-between align-items-center">
-            <h4 class="card-title">Basic Scenario</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <div id="jsGrid"></div>
+<div class="row">
+    <div class="col-12 mt-3">
+        <div class="card">
+            <div class="card-header  justify-content-between align-items-center">
+                <h4 class="card-title">Datatable Edit</h4>
             </div>
-        </div>
-    </div>
-
-</div>
-<div class="col-12 mt-3">
-    <div class="card">
-        <div class="card-header  justify-content-between align-items-center">
-            <h4 class="card-title">Sorting Scenario</h4>
-        </div>
-        <div class="card-body">
-
-            <div class="sort-panel">
-                <div class="form-group row">
-                    <label for="sortingField" class="col-sm-1 col-form-label">Sorting:</label>
-                    <div class="col-sm-2 d-flex">
-                        <select id="sortingField" class="form-control">
-                            <option>Name</option>
-                            <option>Age</option>
-                            <option>Address</option>
-                            <option>Country</option>
-                            <option>Married</option>
-                        </select>
-                        <button type="button" class="btn btn-primary ml-2" id="sort">Sort</button>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="d-flex justify-content-start" style="margin-bottom: 1rem">
+                            <!-- SWITCH TABLE -->
+                            <div class="btn-group">
+                                <button class="btn btn-primary dropdown-toggle switch-table-btn" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    Switch Table
+                                </button>
+                                <div class="dropdown-menu p-0 switch-table-selections">
+                                    <a class="dropdown-item" href="#">Dữ liệu nước</a>
+                                    <a class="dropdown-item" href="#">Dữ liệu không khí</a>
+                                    <a class="dropdown-item" href="#">Dữ liệu đất</a>
+                                </div>
+                            </div>
+    
+                            <!-- INSERT TOGGLE -->
+                            <button class="btn btn-success rounded insert-btn" data-toggle="modal" data-target=".insert-form">
+                                <i class="fas fa-plus"></i>
+                                Insert
+                            </button>
+                            <div class="modal fade bd-example-modal-lg insert-form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel10" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="myLargeModalLabel10">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Modal body text goes here.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END: INSERT TOGGLE -->
+    
+                            <!-- EXPORT FILE -->
+                            <div class="btn-group">
+                                <button class="btn btn-info dropdown-toggle export-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-file-export"></i>
+                                    Export
+                                </button>
+                                <div class="dropdown-menu p-0 export-selections">
+                                    <a class="dropdown-item" href="#">Csv</a>
+                                    <a class="dropdown-item" href="#">Excel</a>
+                                    <a class="dropdown-item" href="#">Json</a>
+                                </div>
+                            </div>
+                            <!-- END: EXPORT FILE -->
+                        </div>
                     </div>
-
                 </div>
-
+                <div class="table-responsive">
+                    <table id="example" class="display table dataTable table-striped table-bordered editable-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                                <th class="table-responsive__action">Action</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Charde Marshall</td>
+                                <td>Regional Director</td>
+                                <td>San Francisco</td>
+                                <td>36</td>
+                                <td>2008/10/16</td>
+                                <td>$470,600</td>
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <!-- EDIT BTN -->
+                                        <span data-toggle="tooltip tooltip-btn" data-placement="top" title="Edit">
+                                            <a href="#" class="table-edit-btn text-info" data-toggle="modal" data-target=".edit-form">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        </span>
+                                        <!-- DELETE BTN -->
+                                        <span data-toggle="tooltip tooltip-btn" data-placement="top" title="Delete">
+                                            <a href="#" class="text-danger table-delete-btn data-del-warning">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- EDIT FORM -->
+                            <div class="modal fade bd-example-modal-lg edit-form" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel10" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="myLargeModalLabel10">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Modal body text goes here.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
-            <div id="jsGridSorting"></div>
-
         </div>
     </div>
-
-</div>
-<div class="col-12 mt-3">
-    <div class="card">
-        <div class="card-header  justify-content-between align-items-center">
-            <h4 class="card-title">Loading Data by Page Scenario</h4>
-        </div>
-        <div class="card-body">
-
-            <div class="pager-panel">
-                <div class="form-group row">
-                    <label for="pager" class="col-sm-1 col-form-label">Sorting :</label>
-                    <div class="col-sm-2">
-                        <select id="pager" class="form-control">
-                            <option>Name</option>
-                            <option selected>Age</option>
-                            <option>Address</option>
-                        </select>
-                    </div>
-
-                </div>
-
+    <div class="col-12 mt-3">
+        <div class="card">
+            <div class="card-header  justify-content-between align-items-center">
+                <h4 class="card-title">Datatable Edit</h4>
             </div>
-            <div id="jsGridSortpage"></div>
-
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="display table dataTable table-striped table-bordered editable-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Charde Marshall</td>
+                                <td>Regional Director</td>
+                                <td>San Francisco</td>
+                                <td>36</td>
+                                <td>2008/10/16</td>
+                                <td>$470,600</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>

@@ -1,9 +1,9 @@
 <% 
 const DESCRIPTION = locals.description;
 const TITLE = locals.title;
-// directory location starting from file main.ejs
-const CSS_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_css';
-const SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_script';
+// directory location start from main.ejs file
+const PAGE_CSS_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_css';
+const PAGE_SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_script';
 %>
 
 <!DOCTYPE html>
@@ -14,7 +14,23 @@ const SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_s
     <link rel="shortcut icon" href="/images/favicon.ico" /> <!-- title icon -->
     <meta name="description" content="<%= DESCRIPTION %>">
     <title><%= TITLE %></title>
-    <%- include(CSS_REQUIRED); -%>
+
+    <!-- START: Template CSS-->
+    <link rel="stylesheet" href="/vendors/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendors/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="/vendors/jquery-ui/jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/vendors/flags-icon/css/flag-icon.min.css">
+    <!-- END Template CSS-->
+    <!-- PAGE CSS -->
+    <% if (locals.page_resource) { %>
+      <%- include(PAGE_CSS_REQUIRED); %>
+    <% } %>
+    <!-- END: Page CSS-->
+
+    <!-- START: Custom CSS-->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- END: Custom CSS-->
   </head>
 
   <body id="main-container" class="default">
@@ -38,7 +54,7 @@ const SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_s
         <!-- END: Sidebar-->
 
         <!-- START: Card Data-->
-        <div class="row"><%- body %></div>
+        <%- body %>
         <!-- END: Card DATA-->
       </div>
     </main>
@@ -52,5 +68,22 @@ const SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_s
     <%- include('../partials/_back-to-top'); -%>
     <!-- END: Back to top-->
   </body>
-  <%- include(SCRIPT_REQUIRED); -%>
+  <!-- START: Template JS-->
+  <script src="/vendors/jquery/jquery-3.3.1.min.js"></script>
+  <script src="/vendors/jquery-ui/jquery-ui.min.js"></script>
+  <script src="/vendors/moment/moment.js"></script>
+  <script src="/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendors/slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- END: Template JS-->
+
+  <!-- START: APP JS-->
+  <script src="/js/ux-ui_libs/app.js"></script>
+  <!-- END: APP JS-->
+
+  <!-- CUSTOMIZE -->
+  <script src="/js/ux-ui_libs/sidebar-script.js"></script>
+
+  <% if (locals.page_resource) { %>
+    <%- include(PAGE_SCRIPT_REQUIRED); %>
+  <% } %>
 </html>

@@ -37,6 +37,10 @@ app.use(express.static(path.resolve(__dirname, "assets"))); // load assets
 // LOAD ROUTES
 initWebRoute(app); // web routes
 initAPIRoute(app); // api routes
+// 404 route
+app.get("*", (req, res) => {
+  res.render("pages/404-page.ejs", { layout: false });
+})
 
 // SERVER RUNNING
 app.listen(PORT, () => {
