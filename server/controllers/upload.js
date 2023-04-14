@@ -1,12 +1,10 @@
 const excelToJson = require("convert-excel-to-json");
 const Air = require("../models/AirModel");
-const path = require("path");
-const fs = require("fs");
 const Uploadfiles = async (req, res) => {
     try{
     const file = req.file.path
     const result = excelToJson({
-        sourceFile: fs.readFileSync(file),
+        sourceFile: file,
         header: {
             rows: 3
         },
@@ -26,7 +24,9 @@ const Uploadfiles = async (req, res) => {
             N: "nito_dioxit",
         }
     })
-    data = await Air.insertMany(result[1][1])
+    data = await Air.insertMany(result[2][1])
+    // res.status(200).json(result)
+    res.redirect('/')
     }catch{
     res.status(500).json("ERROR")
     }}

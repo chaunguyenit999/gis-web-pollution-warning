@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 const Upload = (app) =>{
-    app.post('/upload',Uploadfiles)
+    app.post('/upload',upload.single('excel') ,Uploadfiles)
     app.get('/upload', ShowData)
 }
 
