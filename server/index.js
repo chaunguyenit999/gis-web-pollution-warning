@@ -14,7 +14,7 @@ const connectDB = require("./configs/database");
 const apiWeather = require("./routes/apiWeather");
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+const Upload = require(".//routes/uploadExcel")
 // PORT
 dotenv.config({path: 'config.env'});
 
@@ -32,6 +32,7 @@ app.use(cors()); // allow sharing of resources between websites
 // SETUP VIEW ENGINE
 configViewEngine(app);
 apiWeather(app)
+Upload(app)
 
 // LOAD ROUTES
 

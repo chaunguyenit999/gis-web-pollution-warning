@@ -54,15 +54,7 @@ const airQualitySchema = new mongoose.Schema({
     nito_dioxit:{
         type:Number,
         required:true,
-    },
-    equivalent_noise:{
-        type:Number,
-        default:0,
-    },
-    extreme_noise:{
-        type:Number,
-        default:0,
-    },
+    }
     
 
 })
