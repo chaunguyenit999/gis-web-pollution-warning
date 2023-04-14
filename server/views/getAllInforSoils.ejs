@@ -1,0 +1,124 @@
+
+<html>
+  <head>
+    <title>MANAGER</title>
+  </head>
+  <body>
+    <h1>ADD DATA</h1>
+    <form method="POST" action="/admin/insertsoil">
+      <table border="0">
+        <tr>
+          <th><label for="address">Vị trí quan trắc:</label></th> 
+          <td><input type="text" id="address" name="address"></td>
+        </tr>
+        <tr>
+          <th><label for="latitude">Vĩ độ:</label></th>
+          <td><input type="number" id="latitude" name="latitude"></td>
+        </tr>
+        <tr>  
+          <th><label for="longitude">Kinh độ:</label></th>
+          <td><input type="number" id="longitude" name="longitude"></td>
+        </tr>
+        <tr> 
+          <th><label for="exchange_acidity">pHKCl:</label></th>
+          <td><input type="number" id="exchange_acidity" name="exchange_acidity"></td>
+        </tr> 
+        <tr>
+          <th><label for="total_nitrogen">N Tổng số:</label></th>
+          <td><input type="number" id="total_nitrogen" name="total_nitrogen"></td>
+        </tr>
+        <tr>
+          <th><label for="total_photpho">P Tổng số:</label></th>
+          <td><input type="number" id="total_photpho" name="total_photpho"></td>
+        </tr>
+        <tr>
+          <th><label for="total_kali">K Tổng số:</label></th>
+          <td><input type="number" id="total_kali" name="total_kali"></td>
+        </tr>  
+        <tr>
+          <th><label for="calci">Ca2+:</label></th>
+          <td><input type="number" id="calci" name="calci"></td>
+        </tr>
+        <tr>
+          <th><label for="magie">Mg2+:</label></th>
+          <td><input type="number" id="magie" name="magie"></td>
+        </tr>
+        <tr>
+          <th><label for="zinc">Zn:</label></th>
+          <td><input type="number" id="zinc" name="zinc"></td>
+        </tr>
+        <tr>
+          <th><label for="plumbum">Pb:</label>
+          <td><input type="number" id="plumbum" name="plumbum"></td>
+        </tr>
+        <tr>  
+          <th><label for="copper">Cu:</label>
+          <td><input type="number" id="copper" name="copper"></td>
+        </tr>
+        <tr>
+          <th><label for="arsenic">As:</label>
+          <td><input type="number" id="arsenic" name="arsenic"></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><button type="submit">Thêm mới</button></td>
+        </tr>
+      </table>
+    </form>
+
+
+    <h1>GET ALL</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Vị trí quan trắc</th>
+          <th>Vĩ độ</th>
+          <th>Kinh độ</th>
+          <th>Ngày lấy mẫu</th>
+          <th>pHKCl</th>
+          <th>N Tổng số</th>
+          <th>P Tổng số</th>
+          <th>K Tổng số</th>
+          <th>Ca2+</th>
+          <th>Mg2+</th>
+          <th>Zn</th>
+          <th>Pb</th>
+          <th>Cu</th>
+          <th>As</th>
+          <th>Mức độ ô nhiễm</th>
+          <th>Chức năng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% soils.forEach(function(data, index) { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= data.location.address %></td>
+            <td><%= data.location.latitude %></td>
+            <td><%= data.location.longitude %></td>
+            <td><%= data.date %></td>
+            <td><%= data.exchange_acidity %></td>
+            <td><%= data.total_nitrogen %></td>
+            <td><%= data.total_photpho %></td>
+            <td><%= data.total_kali %></td>
+            <td><%= data.calci %></td>
+            <td><%= data.magie %></td>
+            <td><%= data.zinc %></td>
+            <td><%= data.plumbum %></td>
+            <td><%= data.copper %></td>
+            <td><%= data.arsenic %></td>
+            <td><%= data.result %></td>
+            <td>
+				        <form method="GET" action="/admin/deleteonesoil/<%= data._id %>">
+                    <button type="submit">Xóa</button>
+                </form>
+                <form method="GET" action="/admin/updateonesoil/<%= data._id %>">
+                    <button type="submit">Sửa</button>
+                </form>
+			</td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </body>
+</html>

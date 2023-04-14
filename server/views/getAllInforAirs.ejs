@@ -1,10 +1,11 @@
+
 <html>
   <head>
     <title>MANAGER</title>
   </head>
   <body>
     <h1>ADD DATA</h1>
-    <form method="POST" action="api/v1/admin/airs">
+    <form method="POST" action="/admin/insertair">
       <table border="0">
         <tr>
           <th><label for="address">Vị trí quan trắc:</label></th> 
@@ -29,6 +30,10 @@
         <tr>
           <th><label for="wind_speed">Tốc độ gió:</label></th>
           <td><input type="number" id="wind_speed" name="wind_speed"></td>
+        </tr>
+        <tr>
+          <th><label for="wind_direction">Hướng gió:</label></th>
+          <td><input type="text" id="wind_direction" name="wind_direction"></td>
         </tr>  
         <tr>
           <th><label for="pressure">Áp suất:</label></th>
@@ -46,7 +51,7 @@
           <th><label for="carbon_monoxide">CO:</label>
           <td><input type="number" id="carbon_monoxide" name="carbon_monoxide"></td>
         </tr>
-        <tr>
+        <tr>  
           <th><label for="nito_dioxit">NO2:</label>
           <td><input type="text" id="nito_dioxit" name="nito_dioxit"></td>
         </tr>
@@ -84,6 +89,7 @@
           <th>NO2</th>
           <th>Tiếng ồn tương đương</th>
           <th>Tiếng ồn cực đại</th>
+          <th>Mức độ ô nhiễm</th>
           <th>Chức năng</th>
         </tr>
       </thead>
@@ -105,11 +111,12 @@
             <td><%= data.nito_dioxit %></td>
             <td><%= data.equivalent_noise %></td>
             <td><%= data.extreme_noise %></td>
+            <td><%= data.result %></td>
             <td>
-				        <form method="POST" action="api/v1/admin/airs/<%= data._id %>?_method=DELETE">
+				        <form method="GET" action="/admin/deleteoneair/<%= data._id %>">
                     <button type="submit">Xóa</button>
                 </form>
-                <form method="GET" action="api/v1/admin/airs/<%= data._id %>">
+                <form method="GET" action="/admin/updateoneair/<%= data._id %>">
                     <button type="submit">Sửa</button>
                 </form>
 			</td>

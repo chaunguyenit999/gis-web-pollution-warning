@@ -50,6 +50,8 @@ const airController = {
     }
   },
 
+
+  //ADMIN
   getAllAirInforAdmin: async(req, res) => {
     try {
         const airs = await Air.find({});
@@ -73,6 +75,7 @@ const airController = {
     try {
         const id = req.params.id;
         await Air.findOneAndDelete({"_id": id});
+        res.status(200).json("Deleted successfully!");
     } catch (error) {
         res.status(500).json
     }
@@ -80,10 +83,29 @@ const airController = {
 
   addAirInfoAdmin: async(req, res) =>{
     try {
-        const newData = await Air(req.body);
+        const newData = await Air({
+          location:{
+              address: req.body.address,
+              latitude: req.body.latitude,
+              longitude: req.body.longitude
+          },
+          wind_degree: req.body.wind_degree,
+          humidity: req.body.humidity,
+          wind_speed: req.body.wind_speed,
+          wind_direction: req.body.wind_direction,
+          pressure: req.body.pressure,
+          wind_dust: req.body.wind_dust,
+          sulfur_dioxide: req.body.sulfur_dioxide,
+          carbon_monoxide: req.body.carbon_monoxide,
+          nito_dioxit: req.body.nito_dioxit,
+          equivalent_noise: req.body.equivalent_noise,
+          extreme_noise: req.body.extreme_noise
+      
+      });
         const saveData = await newData.save()
-        const result = resultAir.result(saveData._id)
+        const result = await resultAir.result(saveData._id)
         await Air.findByIdAndUpdate(saveData._id,{ result: result },{ new: true });
+        res.status(200).json(saveData)
         }catch (error) {
             res.status(500).json({message:error.message});
         }
@@ -102,6 +124,8 @@ const airController = {
     try{
         const id = req.params.id;
         data = await Air.findByIdAndUpdate(id,{ $set: req.body },{ new: true });
+        const result = await resultAir.result(id)
+        await Air.findByIdAndUpdate(id,{ result: result },{ new: true });
         res.render('updateInforAirs.ejs')    
     }catch (error) {
             res.status(500).json({message: error});

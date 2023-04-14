@@ -1,4 +1,5 @@
 const Water = require("../models/WaterModel");
+const resultWater = require("./resultWater.js");
 
 const waterController = {
   //ADD AUTHOR
@@ -49,7 +50,10 @@ const waterController = {
     }
   },
 
-  
+
+
+
+  //ADMIN
   getAllWaterInforAdmin: async(req, res) => {
     try {
         const Waters = await Water.find({});
@@ -73,6 +77,7 @@ const waterController = {
     try {
         const id = req.params.id;
         await Water.findOneAndDelete({"_id": id});
+        res.status(200).json("Deleted successfully!");
     } catch (error) {
         res.status(500).json
     }
@@ -80,8 +85,31 @@ const waterController = {
 
   addWaterInfoAdmin: async(req, res) =>{
     try {
-        const newData = await Water(req.body);
+        const newData = await Water({
+          location:{
+              address: req.body.address,
+              latitude: req.body.latitude,
+              longitude: req.body.longitude
+          },
+          pH: req.body.pH,
+          degree: req.body.degree,
+          DO: req.body.DO,
+          EC: req.body.EC,
+          TDS: req.body.TDS,
+          SS: req.body.SS,
+          BOD5: req.body.BOD5,
+          COD: req.body.COD,
+          NO3: req.body.NO3,
+          NH4: req.body.NH4,
+          P3O4: req.body.P3O4,
+          Coliform: req.body.Coliform,
+          Oil: req.body.Oil
+      
+      });
         const saveData = await newData.save()
+        const result = await resultWater.result(saveData._id)
+        await Water.findByIdAndUpdate(saveData._id,{ result: result },{ new: true });
+        res.status(200).json(saveData)
         }catch (error) {
             res.status(500).json({message:error.message});
         }
@@ -90,7 +118,7 @@ const waterController = {
     try{
         const id = req.params.id;
         data = await Water.findById(id);
-        res.render('../view/update.ejs', { data: data})    
+        res.render('updateInforWaters.ejs', { data: data})    
     }catch (error) {
             res.status(500).json({message: error});
         }
@@ -100,10 +128,14 @@ const waterController = {
     try{
         const id = req.params.id;
         data = await Water.findByIdAndUpdate(id, {$set: req.body }, { new: true });
-        res.render('../view/update.ejs')    
+        const result = await resultWater.result(id)
+        await Water.findByIdAndUpdate(id,{ result: result },{ new: true });
+        res.render('updateInforWaters.ejs')    
     }catch (error) {
             res.status(500).json({message: error});
         }
     },    
 };
-module.exports = waterController
+
+
+module.exports = waterController;

@@ -4,7 +4,7 @@
   </head>
   <body>
     <h1>ADD DATA</h1>
-    <form method="POST" action="api/v1/admin/waters">
+    <form method="POST" action="/admin/insertwater">
       <table border="0">
         <tr>
           <th><label for="address">Vị trí quan trắc:</label></th> 
@@ -105,6 +105,7 @@
           <th>Coliform</th>
           <th>Dầu mỡ</th>
           <th>Mức độ ô nhiễm</th>
+          <th>Chức năng</th>
         </tr>
       </thead>
       <tbody>
@@ -131,10 +132,10 @@
             <td><%= data.Oil %></td>
             <td><%= data.result %></td>
             <td>
-				        <form method="POST" action="api/v1/admin/waters/<%= data._id %>?_method=DELETE">
+				        <form method="GET" action="/admin/deleteonewater/<%= data._id %>">
                     <button type="submit">Xóa</button>
                 </form>
-                <form method="GET" action="api/v1/admin/waters/<%= data._id %>">
+                <form method="GET" action="/admin/deleteonewater/<%= data._id %>">
                     <button type="submit">Sửa</button>
                 </form>
 			</td>

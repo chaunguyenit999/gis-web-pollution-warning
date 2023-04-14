@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const airController = require("../controllers/air");
 const waterController = require("../controllers/water");
+const soilController = require("../controllers/soil");
 
 const initAPIRoute = (app) => {
   /**
@@ -21,7 +22,18 @@ const initAPIRoute = (app) => {
   router.put("/waters/:id", waterController.updateWaterInforById);
   router.delete("/waters/:id", waterController.deleteWaterInforById);
 
-  return app.use("/api/v1", router);
+  /**
+   * @description SOIL ROUTES
+   */
+  router.post("/soils", soilController.addSoilInfo);
+  router.get("/soils", soilController.getAllSoilInfor);
+  router.get("/soils/:id", soilController.getSoilInforById);
+  router.put("/soils/:id", soilController.updateSoilInforById);
+  router.delete("/soils/:id", soilController.deleteSoilInforById);
+
+return app.use("/api/v1", router);
 };
+
+
 
 module.exports = initAPIRoute;

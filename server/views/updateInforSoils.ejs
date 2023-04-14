@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cập nhật</title>
+  </head>
+  <body>
+    <h1>Cập nhật</h1>
+    <form method="POST" action="/admin/updateoneair/<%= data._id %>">
+      <table border="0">
+        <tr>
+          <th><label for="address">Vị trí quan trắc:</label></th> 
+          <td><input type="text" id="address" name="address" value= '<%= data.location.address %>'></td>
+        </tr>
+        <tr>
+          <th><label for="latitude">Vĩ độ:</label></th>
+          <td><input type="number" id="latitude" name="latitude" value= '<%= data.location.latitude %>'></td>
+        </tr>
+        <tr>  
+          <th><label for="longitude">Kinh độ:</label></th>
+          <td><input type="number" id="longitude" name="longitude" value= '<%= data.location.longitude %>'></td>
+        </tr>
+        <tr> 
+          <th><label for="exchange_acidity">pHKCl:</label></th>
+          <td><input type="number" id="exchange_acidity" name="exchange_acidity" value= '<%= data.location.exchange_acidity %>'></td>
+        </tr> 
+        <tr>
+          <th><label for="total_nitrogen">N Tổng số:</label></th>
+          <td><input type="number" id="total_nitrogen" name="total_nitrogen" value= '<%= data.location.total_nitrogen %>'></td>
+        </tr>
+        <tr>
+          <th><label for="total_photpho">P Tổng số:</label></th>
+          <td><input type="number" id="total_photpho" name="total_photpho" value= '<%= data.location.total_photpho %>'></td>
+        </tr>
+        <tr>
+          <th><label for="total_kali">K Tổng số:</label></th>
+          <td><input type="number" id="total_kali" name="total_kali" value= '<%= data.location.total_kali %>'></td>
+        </tr>  
+        <tr>
+          <th><label for="calci">Ca2+:</label></th>
+          <td><input type="number" id="calci" name="calci" value= '<%= data.location.calci %>'></td>
+        </tr>
+        <tr>
+          <th><label for="magie">Mg2+:</label></th>
+          <td><input type="number" id="magie" name="magie" value= '<%= data.location.magie %>'></td>
+        </tr>
+        <tr>
+          <th><label for="zinc">Zn:</label></th>
+          <td><input type="number" id="zinc" name="zinc" value= '<%= data.location.zinc %>'></td>
+        </tr>
+        <tr>
+          <th><label for="plumbum">Pb:</label>
+          <td><input type="number" id="plumbum" name="plumbum" value= '<%= data.location.plumbum %>'></td>
+        </tr>
+        <tr>  
+          <th><label for="copper">Cu:</label>
+          <td><input type="number" id="copper" name="copper" value= '<%= data.location.copper %>'></td>
+        </tr>
+        <tr>
+          <th><label for="arsenic">As:</label>
+          <td><input type="number" id="arsenic" name="arsenic" value= '<%= data.location.arsenic %>'></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><button type="submit">Cập nhật</button></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
+
+
+
+
+

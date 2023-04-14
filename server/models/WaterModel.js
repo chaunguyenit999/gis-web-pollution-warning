@@ -51,10 +51,6 @@ const waterQualitySchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    COD:{
-        type:Number,
-        required:true,
-    },
     NO3:{
         type:Number,
         required:true,
