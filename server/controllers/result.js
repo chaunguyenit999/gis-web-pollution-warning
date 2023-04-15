@@ -10,18 +10,18 @@ const resultAll = {
     resultAllAir: async (req, res) => {
         try {
           const airs = await Air.find();
-            for(let i = 0; i < airs.length; i++) {
-                const data = airs[i];
-              if (data.result == 0) {
-                const result = await resultAir.result(data._id)
-                console.log(result)
-                //await Air.findByIdAndUpdate(data._id,{ $set: { result: result }},{ new: true });
-              }
-              else{
-                const result = await resultAir.result(data._id)
-                console.log(result)
+          for(let i = 0; i < airs.length; i++) {
+              const data = airs[i];
+            if (data.result == 0) {
+              const result = await resultAir.result(data._id)
+              console.log(result)
+              //await Air.findByIdAndUpdate(data._id,{ $set: { result: result }},{ new: true });
+            }
+            else{
+              const result = await resultAir.result(data._id)
+              console.log(result)
                 //await Air.findByIdAndUpdate(data._id,{ result: result },{ new: true })
-              }
+            }
           };
           res.status(200).json('Success!')
         } catch (error) {
@@ -32,15 +32,16 @@ const resultAll = {
       resultAllWater: async (req, res) => {
         try {
           const waters = await Water.find();
-          waters.forEach(async (data) => {
-            if (typeof data.result === "undefined") {
+          for(let i = 0; i < waters.length; i++) {
+            const data = waters[i];
+            if (data.result == 0) {
               const result = await resultWater.result(data._id)
               await Water.findByIdAndUpdate(data._id,{ $set: { result: result }},{ new: true });}
             else{
               const result = await resultWater.result(data._id)
               await Water.findByIdAndUpdate(data._id,{ result: result },{ new: true })
             }
-          });
+          };
           res.status(200).json('Success!')
         } catch (error) {
           res.status(500).json({message: error});
@@ -50,15 +51,16 @@ const resultAll = {
       resultAllSoil: async (req, res) => {
         try {
           const soils = await Soil.find();
-          soils.forEach(async (data) => {
-            if (typeof data.result === "undefined") {
+          for(let i = 0; i < soils.length; i++) {
+            const data = Soil[i];
+            if (data.result == 0) {
               const result = await resultSoil.result(data._id)
               await Soil.findByIdAndUpdate(data._id,{ $set: { result: result }},{ new: true });}
             else{
               const result = await resultSoil.result(data._id)
               await Soil.findByIdAndUpdate(data._id,{ result: result },{ new: true })
             }
-          });
+          };
           res.status(200).json('Success!')
         } catch (error) {
           res.status(500).json({message: error});

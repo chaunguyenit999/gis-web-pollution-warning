@@ -8,57 +8,57 @@ const resultWater = {
           let res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11
           //BOD5
           /*
-            1.Nước tốt: dưới 3 mg/L
-            2.Ô nhiễm nhẹ: từ 3 đến dưới 6 mg/L
-            3.Ô nhiễm trung bình: từ 6 đến dưới 20 mg/L
-            4.Ô nhiễm nặng: từ 20 đến dưới 30 mg/L
-            5.Ô nhiễm rất nặng: từ 30 mg/L
+            1.Nước tốt: dưới 4 mg/L
+            2.Ô nhiễm nhẹ: từ 4 đến dưới 6 mg/L
+            3.Ô nhiễm trung bình: từ 6 đến dưới 15 mg/L
+            4.Ô nhiễm nặng: từ 15 đến dưới 25 mg/L
+            5.Ô nhiễm rất nặng: từ 25 mg/L
 */
-          if (water.BOD5 < 3) {
+          if (water.BOD5 < 4) {
             res1 = 1
-          }else if(water.BOD5 < 6) {
+          }else if( 4 <= water.BOD5 && water.BOD5 < 6) {
             res1 = 2
-          }else if(water.BOD5 < 20) {
+          }else if( 6 <= water.BOD5 && water.BOD5 < 15) {
             res1 = 3
-          }else if(water.BOD5 < 30) {
-            res1 = 4
-          }else if(water.BOD5 >= 30) {
+          }else if( 15 <= water.BOD5 && water.BOD5 < 25) {
+            res1 = 4 
+          }else if( water.BOD5 >= 25) {
             res1 = 5 }
      
           //COD
           /*
             1.Nước tốt: dưới 10 mg/L
-            2.Ô nhiễm nhẹ: từ 10 đến dưới 30 mg/L
-            3.Ô nhiễm trung bình: từ 30 đến dưới 100 mg/L
-            4.Ô nhiễm nặng: từ 100 đến dưới 200 mg/L
-            5.Ô nhiễm rất nặng: từ 200 mg/L
+            2.Ô nhiễm nhẹ: từ 10 đến dưới 15 mg/L
+            3.Ô nhiễm trung bình: từ 15 đến dưới 30 mg/L
+            4.Ô nhiễm nặng: từ 30 đến dưới 50 mg/L
+            5.Ô nhiễm rất nặng: từ 50 mg/L
 */
           if (water.COD < 10) {
             res2 = 1
-          }else if(water.COD < 30) {
+          }else if( 10 <= water.COD && water.COD < 15) {
             res2 = 2
-          }else if(water.COD < 100) {
+          }else if( 15 <= water.COD && water.COD < 30) {
             res2 = 3
-          }else if(water.COD < 200) {
+          }else if( 30 <= water.COD && water.COD < 50) {
             res2 = 4
-          }else if(water.COD >= 200) {
+          }else if( water.COD >= 50) {
             res2 = 5 }
       
           //DO
           /*
             1.Nước tốt: từ 6 mg/L
             2.Ô nhiễm nhẹ: từ 5 đến dưới 6 mg/L
-            3.Ô nhiễm trung bình: từ 3 đến dưới 5 mg/L
-            4.Ô nhiễm nặng: từ 2 đến dưới 3 mg/L
+            3.Ô nhiễm trung bình: từ 4 đến dưới 5 mg/L
+            4.Ô nhiễm nặng: từ 2 đến dưới 4 mg/L
             5.Ô nhiễm rất nặng: dưới 2 mg/L
 */
           if (water.DO >= 6) {
             res3 = 1
           }else if(5 <= water.DO && water.DO < 6) {
             res3 = 2
-          }else if(3 <= water.DO && water.DO < 5) {
+          }else if(4 <= water.DO && water.DO < 5) {
             res3 = 3
-          }else if(2 <= water.DO && water.DO < 3) {
+          }else if(2 <= water.DO && water.DO < 4) {
             res3 = 4
           }else if(water.DO < 2) {
             res3 = 5 }
@@ -71,13 +71,13 @@ const resultWater = {
             4.Ô nhiễm nặng: từ 100 đến dưới 200 mg/L
             5.Ô nhiễm rất nặng: từ 200 mg/L
 */
-          if (water.SS < 40) {
+          if ( water.SS < 40) {
             res4 = 1
-          }else if(water.SS < 100) {
+          }else if( water.SS && water.SS < 100) {
             res4 = 2
-          }else if(water.SS < 200) {
+          }else if( water.SS && water.SS < 200) {
             res4 = 3
-          }else if(water.SS < 400) {
+          }else if(  water.SS && water.SS < 400) {
             res4 = 4
           }else if(water.SS >= 400) {
             res4 = 5 }
@@ -141,79 +141,79 @@ const resultWater = {
 
           //NO3-
           /*
-            1.Nước tốt: dưới 10 mg/L
+            1.Nước tốt: dưới 2 mg/L
             2.Ô nhiễm nhẹ: từ 10 đến dưới 20 mg/L
             3.Ô nhiễm trung bình: từ 20 đến dưới 50 mg/L
             4.Ô nhiễm nặng: từ 50 đến dưới 100 mg/L
             5.Ô nhiễm rất nặng: từ 100 mg/L
 */
-          if (water.NO3 < 10) {
+          if (water.NO3 < 2) {
             res8 = 1
-          }else if(water.NO3 < 20) {
+          }else if( 2 <= water.NO3 && water.NO3 < 5) {
             res8 = 2
-          }else if(water.NO3 < 50) {
+          }else if( 5 <= water.NO3 && water.NO3 < 10) {
             res8 = 3
-          }else if(water.NO3 < 100) {
+          }else if( 10 <= water.NO3 && water.NO3 < 15) {
             res8 = 4
-          }else if(water.NO3 >= 100) {
+          }else if(water.NO3 >= 15) {
             res8 = 5 }
             
           //NH4+
           /*
             1.Nước tốt: dưới 0.2 mg/L
-            2.Ô nhiễm nhẹ: từ 0.2 đến dưới 1 mg/L
-            3.Ô nhiễm trung bình: từ 1 đến dưới 2 mg/L
-            4.Ô nhiễm nặng: từ 2 đến dưới 5 mg/L
-            5.Ô nhiễm rất nặng: từ 5 mg/L
+            2.Ô nhiễm nhẹ: từ 0.2 đến dưới 0.3 mg/L
+            3.Ô nhiễm trung bình: từ 0.3 đến dưới 0,5 mg/L
+            4.Ô nhiễm nặng: từ 0,5 đến dưới 0.9 mg/L
+            5.Ô nhiễm rất nặng: từ 0.9 mg/L
 */
           if (water.NH4 < 0.2) {
             res9 = 1
-          }else if(water.NH4 < 1) {
+          }else if(0.2 <= water.NH4 && water.NH4 < 0.3) {
             res9 = 2
-          }else if(water.NH4 < 2) {
+          }else if(0.3 <= water.NH4 && water.NH4 < 0.5) {
             res9 = 3
-          }else if(water.NH4 < 5) {
+          }else if(0.5 <= water.NH4 && water.NH4 < 0.9) {
             res9 = 4
-          }else if(water.NH4 >= 5) {
+          }else if(water.NH4 >= 0.9) {
             res9 = 5 } 
             
                       
           //P3O4-
           /*
-            1.Nước tốt: dưới 0.01 mg/L
-            2.Ô nhiễm nhẹ: từ 0.01 đến dưới 0.1 mg/L
-            3.Ô nhiễm trung bình: từ 0.1 đến dưới 0.5 mg/L
-            4.Ô nhiễm nặng: từ 0.5 đến dưới 1 mg/L
-            5.Ô nhiễm rất nặng: từ 1 mg/L
+            1.Nước tốt: dưới 0.1 mg/L
+            2.Ô nhiễm nhẹ: từ 0.1 đến dưới 0.2 mg/L
+            3.Ô nhiễm trung bình: từ 0.2 đến dưới 0.3 mg/L
+            4.Ô nhiễm nặng: từ 0.3 đến dưới 0.5 mg/L
+            5.Ô nhiễm rất nặng: từ 0.5 mg/L
 */
-          if (water.P3O4 < 0.01) {
+          if (water.P3O4 < 0.1) {
             res10 = 1
-          }else if(water.P3O4 < 0.1) {
+          }else if( 0.1 <= water.P3O4 && water.P3O4 < 0.2) {
             res10 = 2
-          }else if(water.P3O4 < 0.5) {
+          }else if( 0.2 <= water.P3O4 && water.P3O4 < 0.3) {
             res10 = 3
-          }else if(water.P3O4 < 1) {
+          }else if( 0.3 <= water.P3O4 && water.P3O4 < 0.5) {
             res10 = 4
-          }else if(water.P3O4 >= 1) {
+          }else if( water.P3O4 >= 0.5) {
             res10 = 5 }
             
           //Oil
           /*
             1.Nước tốt: 0 mg/L
-            2.Ô nhiễm nhẹ: từ 0.01 đến dưới 1 mg/L
-            3.Ô nhiễm trung bình: từ 1 đến dưới 10 mg/L
-            4.Ô nhiễm nặng: từ 10 đến dưới 100 mg/L
-            5.Ô nhiễm rất nặng: từ 100 mg/L
+            2.Ô nhiễm nhẹ: từ trên 0 đến dưới 0.3 mg/L
+            3.Ô nhiễm trung bình: từ 0.3 đến dưới 0.5 mg/L
+            4.Ô nhiễm nặng: từ 0.5 đến dưới 1 mg/L
+            5.Ô nhiễm rất nặng: từ 1 mg/L
 */
           if (water.Oil = 0) {
             res11 = 1
-          }else if(water.Oil < 1) {
+          }else if( 0 < water.Oil && water.Oil < 0.3) {
             res11 = 2
-          }else if(water.Oil < 10) {
+          }else if( 0.3 <= water.Oil && water.Oil < 0.5) {
             res11 = 3
-          }else if(water.Oil < 100) {
+          }else if( 0.5 <= water.Oil && water.Oil < 1) {
             res11 = 4
-          }else if(water.Oil >= 100) {
+          }else if(water.Oil >= 1) {
             res11 = 5 }  
 
 
