@@ -16,17 +16,14 @@ const Uploadfiles = async (req, res) => {
             F: "wind_degree",
             G: "humidity",
             H: "wind_speed",
-            I: "wind_direction",
-            J: "pressure",
             K: "wind_dust",
             L: "sulfur_dioxide",
-            M: "carbon_monoxide",
             N: "nito_dioxit",
         }
     })
-    data = await Air.insertMany(result[2][1])
-    // res.status(200).json(result)
-    res.redirect('/')
+    // data = await Air.insertMany(result[5][1])
+    // res.status(200).json(result[5][1])
+    // res.redirect('/upload')
     }catch{
     res.status(500).json("ERROR")
     }}

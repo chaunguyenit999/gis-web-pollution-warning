@@ -16,7 +16,7 @@ const airQualitySchema = new mongoose.Schema({
         }
     },
     date:{
-        type:String,
+        type:Date,
         default: Date.now(),
     },
     wind_degree:{
@@ -31,24 +31,12 @@ const airQualitySchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    wind_direction:{
-        type:String,
-        required:true,
-    },
-    pressure:{
-        type:Number,
-        required:true,
-    },
     wind_dust:{
         type:Number,
         required:true,
     },
     sulfur_dioxide:{
         type:Number,
-        required:true,
-    },
-    carbon_monoxide:{
-        type:String,
         required:true,
     },
     nito_dioxit:{
