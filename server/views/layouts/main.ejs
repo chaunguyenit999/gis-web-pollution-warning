@@ -2,8 +2,8 @@
 const DESCRIPTION = locals.description;
 const TITLE = locals.title;
 // directory location start from main.ejs file
-const PAGE_CSS_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_css';
-const PAGE_SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource + '/_script';
+const PAGE_CSS_REQUIRED = '../pages/' + locals.page_required.css_path;
+const PAGE_SCRIPT_REQUIRED = '../pages/' + locals.page_required.script_path;
 %>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ const PAGE_SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource +
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" href="/images/favicon.ico" /> <!-- title icon -->
+    <link rel="shortcut icon" href="/images/humg-it_logo.png" /> <!-- title icon -->
     <meta name="description" content="<%= DESCRIPTION %>">
     <title><%= TITLE %></title>
 
@@ -23,7 +23,7 @@ const PAGE_SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource +
     <link rel="stylesheet" href="/vendors/flags-icon/css/flag-icon.min.css">
     <!-- END Template CSS-->
     <!-- PAGE CSS -->
-    <% if (locals.page_resource) { %>
+    <% if (locals.page_required.css_path) { %>
       <%- include(PAGE_CSS_REQUIRED); %>
     <% } %>
     <!-- END: Page CSS-->
@@ -83,7 +83,7 @@ const PAGE_SCRIPT_REQUIRED = '../pages/page_resources/' + locals.page_resource +
   <!-- CUSTOMIZE -->
   <script src="/js/ux-ui_libs/sidebar-script.js"></script>
 
-  <% if (locals.page_resource) { %>
+  <% if (locals.page_required.script_path) { %>
     <%- include(PAGE_SCRIPT_REQUIRED); %>
   <% } %>
 </html>

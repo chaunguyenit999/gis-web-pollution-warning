@@ -1,3 +1,8 @@
+/**
+ * @description
+ * css_path and script_path start from "pages" folder
+ */
+
 const description = "Gis Web Management";
 
 const pageRender = {
@@ -16,7 +21,7 @@ const pageRender = {
   // GET HOME PAGE
   getHomePage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Bảng điều khiển",
           link: "/admin/home",
@@ -27,19 +32,22 @@ const pageRender = {
         },
       ],
       title: "Admin | Trang chủ",
-      page_resource: "dashboard-home",
+      page_required: {
+        css_path: "dashboard/home/_css",
+        script_path: "dashboard/home/_script",
+      },
       description,
     };
-    return res.render("pages/dashboard-home.ejs", {
+    return res.render("pages/dashboard/home/home.ejs", {
       locals,
       layout: "layouts/main",
     });
   },
 
-  // GET ALERT PAGE
-  getAlertPage: async (req, res) => {
+  // GET NOTIFICATION PAGE
+  getNotiPage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Bảng điều khiển",
           link: "/admin/home",
@@ -50,19 +58,22 @@ const pageRender = {
         },
       ],
       title: "Admin | Thông báo",
-      page_resource: "dashboard-alert",
+      page_required: {
+        css_path: "dashboard/notification/_css",
+        script_path: "dashboard/notification/_script",
+      },
       description,
     };
-    return res.render("pages/dashboard-alert.ejs", {
+    return res.render("pages/dashboard/notification/notification.ejs", {
       locals,
       layout: "layouts/main",
     });
   },
 
   // GET MESSAGE PAGE
-  getMessagePage: async (req, res) => {
+  getMessPage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Bảng điều khiển",
           link: "/admin/home",
@@ -73,33 +84,47 @@ const pageRender = {
         },
       ],
       title: "Admin | Tin nhắn",
-      page_resource: "dashboard-message",
+      page_required: {
+        css_path: "dashboard/message/_css",
+        script_path: "dashboard/message/_script",
+      },
       description,
     };
-    return res.render("pages/dashboard-message.ejs", {
+    return res.render("pages/dashboard/message/message.ejs", {
       locals,
       layout: "layouts/main",
     });
   },
 
   // GET ENVIRONMENT DATA MANAGEMENT PAGE
-  getEnvDataMgmtPage: async (req, res) => {
+  getAirPage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Quản trị",
-          link: "/admin/home",
+          link: "/admin/dashboard/home",
         },
         {
           tag: "Dữ liệu môi trường",
           link: "#",
         },
+        {
+          tag: "Trạm quan trắc",
+          link: "#",
+        },
+        {
+          tag: "Dữ liệu không khí",
+          link: "/admin/management/env-data/stations/air",
+        },
       ],
-      title: "Admin | Quản trị",
-      page_resource: "mgmt-env_data",
+      title: "Admin | Dữ liệu không khí",
+      page_required: {
+        css_path: "management/env_data/_css",
+        script_path: "management/env_data/_script",
+      },
       description,
     };
-    return res.render("pages/mgmt-env_data.ejs", {
+    return res.render("pages/management/env_data/stations/air.ejs", {
       locals,
       layout: "layouts/main",
     });
@@ -107,21 +132,24 @@ const pageRender = {
 
   getUsersPage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Quản trị",
           link: "/admin/home",
         },
         {
-          tag: "Dữ liệu môi trường",
+          tag: "Thành viên",
           link: "#",
         },
       ],
       title: "Admin | Thành viên",
-      page_resource: "mgmt-env_data",
+      page_required: {
+        css_path: "management/users/_css",
+        script_path: "management/users/_script",
+      },
       description,
     };
-    return res.render("pages/mgmt-users.ejs", {
+    return res.render("pages/management/users/users.ejs", {
       locals,
       layout: "layouts/main",
     });
@@ -129,7 +157,7 @@ const pageRender = {
 
   getPostsPage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Quản trị",
           link: "/admin/home",
@@ -140,10 +168,10 @@ const pageRender = {
         },
       ],
       title: "Admin | Bài viết",
-      page_resource: "",
+      page_required: false,
       description,
     };
-    return res.render("pages/mgmt-posts.ejs", {
+    return res.render("pages/management/posts/posts.ejs", {
       locals,
       layout: "layouts/main",
     });
@@ -151,21 +179,21 @@ const pageRender = {
 
   getFilesPage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Quản trị",
           link: "/admin/home",
         },
         {
-          tag: "Bài viết",
+          tag: "Tệp tin",
           link: "#",
         },
       ],
       title: "Admin | Tệp tin",
-      page_resource: "mgmt-files",
+      page_required: false,
       description,
     };
-    return res.render("pages/mgmt-files.ejs", {
+    return res.render("pages/management/files/files.ejs", {
       locals,
       layout: "layouts/main",
     });
@@ -174,7 +202,7 @@ const pageRender = {
   // GET PROFILE EDIT PAGE
   getProfilePage: async (req, res) => {
     const locals = {
-      directories: [
+      breadcrumb: [
         {
           tag: "Cấu hình",
           link: "/admin/home",
@@ -184,11 +212,11 @@ const pageRender = {
           link: "#",
         },
       ],
-      title: "Admin | Profile",
-      page_resource: "",
+      title: "Admin | Tài khoản",
+      page_required: false,
       description,
     };
-    return res.render("pages/config-profile.ejs", {
+    return res.render("pages/config/profile/profile.ejs", {
       locals,
       layout: "layouts/main",
     });

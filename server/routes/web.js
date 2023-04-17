@@ -9,20 +9,21 @@ const initAPIRoute = (app) => {
   /**
    * @description DASHBOARD ROUTES
    */
-  router.get("/home", pageRender.getHomePage);
-  router.get("/dashboard-alert", pageRender.getAlertPage);
-  router.get("/dashboard-message", pageRender.getMessagePage);
+  router.get("/dashboard/home", pageRender.getHomePage);
+  router.get("/dashboard/notification", pageRender.getNotiPage);
+  router.get("/dashboard/message", pageRender.getMessPage);
   /**
    * @description MANAGEMENT ROUTES
    */
-  router.get("/mgmt-env-data", pageRender.getEnvDataMgmtPage);
-  router.get("/mgmt-users", pageRender.getUsersPage);
-  router.get("/mgmt-posts", pageRender.getPostsPage);
-  router.get("/mgmt-files", pageRender.getFilesPage);
+  // Air
+  router.get("/management/env-data/stations/air", pageRender.getAirPage);
+  router.get("/management/users", pageRender.getUsersPage);
+  router.get("/management/posts", pageRender.getPostsPage);
+  router.get("/management/files", pageRender.getFilesPage);
   /**
    * @description CONFIG ROUTES
    */
-  router.get("/config-profile", pageRender.getProfilePage);
+  router.get("/config/profile", pageRender.getProfilePage);
   /**
    * @description SUPPORT ROUTES
    */
