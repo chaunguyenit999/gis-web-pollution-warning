@@ -34,10 +34,22 @@ function Mapbody(props) {
     <div className="body-content-wrapper">
       <MapContainer center={center} zoom={12} scrollWheelZoom={true} style={{ height: '700px', width: '100%' }}>
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <LayersControl position="topright">
+          <LayersControl.Overlay checked name ="Marker">
+            <LayerGroup>
+              {markers}
+            </LayerGroup>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked name ="Circles">
+            <LayerGroup>
+            {circle}
+            </LayerGroup>
+          </LayersControl.Overlay>
+        </LayersControl>
+        <LayersControl position="bottomright">
           <LayersControl.Overlay checked name ="Marker">
             <LayerGroup>
               {markers}
