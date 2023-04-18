@@ -14,13 +14,11 @@ const resultAll = {
               const data = airs[i];
             if (data.result == 0) {
               const result = await resultAir.result(data._id)
-              console.log(result)
-              //await Air.findByIdAndUpdate(data._id,{ $set: { result: result }},{ new: true });
+              await Air.findByIdAndUpdate(data._id,{ $set: { result: result }},{ new: true });
             }
             else{
               const result = await resultAir.result(data._id)
-              console.log(result)
-                //await Air.findByIdAndUpdate(data._id,{ result: result },{ new: true })
+              await Air.findByIdAndUpdate(data._id,{ result: result },{ new: true })
             }
           };
           res.status(200).json('Success!')
