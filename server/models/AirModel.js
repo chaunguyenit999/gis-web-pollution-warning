@@ -16,7 +16,7 @@ const airQualitySchema = new mongoose.Schema({
         }
     },
     date:{
-        type:Date,
+        type: Date,
         default: Date.now(),
     },
     wind_degree:{
@@ -43,7 +43,5 @@ const airQualitySchema = new mongoose.Schema({
         type:Number,
         required:true,
     }
-    
-
 })
 module.exports = mongoose.model('airQuality', airQualitySchema);
