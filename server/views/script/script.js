@@ -27,12 +27,10 @@ var myChart = new Chart(ctx, {
     },
     options: {
         scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
+            y: {
+                beginAtZero: true
                 }
-            }]
+            }
         }
-    }
-});
+    });
  
