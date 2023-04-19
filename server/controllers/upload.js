@@ -18,17 +18,17 @@ const Uploadfiles = async (req, res) => {
             F: "wind_degree",
             G: "humidity",
             H: "wind_speed",
-            K: "wind_dust",
-            L: "sulfur_dioxide",
-            N: "nito_dioxit",
+            I: "wind_dust",
+            J: "sulfur_dioxide",
+            K: "nito_dioxit",
         }
     })
-    // data = await Air.insertMany(result[5])
-    res.status(200).json(result[6][1])
+    data = await Air.insertMany(result["2018_12"])
+    // res.status(200).json(result["2018_02"])
     // res.redirect('/upload')
-    }catch{
-    res.status(500).json("ERROR")
-    }}
+    }catch (error) {
+        res.status(500).json(error);
+      }}
 const ShowData = async (req, res) => {
     res.render("../views/upload")
 }
