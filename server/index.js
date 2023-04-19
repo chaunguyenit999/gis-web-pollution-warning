@@ -22,7 +22,7 @@ dotenv.config({ path: "config.env" });
 connectDB();
 
 // USE MIDDLEWARE LIBARIES
-app.use(morgan('combined')); // log requests in terminal
+app.use(morgan("tiny")); // log requests in terminal
 app.use(bodyparser.json()); // converts the request into an object which is called 'body.req'
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(helmet()); // Defender HTTP headers
@@ -39,7 +39,7 @@ initWebRoute(app); // web routes
 initAPIRoute(app); // api routes
 // 404 route
 app.get("*", (req, res) => {
-  res.render("pages/404-page.ejs", { layout: false });
+  res.render("pages/404-error.ejs", { layout: false });
 })
 
 // SERVER RUNNING

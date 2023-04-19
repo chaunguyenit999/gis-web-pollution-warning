@@ -21,8 +21,8 @@
     });
 
     // Customize
-    $(".data-del-warning").on("click", function (event) {
-        toastr.warning("Warning - 1 record has been deleted");
+    $(".toasts-warning").on("click", function (event) {
+        toastr.warning("1 bản ghi đã bị xoá");
     });
 
 })(jQuery);
