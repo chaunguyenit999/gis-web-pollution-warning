@@ -8,22 +8,19 @@ const resultWater = {
           let res1, res2, res3, res4, res5, res6, res7, res8, res9, res10, res11
           //BOD5
           /*
-            1.Nước tốt: dưới 4 mg/L
-            2.Ô nhiễm nhẹ: từ 4 đến dưới 6 mg/L
-            3.Ô nhiễm trung bình: từ 6 đến dưới 15 mg/L
-            4.Ô nhiễm nặng: từ 15 đến dưới 25 mg/L
-            5.Ô nhiễm rất nặng: từ 25 mg/L
+            1.Nước tốt: dưới 5 mg/L
+            2.Ô nhiễm nhẹ: từ 5 đến dưới 10 mg/L
+            3.Ô nhiễm trung bình: từ 10 đến dưới 20 mg/L
+            4.Ô nhiễm nặng: từ 20 mg/L
 */
-          if (water.BOD5 < 4) {
+          if (water.BOD5 < 5) {
             res1 = 1
-          }else if( 4 <= water.BOD5 && water.BOD5 < 6) {
+          }else if( water.BOD5 < 10) {
             res1 = 2
-          }else if( 6 <= water.BOD5 && water.BOD5 < 15) {
+          }else if(water.BOD5 < 20) {
             res1 = 3
-          }else if( 15 <= water.BOD5 && water.BOD5 < 25) {
-            res1 = 4 
-          }else if( water.BOD5 >= 25) {
-            res1 = 5 }
+          }else if( water.BOD5 >= 20) {
+            res1 = 4 }
      
           //COD
           /*
