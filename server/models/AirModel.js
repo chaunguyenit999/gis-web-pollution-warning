@@ -31,14 +31,6 @@ const airQualitySchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    wind_direction:{
-        type:String,
-        required:true,
-    },
-    pressure:{
-        type:Number,
-        required:true,
-    },
     wind_dust:{
         type:Number,
         required:true,
@@ -47,21 +39,9 @@ const airQualitySchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
-    carbon_monoxide:{
-        type:Number,
-        required:true,
-    },
     nito_dioxit:{
         type:Number,
         required:true,
-    },
-    equivalent_noise:{
-        type:Number,
-        default:0,
-    },
-    extreme_noise:{
-        type:Number,
-        default:0,
     },
     result:{
         type:Number,
