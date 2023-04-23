@@ -49,18 +49,6 @@ function Mapbody(props) {
             </LayerGroup>
           </LayersControl.Overlay>
         </LayersControl>
-        <LayersControl position="bottomright">
-          <LayersControl.Overlay checked name ="Marker">
-            <LayerGroup>
-              {markers}
-            </LayerGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay checked name ="Circles">
-            <LayerGroup>
-            {circle}
-            </LayerGroup>
-          </LayersControl.Overlay>
-        </LayersControl>
       </MapContainer>
     </div>
   );
