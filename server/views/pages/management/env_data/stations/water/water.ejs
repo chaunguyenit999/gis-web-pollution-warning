@@ -13,12 +13,12 @@
                                 <button class="btn btn-primary btn-sm dropdown-toggle switch-table-btn" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-exchange-alt"></i>
-                                    Dữ liệu không khí
+                                    Dữ liệu nước
                                 </button>
                                 <div class="dropdown-menu p-0 switch-table-selections">
-                                    <a class="dropdown-item" href="/admin/management/env-data/stations/air">Dữ liệu không khí</a>
-                                    <a class="dropdown-item" href="/admin/management/env-data/stations/soil">Dữ liệu đất</a>
                                     <a class="dropdown-item" href="/admin/management/env-data/stations/water">Dữ liệu nước</a>
+                                    <a class="dropdown-item" href="/admin/management/env-data/stations/soil">Dữ liệu đất</a>
+                                    <a class="dropdown-item" href="/admin/management/env-data/stations/air">Dữ liệu không khí</a>
                                 </div>
                             </div>
                             <!-- INSERT TOGGLE -->
@@ -32,7 +32,7 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="myLargeModalLabel10">Thêm dữ liệu không khí</h5>
+                                            <h5 class="modal-title" id="myLargeModalLabel10">Thêm dữ liệu đất</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -64,36 +64,85 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="WindDegreeValid">Độ gió</label>
-                                                        <input type="number" step="any" class="form-control" id="WindDegreeValid" placeholder="Độ gió" required>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="PhValid">pH</label>
+                                                        <input type="number" step="any" class="form-control" id="PhValid" placeholder="pH" required>
                                                         <div class="invalid-feedback">Không hợp lệ</div>
                                                     </div>
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="HumidityValid">Độ ẩm</label>
-                                                        <input type="number" step="any" class="form-control" id="HumidityValid" placeholder="Độ ẩm" required>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="DegreeValid">Degree</label>
+                                                        <input type="number" step="any" class="form-control" id="DegreeValid" placeholder="Degree" required>
                                                         <div class="invalid-feedback">Không hợp lệ</div>
                                                     </div>
-                                                    <div class="col-md-4 mb-3">
-                                                        <label for="WindSpeedValid">Tốc độ gió</label>
-                                                        <input type="number" step="any" class="form-control" id="WindSpeedValid" placeholder="Tốc độ gió" required>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="DoValid">DO (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="DoValid" placeholder="DO" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="EcValid">EC (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="EcValid" placeholder="EC" required>
                                                         <div class="invalid-feedback">Không hợp lệ</div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="TdsValid">TDS (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="TdsValid" placeholder="TDS" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="SsValid">SS (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="SsValid" placeholder="Ss" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="Bod5Valid">BOD5 (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="Bod5Valid" placeholder="BOD5" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="CodValid">COD (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="CodValid" placeholder="COD" required>
+                                                        <div class="invalid-feedback">
+                                                            Không hợp lệ.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
                                                     <div class="col-md-4 mb-3">
-                                                        <label for="WindDustValid">Bụi mịn</label>
-                                                        <input type="number" step="any" class="form-control" id="WindDustValid" placeholder="Bụi mịn" required>
+                                                        <label for="No2Valid">NO2 (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="No2Valid" placeholder="NO2" required>
                                                         <div class="invalid-feedback">Không hợp lệ</div>
                                                     </div>
                                                     <div class="col-md-4 mb-3">
-                                                        <label for="SulfurDioxideValid">SO2</label>
-                                                        <input type="number" step="any" class="form-control" id="SulfurDioxideValid" placeholder="Sulfur Dioxit" required>
+                                                        <label for="No3Valid">NO3 (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="No3Valid" placeholder="NO3"
+                                                            required>
                                                         <div class="invalid-feedback">Không hợp lệ</div>
                                                     </div>
                                                     <div class="col-md-4 mb-3">
-                                                        <label for="NitoDioxideValid">NO2</label>
-                                                        <input type="number" step="any" class="form-control" id="NitoDioxideValid" placeholder="Nito Dioxit" required>
+                                                        <label for="Nh4Valid">NH4 (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="Nh4Valid" placeholder="NH4" required>
+                                                        <div class="invalid-feedback">
+                                                            Không hợp lệ.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="P3O4Valid">P3O4 (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="P3O4Valid" placeholder="P3O4" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="ColiformValid">Coliform (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="ColiformValid" placeholder="Coliform" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="OilValid">Oil (mg/l)</label>
+                                                        <input type="number" step="any" class="form-control" id="OilValid" placeholder="Oil" required>
                                                         <div class="invalid-feedback">
                                                             Không hợp lệ.
                                                         </div>
@@ -155,44 +204,58 @@
                                 <th>Latitude</th>
                                 <th>Longitude</th>
                                 <th>Ngày giờ</th>
-                                <th>Độ gió</th>
-                                <th>Độ ẩm</th>
-                                <th>Tốc độ gió</th>
-                                <th>Bụi mịn</th>
-                                <th>SO2</th>
+                                <th>pH</th>
+                                <th>Degree</th>
+                                <th>DO</th>
+                                <th>EC</th>
+                                <th>TDS</th>
+                                <th>SS</th>
+                                <th>BOD5</th>
+                                <th>COD</th>
                                 <th>NO2</th>
+                                <th>NO3</th>
+                                <th>P3O4</th>
+                                <th>Coliform</th>
+                                <th>Oil</th>
                                 <th>Định mức</th>
                                 <th class="table-responsive__action">Hành động</a></th>
                             </tr>
                         </thead>
                         <tbody>
                             <!-- TABLE DATA -->
-                            <% for(var i=0; i < air_infor.length; i++) { %>
+                            <% for(var i=0; i < water_infor.length; i++) { %>
                             <tr>
                                 <td><%= i + 1 %></td>
-                                <td><%= air_infor[i].location.address %></td>
-                                <td><%= air_infor[i].location.latitude %></td>
-                                <td><%= air_infor[i].location.longitude %></td>
-                                <td><%= air_infor[i].date %></td>
-                                <td><%= air_infor[i].wind_degree %></td>
-                                <td><%= air_infor[i].humidity %></td>
-                                <td><%= air_infor[i].wind_speed %></td>
-                                <td><%= air_infor[i].wind_dust %></td>
-                                <td><%= air_infor[i].sulfur_dioxide %></td>
-                                <td><%= air_infor[i].nito_dioxit %></td>
-                                <td><%= air_infor[i].result %></td>
+                                <td><%= water_infor[i].location.address %></td>
+                                <td><%= water_infor[i].location.latitude %></td>
+                                <td><%= water_infor[i].location.longitude %></td>
+                                <td><%= water_infor[i].date %></td>
+                                <td><%= water_infor[i].pH %></td>
+                                <td><%= water_infor[i].degree %></td>
+                                <td><%= water_infor[i].DO %></td>
+                                <td><%= water_infor[i].EC %></td>
+                                <td><%= water_infor[i].TDS %></td>
+                                <td><%= water_infor[i].SS %></td>
+                                <td><%= water_infor[i].BOD5 %></td>
+                                <td><%= water_infor[i].COD %></td>
+                                <td><%= water_infor[i].NO2 %></td>
+                                <td><%= water_infor[i].NO3 %></td>
+                                <td><%= water_infor[i].P3O4 %></td>
+                                <td><%= water_infor[i].Coliform %></td>
+                                <td><%= water_infor[i].Oil %></td>
+                                <td><%= water_infor[i].result %></td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <!-- EDIT BTN -->
                                         <span data-toggle="tooltip tooltip-btn" data-placement="top" title="Edit">
                                             <a href="#" class="table-edit-btn text-info" data-toggle="modal"
-                                                data-target=".edit-form" data-actionid="<%= air_infor[i]._id %>">
+                                                data-target=".edit-form" data-actionid="<%= water_infor[i]._id %>">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                         </span>
                                         <!-- DELETE BTN -->
                                         <span data-toggle="tooltip tooltip-btn" data-placement="top" title="Delete">
-                                            <a href="#" data-actionid="<%= air_infor[i]._id %>" class="text-danger table-delete-btn toasts-warning">
+                                            <a href="#" data-actionid="<%= water_infor[i]._id %>" class="text-danger table-delete-btn toasts-warning">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </span>
@@ -208,12 +271,19 @@
                                 <th>Latitude</th>
                                 <th>Longitude</th>
                                 <th>Ngày giờ</th>
-                                <th>Độ gió</th>
-                                <th>Độ ẩm</th>
-                                <th>Tốc độ gió</th>
-                                <th>Bụi mịn</th>
-                                <th>SO2</th>
+                                <th>pH</th>
+                                <th>Degree</th>
+                                <th>DO</th>
+                                <th>EC</th>
+                                <th>TDS</th>
+                                <th>SS</th>
+                                <th>BOD5</th>
+                                <th>COD</th>
                                 <th>NO2</th>
+                                <th>NO3</th>
+                                <th>P3O4</th>
+                                <th>Coliform</th>
+                                <th>Oil</th>
                                 <th>Định mức</th>
                                 <th>Hành động</th>
                             </tr>
@@ -226,7 +296,7 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="myLargeModalLabel10">Sửa dữ liệu không khí</h5>
+                                <h5 class="modal-title" id="myLargeModalLabel10">Sửa dữ liệu đất</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -257,36 +327,84 @@
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="WindDegreeValid">Độ gió</label>
-                                            <input type="number" step="any" class="form-control" id="WindDegreeValid" placeholder="Độ gió" required>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="PhValid">pH</label>
+                                            <input type="number" step="any" class="form-control" id="PhValid" placeholder="pH" required>
                                             <div class="invalid-feedback">Không hợp lệ</div>
                                         </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="HumidityValid">Độ ẩm</label>
-                                            <input type="number" step="any" class="form-control" id="HumidityValid" placeholder="Độ ẩm" required>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="DegreeValid">Degree</label>
+                                            <input type="number" step="any" class="form-control" id="DegreeValid" placeholder="Degree" required>
                                             <div class="invalid-feedback">Không hợp lệ</div>
                                         </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="WindSpeedValid">Tốc độ gió</label>
-                                            <input type="number" step="any" class="form-control" id="WindSpeedValid" placeholder="Tốc độ gió" required>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="DoValid">DO (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="DoValid" placeholder="DO" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="EcValid">EC (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="EcValid" placeholder="EC" required>
                                             <div class="invalid-feedback">Không hợp lệ</div>
                                         </div>
                                     </div>
                                     <div class="form-row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="TdsValid">TDS (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="TdsValid" placeholder="TDS" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="SsValid">SS (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="SsValid" placeholder="Ss" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="Bod5Valid">BOD5 (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="Bod5Valid" placeholder="BOD5" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="CodValid">COD (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="CodValid" placeholder="COD" required>
+                                            <div class="invalid-feedback">
+                                                Không hợp lệ.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
                                         <div class="col-md-4 mb-3">
-                                            <label for="WindDustValid">Bụi mịn</label>
-                                            <input type="number" step="any" class="form-control" id="WindDustValid" placeholder="Bụi mịn" required>
+                                            <label for="No2Valid">NO2 (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="No2Valid" placeholder="NO2" required>
                                             <div class="invalid-feedback">Không hợp lệ</div>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="SulfurDioxideValid">SO2</label>
-                                            <input type="number" step="any" class="form-control" id="SulfurDioxideValid" placeholder="Sulfur Dioxit" required>
+                                            <label for="No3Valid">NO3 (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="No3Valid" placeholder="NO3" required>
                                             <div class="invalid-feedback">Không hợp lệ</div>
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="NitoDioxideValid">NO2</label>
-                                            <input type="number" step="any" class="form-control" id="NitoDioxideValid" placeholder="Nito Dioxit" required>
+                                            <label for="Nh4Valid">NH4 (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="Nh4Valid" placeholder="NH4" required>
+                                            <div class="invalid-feedback">
+                                                Không hợp lệ.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="P3O4Valid">P3O4 (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="P3O4Valid" placeholder="P3O4" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="ColiformValid">Coliform (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="ColiformValid" placeholder="Coliform" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="OilValid">Oil (mg/l)</label>
+                                            <input type="number" step="any" class="form-control" id="OilValid" placeholder="Oil" required>
                                             <div class="invalid-feedback">
                                                 Không hợp lệ.
                                             </div>

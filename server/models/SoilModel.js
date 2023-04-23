@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const calcResult = require("../helpers/calc-env_result");
 
 const soilQualitySchema = new mongoose.Schema({
   location: {
@@ -58,6 +59,36 @@ const soilQualitySchema = new mongoose.Schema({
   arsenic: {
     type: Number,
     required: true,
+  },
+  result: {
+    type: Number,
+    default: function () {
+      let exchange_acidity = this.exchange_acidity;
+      let total_nitrogen = this.total_nitrogen;
+      let total_photpho = this.total_photpho;
+      let total_kali = this.total_kali;
+      let calci = this.calci;
+      let magie = this.magie;
+      let zinc = this.zinc;
+      let plumbum = this.plumbum;
+      let copper = this.copper;
+      let arsenic = this.arsenic;
+      let calc_data = {
+        exchange_acidity,
+        total_nitrogen,
+        total_photpho,
+        total_kali,
+        calci,
+        magie,
+        zinc,
+        plumbum,
+        copper,
+        arsenic,
+      };
+      let result_val = calcResult.soil(calc_data);
+
+      return result_val;
+    },
   },
 });
 module.exports = mongoose.model("soilQuality", soilQualitySchema);

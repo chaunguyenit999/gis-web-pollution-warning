@@ -11,19 +11,13 @@
         background-color: #1e3d73 !important;
     }
 
-    .add-btn,
-    .insert-btn,
-    .switch-table-btn {
-        font-size: 12px;
-    }
-
-    .insert-btn {
-        margin-right: 5px;
+    .insert-btn, .export-btn {
         margin-left: 5px;
     }
 
     /* Export btn */
     .export-selections a,
+    .import-selections a,
     .switch-table-selections a {
         transition: 0.3s;
     }
@@ -31,6 +25,11 @@
     .export-selections a:hover {
         color: white !important;
         background-color: #117a8b !important;
+    }
+
+    .import-selections a:hover {
+        color: white !important;
+        background-color: #ffc107 !important;
     }
 
     /* Table CSS */

@@ -1,17 +1,4 @@
 $(document).ready(function () {
-  // DELETE RECORD HANDLE
-  $(".table-delete-btn").on("click", function (e) {
-    let airId = $(this).data("airid");
-    // DELETE REQUEST
-    let request = {
-      url: `http://localhost:8080/api/v1/airs/${airId}`,
-      type: "DELETE",
-    };
-    $.ajax(request).done(() => {
-      location.reload();
-    });
-  });
-
   // INSERT FORM HANDLE
   $("#insertForm").on("submit", function (e) {
     e.preventDefault();
@@ -57,7 +44,7 @@ $(document).ready(function () {
 
   // UPDATE FORM HANDLE
   $(".edit-form").on("show.bs.modal", function (event) {
-    let airId = $(event.relatedTarget).data("airid");
+    let airId = $(event.relatedTarget).data("actionid");
     let formatDate = (date) => {
       return date.substring(0, date.length - 5);
     };
@@ -108,8 +95,6 @@ $(document).ready(function () {
           .val();
         let nito_dioxide_val = $(".edit-form").find("#NitoDioxideValid").val();
 
-        console.log(typeof Number(wind_degree_val));
-
         let request = {
           url: `http://localhost:8080/api/v1/airs/${airId}`,
           type: "PUT",
@@ -137,6 +122,19 @@ $(document).ready(function () {
             alert("Cập nhật thất bại!");
           });
       });
+    });
+  });
+
+  // DELETE RECORD HANDLE
+  $(".table-delete-btn").on("click", function (e) {
+    let airId = $(this).data("actionid");
+    // DELETE REQUEST
+    let request = {
+      url: `http://localhost:8080/api/v1/airs/${airId}`,
+      type: "DELETE",
+    };
+    $.ajax(request).done(() => {
+      location.reload();
     });
   });
 });

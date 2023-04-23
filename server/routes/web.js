@@ -4,10 +4,14 @@ const loginRender = require("../controllers/webController/login");
 const homeRender = require("../controllers/webController/home");
 const notiRender = require("../controllers/webController/notification");
 const messageRender = require("../controllers/webController/message");
+
 const airRender = require("../controllers/webController/air");
+const soilRender = require("../controllers/webController/soil");
+const waterRender = require("../controllers/webController/water");
 const usersRender = require("../controllers/webController/users");
 const postsRender = require("../controllers/webController/posts");
 const filesRender = require("../controllers/webController/files");
+
 const profileRender = require("../controllers/webController/profile");
 
 const initAPIRoute = (app) => {
@@ -24,8 +28,9 @@ const initAPIRoute = (app) => {
   /**
    * @description MANAGEMENT ROUTES
    */
-  // Air
   router.get("/management/env-data/stations/air", airRender.getAirPage);
+  router.get("/management/env-data/stations/soil", soilRender.getSoilPage);
+  router.get("/management/env-data/stations/water", waterRender.getWaterPage);
   router.get("/management/users", usersRender.getUsersPage);
   router.get("/management/posts", postsRender.getPostsPage);
   router.get("/management/files", filesRender.getFilesPage);
