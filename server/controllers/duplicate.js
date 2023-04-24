@@ -19,12 +19,12 @@ try {
                 count: {$gt:1 }
             }
         }
-        ]).allowDiskUse().exec(function(err,data){
+        ]).allowDiskUse().exec  (function(err,data){
             for(i in data){
                 ids.push(data[i].dups)
             }
             Air.deleteOne({"_id":{$in:ids[1]}})
-            console.log(ids)
+            console.log(ids[1])
         })
     }catch(err) {
         console.error(err)

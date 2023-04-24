@@ -23,8 +23,8 @@ const Uploadfiles = async (req, res) => {
             K: "nito_dioxit",
         }
     })
-    data = await Air.insertMany(result["2018_12"])
-    // res.status(200).json(result["2018_02"])
+    // data = await Air.insertMany(result["2018_12"])
+    res.status(200).json(result["2018_02"])
     // res.redirect('/upload')
     }catch (error) {
         res.status(500).json(error);
