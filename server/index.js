@@ -6,7 +6,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const route = require("./routes/apiWeather");
 const methodOverride = require('method-override')
-
+const deleteDups = require("./routes/removeDups")
 
 // MODULES
 const configViewEngine = require("./configs/viewEngine");
@@ -33,6 +33,8 @@ app.use(cors()); // allow sharing of resources between websites
 configViewEngine(app);
 apiWeather(app)
 Upload(app)
+deleteDups(app)
+
 
 // LOAD ROUTES
 
