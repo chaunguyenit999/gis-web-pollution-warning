@@ -9,8 +9,8 @@ const cors = require("cors");
 // MODULES
 const configViewEngine = require("./configs/viewEngine");
 const connectDB = require("./configs/database");
-const initWebRoute = require("./routes/web");
-// const initAPIRoute = require("./routes/api");
+//const initWebRoute = require("./routes/web");
+const initAPIRoute = require("./routes/api");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -31,8 +31,8 @@ app.use(cors()); // allow sharing of resources between websites
 configViewEngine(app);
 
 // LOAD ROUTES
-initWebRoute(app); // web routes
-// initAPIRoute(app); // api routes
+//initWebRoute(app); // web routes
+initAPIRoute(app); // api routes
 
 // SERVER RUNNING
 app.listen(PORT, () => {
