@@ -5,6 +5,13 @@ const soilController = require("../controllers/APIcontroller/soil");
 
 const initAPIRoute = (app) => {
   /**
+   * @description ACCOUNTS
+   */
+  router.post("/register", airController.addAirInfo);
+  // router.post("/login", authController.loginUser);
+  // router.post("/logout", verifyToken, authController.logOut);
+
+  /**
    * @description AIR ROUTES
    */
   router.post("/airs", airController.addAirInfo);

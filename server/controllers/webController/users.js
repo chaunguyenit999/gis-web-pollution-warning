@@ -11,7 +11,7 @@ const usersRender = {
       breadcrumb: [
         {
           tag: "Quản trị",
-          link: "/admin/home",
+          link: "/admin/dashboard/home",
         },
         {
           tag: "Thành viên",

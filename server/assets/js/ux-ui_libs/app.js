@@ -59,12 +59,12 @@
     $('.sidebar-menu .dropdown>a').on('click', function () {
         if ($(this).parent().hasClass('active'))
         {
-            $(this).parent().find('>.sub-menu').slideUp('slow');
+            $(this).parent().find('>.sub-menu').slideUp('normal');
             $(this).parent().removeClass('active');
         } else
         {
 
-            $(this).parent().find('>.sub-menu').slideDown('slow');
+            $(this).parent().find(">.sub-menu").slideDown("normal");
             $(this).parent().addClass('active');
         }
 
