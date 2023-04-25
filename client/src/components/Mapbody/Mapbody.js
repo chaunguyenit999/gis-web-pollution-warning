@@ -5,7 +5,7 @@ import "./Mapbody.scss";
 
 
 function Mapbody(props) {
-  // a
+  let mapContent;
   if (props.type === "air") {
     const points = props.data
     let markers = [];
@@ -39,16 +39,9 @@ function Mapbody(props) {
 
       latlng.push([points[i].location.latitude,points[i].location.longitude])
     }
-    const center = caculateCenterRadius(latlng)[0]
-
-    return (
-      <div className="body-content-wrapper">
-        <MapContainer center={center} zoom={12} scrollWheelZoom={true} style={{ height: '700px', width: '100%' }}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <LayersControl position="topright">
+    // const center = caculateCenterRadius(latlng)[0]
+    mapContent = (
+      <LayersControl position="topright">
             <LayersControl.Overlay checked name ="Marker">
               <LayerGroup>
                 {markers}
@@ -60,9 +53,7 @@ function Mapbody(props) {
               </LayerGroup>
             </LayersControl.Overlay>
           </LayersControl>
-        </MapContainer>
-      </div>
-    );
+    )
   }
   else if (props.type === "earth") {
     const multiPolygonStyle = {
@@ -71,31 +62,27 @@ function Mapbody(props) {
       weight: 1, // độ rộng của đường viền
       color: '#000000' // màu của đường viền
     }
-    return (
-      <div className="body-content-wrapper">
-        <MapContainer center={[21.028511,105.804817]} zoom={12} scrollWheelZoom={true} style={{ height: '700px', width: '100%' }}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        <GeoJSON data={props.data} fillColor = {'green'} color = {'#000000'} weight = {0.5} style={(feature) => feature.properties.NAME_3 === 'AnĐổ' ? multiPolygonStyle : null}/>
-        </MapContainer>
-    </div>
-    );
-  }
+    mapContent = (
+      <GeoJSON data={props.data} fillColor = {'green'} color = {'#000000'} weight = {0.5} style={(feature) => feature.properties.NAME_3 === 'AnĐổ' ? multiPolygonStyle : null}/>
+    )}
   else if (props.type === "water") {
-    return (
-      <div className="body-content-wrapper">
-        <MapContainer center={[21.028511,105.804817]} zoom={12} scrollWheelZoom={true} style={{ height: '700px', width: '100%' }}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-        <GeoJSON data={props.data[1]} color = {'#11D51E'}/>
-        <GeoJSON data={props.data[0]} color = {'#1117D5'}/>
-        </MapContainer>
-    </div>
-    );
+    mapContent = (
+      <div>
+        <GeoJSON data={props.data[0]} color = {'#11D51E'}/>
+        <GeoJSON data={props.data[1]} color = {'#1117D5'}/>
+      </div>
+    )
   }
+  return (
+    <div className="body-content-wrapper">
+      <MapContainer center={[21.028511,105.804817]} zoom={12} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {mapContent}
+      </MapContainer>
+    </div>
+  );
 }
 export default Mapbody;
