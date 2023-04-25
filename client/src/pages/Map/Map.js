@@ -4,33 +4,43 @@ import MapSidebar from 'components/MapSidebar';
 import { useState } from 'react';
 import './Map.scss';
 import airData from '../../data/point_air.json';
-import earthData from '../../data/4.json';
+import earthData from '../../data/gadm41_VNM_4.json';
+import waterData2 from '../../data/2a.json';
+import waterData1 from '../../data/1a.json';
 
 function Map() {
-  const [eventuserchoice, setEventuser1] = useState('Ha Nam');
+  const [eventUserAddresss, setEventUserAddress] = useState('Ha Nam');
 
   const handleOptionChange = (event) => {
-    setEventuser1(event.target.value);
+    setEventUserAddress(event.target.value);
   };
-  const [eventuserclick, setEventuser2] = useState('air');
+  const [eventUserType, setEventUserType] = useState('air');
 
   const handleOptionClick = (event) => {
-    setEventuser2(event);
+    setEventUserType(event)
   };
-
-    // function filter data by address
-    function filterDataByAddress(dataInput, addressInput) {
-        const points = [];
-        for (let index = 0; index < dataInput.length; index++) {
-        const element = dataInput[index];
-        if (element.location.address === addressInput) {
-            points.push([element.location.latitude, element.location.longitude]);
+  var dataMap;
+    if (eventUserType === 'air') {
+        // function filter data by address
+        function filterDataByAddress(dataInput, addressInput) {
+            const points = [];
+            for (let index = 0; index < dataInput.length; index++) {
+            const element = dataInput[index];
+            if (element.location.address === addressInput) {
+                points.push(element);
+                // points.push(element);
+            }
+            }
+            return points
         }
-        }
-        return points
+        dataMap = filterDataByAddress(airData,eventUserAddresss)
     }
-    let dataMap = filterDataByAddress(airData,eventuserchoice)
-
+    else if (eventUserType === 'earth') {
+        dataMap = earthData
+    }
+    else if (eventUserType === 'water') {
+        dataMap = [waterData1, waterData2]
+    }
     // function filter data by type of polution data
     // function filterDataByType(dataInput, addressInput) {
     //     earthData
@@ -40,7 +50,7 @@ function Map() {
                 <MapNav />
                 <div className="body-wrapper">
                     <MapSidebar onOptionChange={handleOptionChange} onOptionClick={handleOptionClick} />
-                    <Mapbody data = {dataMap} type = {eventuserclick}/>
+                    <Mapbody data = {dataMap} type = {eventUserType}/>
                 </div>
             </div>
         );

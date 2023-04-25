@@ -33,21 +33,12 @@ function MapSidebar(props) {
         <Accordion>
           <Accordion.Item eventKey="0" className="accordion-item-toggle">
             <Accordion.Header onClick={() => handleOptionClick("air")} >Chất lượng không khí</Accordion.Header>
-            <Accordion.Body>
-              <p>Chất lượng không khí</p>
-            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1" className="accordion-item-toggle">
             <Accordion.Header onClick={() => handleOptionClick("earth")} >Chất lượng đất</Accordion.Header>
-            <Accordion.Body>
-             <p>Chất lượng đất</p>
-            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2" className="accordion-item-toggle">
             <Accordion.Header onClick={() => handleOptionClick("water")}>Chất lượng nước</Accordion.Header>
-            <Accordion.Body>
-              <p>Không khí</p>
-            </Accordion.Body>
           </Accordion.Item>
         </Accordion>
         <div className="menu-items-header">DỮ LIỆU MẠNG TÍCH HỢP</div>
