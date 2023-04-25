@@ -5,6 +5,7 @@ import "./Mapbody.scss";
 
 
 function Mapbody(props) {
+  // a
   if (props.type === "air") {
     const points = props.data
     let markers = [];
