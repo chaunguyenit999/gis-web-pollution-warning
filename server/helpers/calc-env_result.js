@@ -499,7 +499,7 @@ const calcResult = {
     );
 
     return result;
-  }
+  },
 };
 
 module.exports = calcResult;

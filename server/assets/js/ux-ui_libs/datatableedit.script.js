@@ -1,10 +1,6 @@
 (function ($) {
-    "use strict";
-  // $('#example').editableTableWidget({editor: $('<textarea>')});
  $('#example').DataTable({    
-     responsive: true
+    responsive: true,
+    "lengthMenu": [[5, 10, 20, 40, -1], [5, 10, 20, 40, "All"]]
  });
- 
-  //  $('#bootstraptable').editableTableWidget({editor: $('<textarea>')});
-
 })(jQuery);

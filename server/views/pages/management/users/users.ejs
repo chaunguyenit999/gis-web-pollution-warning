@@ -3,7 +3,6 @@
         <a href="#" class="d-inline-block d-lg-none mt-1 flip-menu-close"><i class="icon-close"></i></a>
         <div class="card border h-100 contact-menu-section">
             <div class="card-header d-flex justify-content-between align-items-center">
-
                 <a href="#" class="bg-primary py-2 px-2 rounded ml-auto text-white w-100 text-center"
                     data-toggle="modal" data-target="#newcontact">
                     <i class="icon-plus align-middle text-white"></i> <span class="d-none d-xl-inline-block">Add member</span>
@@ -14,59 +13,45 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    <i class="icon-pencil"></i> Add Contact
+                                    <i class="icon-pencil"></i> Add Member
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <i class="icon-close"></i>
                                 </button>
                             </div>
-                            <form class="add-contact-form">
+                            <form class="add-contact-form" id="account-register-form">
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="contact-name">
-                                                <label for="contact-name" class="col-form-label">Name</label>
+                                                <label for="contact-name" class="col-form-label">Email</label>
                                                 <input type="text" id="contact-name" class="form-control" required="">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="contact-email">
-                                                <label for="contact-email" class="col-form-label">Email</label>
+                                                <label for="contact-email" class="col-form-label">Password</label>
                                                 <input type="text" id="contact-email" class="form-control" required="">
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="contact-occupation">
-                                                <label for="contact-occupation"
-                                                    class="col-form-label">Occupation</label>
-                                                <input type="text" id="contact-occupation" class="form-control">
+                                            <div class="contact-name">
+                                                <label for="contact-name" class="col-form-label">Full Name</label>
+                                                <input type="text" id="contact-name" class="form-control" required="">
                                             </div>
                                         </div>
-
                                         <div class="col-md-6">
-                                            <div class="contact-phone">
-                                                <label for="contact-phone" class="col-form-label">Phone</label>
-                                                <input type="text" id="contact-phone" class="form-control">
+                                            <div class="contact-email">
+                                                <label for="contact-email" class="col-form-label">Role</label>
+                                                <input type="text" id="contact-email" class="form-control" required="">
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="contact-location">
-                                                <label for="contact-location" class="col-form-label">Location</label>
-                                                <input type="text" id="contact-location" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-
-
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary add-todo">Add Contact</button>
+                                    <button type="submit" class="btn btn-primary add-todo">Add</button>
                                 </div>
                             </form>
                         </div>
@@ -78,7 +63,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    <i class="icon-pencil"></i> Edit Contact
+                                    <i class="icon-pencil"></i> Edit Member
                                 </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <i class="icon-close"></i>
@@ -86,47 +71,33 @@
                             </div>
                             <form class="edit-contact-form">
                                 <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="contact-email">
+                                                <label for="edit-contact-email" class="col-form-label">Email</label>
+                                                <input type="text" id="edit-contact-email" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="contact-location">
+                                                <label for="edit-contact-location" class="col-form-label">Password</label>
+                                                <input type="text" id="edit-contact-location" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="contact-name">
                                                 <label for="edit-contact-name" class="col-form-label">Name</label>
-                                                <input type="text" id="edit-contact-name" class="form-control"
-                                                    required="">
+                                                <input type="text" id="edit-contact-name" class="form-control" required="">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="contact-email">
-                                                <label for="edit-contact-email" class="col-form-label">Email</label>
-                                                <input type="text" id="edit-contact-email" class="form-control"
-                                                    required="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="contact-occupation">
                                                 <label for="edit-contact-occupation"
                                                     class="col-form-label">Occupation</label>
                                                 <input type="text" id="edit-contact-occupation" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="contact-phone">
-                                                <label for="edit-contact-phone" class="col-form-label">Phone</label>
-                                                <input type="text" id="edit-contact-phone" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="contact-location">
-                                                <label for="edit-contact-location"
-                                                    class="col-form-label">Location</label>
-                                                <input type="text" id="edit-contact-location" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -150,8 +121,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-contacttype="superadmin-contact">
-                        <i class="icon-people"></i> Super Admin
+                    <a class="nav-link" href="#" data-contacttype="moderator-contact">
+                        <i class="icon-people"></i> Moderator
                     </a>
                 </li>
                 <li class="nav-item">
@@ -175,14 +146,13 @@
             <div class="card-body p-0">
 
                 <div class="contacts list">
-                    <div class="contact superadmin-contact">
+                    <div class="contact moderator-contact">
                         <div class="contact-content">
                             <div class="contact-profile">
-                                <img src="dist/images/contact-1.jpg" alt="avatar" class="user-image img-fluid">
+                                <img src="/images/contact-1.jpg" alt="avatar" class="user-image img-fluid">
                                 <div class="contact-info">
                                     <p class="contact-name mb-0">Kayla Fail</p>
-                                    <p class="contact-position mb-0 small font-weight-bold text-muted">Chief Executive
-                                        Officer</p>
+                                    <p class="contact-position mb-0 small font-weight-bold text-muted">Chief Executive Officer</p>
                                 </div>
                             </div>
                             <div class="contact-email">
@@ -190,12 +160,8 @@
                                 <p class="user-email">kf@mail.com</p>
                             </div>
                             <div class="contact-location">
-                                <p class="mb-0 small">Location: </p>
+                                <p class="mb-0 small">Password: </p>
                                 <p class="user-location">Washington</p>
-                            </div>
-                            <div class="contact-phone">
-                                <p class="mb-0 small">Phone: </p>
-                                <p class="user-phone">+1 (020) 123-4567</p>
                             </div>
                             <div class="line-h-1 h5">
                                 <a class="text-success edit-contact" href="#" data-toggle="modal"
@@ -207,11 +173,10 @@
                     <div class="contact admin-contact">
                         <div class="contact-content">
                             <div class="contact-profile">
-                                <img src="dist/images/contact-2.jpg" alt="avatar" class="user-image img-fluid">
+                                <img src="/images/contact-1.jpg" alt="avatar" class="user-image img-fluid">
                                 <div class="contact-info">
                                     <p class="contact-name mb-0">Margarita Metts</p>
-                                    <p class="contact-position mb-0 small font-weight-bold text-muted">Marketing
-                                        Coordinator</p>
+                                    <p class="contact-position mb-0 small font-weight-bold text-muted">Marketing Coordinator</p>
                                 </div>
                             </div>
                             <div class="contact-email">
@@ -219,41 +184,8 @@
                                 <p class="user-email">mm@mail.com</p>
                             </div>
                             <div class="contact-location">
-                                <p class="mb-0 small">Location: </p>
+                                <p class="mb-0 small">Password: </p>
                                 <p class="user-location">Franklin</p>
-                            </div>
-                            <div class="contact-phone">
-                                <p class="mb-0 small">Phone: </p>
-                                <p class="user-phone">+1 (020) 123-4567</p>
-                            </div>
-                            <div class="line-h-1 h5">
-                                <a class="text-success edit-contact" href="#" data-toggle="modal"
-                                    data-target="#edittask"><i class="icon-pencil"></i></a>
-                                <a class="text-danger delete-contact" href="#"><i class="icon-trash"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact">
-                        <div class="contact-content">
-                            <div class="contact-profile">
-                                <img src="dist/images/contact-8.jpg" alt="avatar" class="user-image img-fluid">
-                                <div class="contact-info">
-                                    <p class="contact-name mb-0">Morris Thibeau</p>
-                                    <p class="contact-position mb-0 small font-weight-bold text-muted">Account Executive
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="contact-email">
-                                <p class="mb-0 small">Email: </p>
-                                <p class="user-email">mt@mail.com</p>
-                            </div>
-                            <div class="contact-location">
-                                <p class="mb-0 small">Location: </p>
-                                <p class="user-location">Georgetown</p>
-                            </div>
-                            <div class="contact-phone">
-                                <p class="mb-0 small">Phone: </p>
-                                <p class="user-phone">+1 (020) 123-4567</p>
                             </div>
                             <div class="line-h-1 h5">
                                 <a class="text-success edit-contact" href="#" data-toggle="modal"

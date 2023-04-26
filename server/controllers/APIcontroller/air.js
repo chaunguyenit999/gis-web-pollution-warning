@@ -1,4 +1,5 @@
 const Air = require("../../models/AirModel");
+const calcResult = require("../../helpers/calc-env_result");
 
 const airController = {
   //ADD AUTHOR
@@ -32,9 +33,12 @@ const airController = {
 
   updateAirInforById: async (req, res) => {
     try {
-      const air = await Air.findById(req.params.id);
-      await air.updateOne({ $set: req.body }); // in mongoDB 5.0 we can use the operator $set
-      res.status(200).json("Updated successfully!");
+      const id = req.params.id; // get the record need to update
+      const result = await calcResult.air(req.body); // calculate result with req.body
+      const updateValue = {...req.body, result: result}; // create the new update value
+      const air = await Air.findById(id); // get the old record
+      await air.updateOne({$set: updateValue}); // $set make unique value
+      res.status(200).json({...updateValue, _id: id}); // return the update value
     } catch (error) {
       res.status(500).json({ message: error });
     }
@@ -42,8 +46,9 @@ const airController = {
 
   deleteAirInforById: async (req, res) => {
     try {
-      await Air.findByIdAndDelete(req.params.id);
-      res.status(200).json("Deleted successfully!");
+      const id = req.params.id;
+      await Air.findByIdAndDelete(id);
+      res.status(200).json(id);
     } catch (error) {
       res.status(500).json(err);
     }

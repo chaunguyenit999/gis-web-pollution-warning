@@ -40,7 +40,7 @@
                                         <!-- START: INSERT FORM-->
                                         <div class="modal-body">
                                             <!-- type number + step any = float type-->
-                                            <form class="needs-validation" id="insertForm" novalidate>
+                                            <form id="insertForm">
                                                 <div class="form-row">
                                                     <div class="col-md-3 mb-3">
                                                         <label for="AdressValid">Địa chỉ</label>
@@ -150,7 +150,7 @@
                     <table id="example" class="display table dataTable table-striped table-bordered editable-table">
                         <thead>
                             <tr>
-                                <th>STT</th>
+                                <th></th>
                                 <th>Địa chỉ</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
@@ -168,7 +168,7 @@
                         <tbody>
                             <!-- TABLE DATA -->
                             <% for(var i=0; i < air_infor.length; i++) { %>
-                            <tr>
+                            <tr id="<%= air_infor[i]._id %>">
                                 <td><%= i + 1 %></td>
                                 <td><%= air_infor[i].location.address %></td>
                                 <td><%= air_infor[i].location.latitude %></td>
@@ -192,7 +192,8 @@
                                         </span>
                                         <!-- DELETE BTN -->
                                         <span data-toggle="tooltip tooltip-btn" data-placement="top" title="Delete">
-                                            <a href="#" data-actionid="<%= air_infor[i]._id %>" class="text-danger table-delete-btn toasts-warning">
+                                            <a href="#" class="text-danger table-delete-btn" data-toggle="modal"
+                                                data-target=".delete-form" data-actionid="<%= air_infor[i]._id %>">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </span>
@@ -203,7 +204,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>STT</th>
+                                <td></td>
                                 <th>Địa chỉ</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
@@ -220,7 +221,28 @@
                         </tfoot>
                     </table>
                 </div>
-                <!-- UPDATE FORM -->
+                <!-- CONFIRM DELETE -->
+                <div class="modal fade delete-form" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xoá bản ghi</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body kkkk">
+                                Bạn có chắc chắn muốn xoá bản ghi này?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger delete-record">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- EDIT FORM -->
                 <div class="modal fade bd-example-modal-lg edit-form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel10"
                     aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -232,7 +254,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form class="needs-validation" id="updateForm" novalidate>
+                                <form id="updateForm">
                                     <div class="form-row">
                                         <div class="col-md-3 mb-3">
                                             <label for="AdressValid">Địa chỉ</label>
