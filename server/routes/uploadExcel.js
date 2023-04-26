@@ -1,4 +1,4 @@
-const {Uploadfiles, ShowData} = require("../controllers/upload")
+const {Uploadfiles, ShowData, Import} = require("../controllers/upload")
 const multer     = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -12,8 +12,9 @@ const storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 const Upload = (app) =>{
-    app.post('/upload',upload.single('excel') ,Uploadfiles)
-    app.get('/upload', ShowData)
+    app.post('/showdata',upload.single('excel') , ShowData)
+    app.get('/upload', Uploadfiles)
+    app.get('/import', Import)
 }
 
 module.exports = Upload

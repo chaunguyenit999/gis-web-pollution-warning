@@ -19,7 +19,7 @@ const airQualitySchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: Date.now(),
+    default: Date.now()
   },
   wind_degree: {
     type: Number,

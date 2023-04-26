@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtr=device-widtr, initial-scale=1.0">
+    <title>Bảng</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Địa chỉ</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Ngày đo</th>
+                <th>Nhiệt độ</th>
+                <th>Tốc độ gió</th>
+                <th>Độ ẩm</th>
+                <th>Bụi tổng</th>
+                <th>SO2</th>
+                <th>NO2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(function(data, index){%>
+            <tr>
+                <td><%= index+1 %></td>
+                <td><%= data["location.address"] %></td>
+                <td><%= data["location.latitude"] %></td>
+                <td><%= data["location.longitude"] %></td>
+                <td><%= data["date"] %></td>
+                <td><%= data["wind_degree"] %></td>
+                <td><%= data["wind_speed"] %></td>
+                <td><%= data["humidity"] %></td>
+                <td><%= data["wind_dust"] %></td>
+                <td><%= data["sulfur_dioxide"] %></td>
+                <td><%= data["nito_dioxit"] %></td>
+            </tr>
+            <%})%>
+        </tbody>
+        <form action="import">
+            <button>Thêm dữ liệu</button>
+        </form>
+    </table>
+</body>
+</html>
