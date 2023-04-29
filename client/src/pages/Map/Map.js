@@ -10,14 +10,16 @@ import waterData1 from '../../data/1a.json';
 
 function Map() {
   const [eventUserAddresss, setEventUserAddress] = useState('Ha Nam');
+  const [centerLatLng, setcenterLatLng] = useState([21.028511,105.804817]);
 
   const handleOptionChange = (event) => {
     setEventUserAddress(event.target.value);
+    setcenterLatLng([event.target.options[event.target.selectedIndex].dataset.lat,event.target.options[event.target.selectedIndex].dataset.lng]);
   };
   const [eventUserType, setEventUserType] = useState('air');
 
-  const handleOptionClick = (event) => {
-    setEventUserType(event)
+  const handleOptionClick = (type) => {
+    setEventUserType(type)
   };
   var dataMap;
     if (eventUserType === 'air') {
@@ -49,8 +51,8 @@ function Map() {
             <div className='map-container'>
                 <MapNav />
                 <div className="body-wrapper">
-                    <MapSidebar onOptionChange={handleOptionChange} onOptionClick={handleOptionClick} />
-                    <Mapbody data = {dataMap} type = {eventUserType}/>
+                    <MapSidebar onOptionChange={handleOptionChange} onOptionClick={handleOptionClick}/>
+                    <Mapbody data = {dataMap} center = {centerLatLng} type = {eventUserType} />
                 </div>
             </div>
         );

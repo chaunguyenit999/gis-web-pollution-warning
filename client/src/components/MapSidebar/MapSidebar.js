@@ -6,8 +6,8 @@ function MapSidebar(props) {
   const handleOptionChange = (event) => {
     props.onOptionChange(event);
   };
-  const handleOptionClick = (event) => {
-    props.onOptionClick(event);
+  const handleOptionClick = (type) => {
+    props.onOptionClick(type);
   };
 
   return (
@@ -22,9 +22,9 @@ function MapSidebar(props) {
             <Accordion.Header>Theo tỉnh thành</Accordion.Header>
             <Accordion.Body className="accordion-item-toggle-body">
               <select onChange={handleOptionChange}>
-                <option value="Ha Nam">Hà Nam</option>
-                <option value="Ha Tay">Hà Tây</option>
-                <option value="Bac Ninh">Bắc Ninh</option>
+                <option value="Ha Nam" data-lat="20.583520" data-lng="105.922990">Hà Nam</option>
+                <option value="Ha Tay" data-lat="14.29597" data-lng="108.11915">Hà Tây</option>
+                <option value="Bac Ninh" data-lat="21.121444" data-lng="106.111050">Bắc Ninh</option>
               </select>
             </Accordion.Body>
           </Accordion.Item>
