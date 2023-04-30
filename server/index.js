@@ -22,7 +22,7 @@ dotenv.config({ path: "config.env" });
 connectDB();
 
 // USE MIDDLEWARE LIBARIES
-app.use(morgan("tiny")); // log requests in terminal
+app.use(morgan("dev")); // log requests in terminal
 app.use(bodyparser.json()); // converts the request into an object which is called 'body.req'
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(helmet()); // Defender HTTP headers

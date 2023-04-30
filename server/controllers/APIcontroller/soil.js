@@ -1,4 +1,5 @@
 const Soil = require("../../models/SoilModel");
+const calcResult = require("../../helpers/calc-env_result");
 
 const soilController = {
   //ADD AUTHOR
@@ -32,9 +33,12 @@ const soilController = {
 
   updateSoilInforById: async (req, res) => {
     try {
-      const soil = await Soil.findById(req.params.id);
-      await soil.updateOne({ $set: req.body }); // in mongoDB 5.0 we can use the operator $set
-      res.status(200).json("Updated successfully!");
+      const id = req.params.id; // get the record need to update
+      const result = await calcResult.soil(req.body); // calculate result with req.body
+      const updateValue = { ...req.body, result: result }; // create the new update value
+      const soil = await Soil.findById(id); // get the old record
+      await soil.updateOne({ $set: updateValue }); // $set make unique value
+      res.status(200).json({ ...updateValue, _id: id }); // return the update value
     } catch (error) {
       res.status(500).json({ message: error });
     }

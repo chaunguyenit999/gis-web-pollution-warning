@@ -28,7 +28,10 @@ const initAPIRoute = (app) => {
   /**
    * @description MANAGEMENT ROUTES
    */
+  // Air
   router.get("/management/env-data/stations/air", airRender.getAirPage);
+  router.post("/management/env-data/stations/air/datatables", airRender.fetchDataTables);
+
   router.get("/management/env-data/stations/soil", soilRender.getSoilPage);
   router.get("/management/env-data/stations/water", waterRender.getWaterPage);
   router.get("/management/users", usersRender.getUsersPage);

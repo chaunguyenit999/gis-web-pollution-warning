@@ -1,4 +1,5 @@
 const Water = require("../../models/WaterModel");
+const calcResult = require("../../helpers/calc-env_result");
 
 const waterController = {
   //ADD AUTHOR
@@ -32,9 +33,12 @@ const waterController = {
 
   updateWaterInforById: async (req, res) => {
     try {
-      const water = await Water.findById(req.params.id);
-      await water.updateOne({ $set: req.body }); // in mongoDB 5.0 we can use the operator $set
-      res.status(200).json("Updated successfully!");
+      const id = req.params.id; // get the record need to update
+      const result = await calcResult.water(req.body); // calculate result with req.body
+      const updateValue = { ...req.body, result: result }; // create the new update value
+      const water = await Water.findById(id); // get the old record
+      await water.updateOne({ $set: updateValue }); // $set make unique value
+      res.status(200).json({ ...updateValue, _id: id }); // return the update value
     } catch (error) {
       res.status(500).json({ message: error });
     }
