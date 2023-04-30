@@ -35,21 +35,16 @@ function Mapbody(props) {
       markers.push(
         <Marker position={[points[i].location.latitude, points[i].location.longitude]} icon={iconRed}>
           <Popup>
-            {(() => {
-              for (let i = 0; i < points.length; i++) {
-              }
-            })}
-            {`"wind_degree:" ${props.data[i].wind_degree}`}<br />
-            {`"humidity:" ${props.data[i].humidity}`}<br />
-            {`"wind_speed:" ${props.data[i].wind_speed}`}<br />
-            {`"wind_direction:" ${props.data[i].wind_direction}`}<br />
-            {`"pressure:" ${props.data[i].pressure}`}<br />
-            {`"wind_dust:" ${props.data[i].wind_dust}`}<br />
-            {`"sulfur_dioxide:" ${props.data[i].sulfur_dioxide}`}<br />
-            {`"carbon_monoxide:" ${props.data[i].carbon_monoxide}`}<br />
-            {`"nito_dioxit:" ${props.data[i].nito_dioxit}`}<br />
-            {`"equivalent_noise:" ${props.data[i].equivalent_noise}`}<br />
-            {`"extreme_noise:" ${props.data[i].extreme_noise}`}<br />
+            <div dangerouslySetInnerHTML={{
+              __html: (() => {
+                let result = '';
+                let keys = Object.keys(points[i]);
+                for (let index = 3; index < keys.length; index++) {
+                  result += `${keys[index]}: ${points[i][keys[index]]}<br/>`;
+                }
+                return result;
+              })()
+            }} />
           </Popup>
         </Marker>
       );
