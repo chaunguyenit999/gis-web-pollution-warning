@@ -6,6 +6,9 @@ function MapSidebar(props) {
   const handleOptionChange = (event) => {
     props.onOptionChange(event);
   };
+  const handleOptionClick = (type) => {
+    props.onOptionClick(type);
+  };
 
   return (
     <div className="body-sidebar-wrapper">
@@ -19,9 +22,9 @@ function MapSidebar(props) {
             <Accordion.Header>Theo tỉnh thành</Accordion.Header>
             <Accordion.Body className="accordion-item-toggle-body">
               <select onChange={handleOptionChange}>
-                <option value="Ha Nam">Hà Nam</option>
-                <option value="Ha Tay">Hà Tây</option>
-                <option value="Bac Ninh">Bắc Ninh</option>
+                <option value="Ha Nam" data-lat="20.583520" data-lng="105.922990">Hà Nam</option>
+                <option value="Ha Tay" data-lat="14.29597" data-lng="108.11915">Hà Tây</option>
+                <option value="Bac Ninh" data-lat="21.121444" data-lng="106.111050">Bắc Ninh</option>
               </select>
             </Accordion.Body>
           </Accordion.Item>
@@ -29,22 +32,13 @@ function MapSidebar(props) {
         <div className="menu-items-header">DỮ LIỆU QUAN TRẮC</div>
         <Accordion>
           <Accordion.Item eventKey="0" className="accordion-item-toggle">
-            <Accordion.Header>Chất lượng không khí</Accordion.Header>
-            <Accordion.Body>
-              <p>Chất lượng không khí</p>
-            </Accordion.Body>
+            <Accordion.Header onClick={() => handleOptionClick("air")} >Chất lượng không khí</Accordion.Header>
           </Accordion.Item>
           <Accordion.Item eventKey="1" className="accordion-item-toggle">
-            <Accordion.Header>Chất lượng đất</Accordion.Header>
-            <Accordion.Body>
-             <p>Chất lượng đất</p>
-            </Accordion.Body>
+            <Accordion.Header onClick={() => handleOptionClick("earth")} >Chất lượng đất</Accordion.Header>
           </Accordion.Item>
           <Accordion.Item eventKey="2" className="accordion-item-toggle">
-            <Accordion.Header>Chất lượng không khí</Accordion.Header>
-            <Accordion.Body>
-              <p>Không khí</p>
-            </Accordion.Body>
+            <Accordion.Header onClick={() => handleOptionClick("water")}>Chất lượng nước</Accordion.Header>
           </Accordion.Item>
         </Accordion>
         <div className="menu-items-header">DỮ LIỆU MẠNG TÍCH HỢP</div>
