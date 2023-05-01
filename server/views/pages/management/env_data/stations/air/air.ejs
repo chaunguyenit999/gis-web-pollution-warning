@@ -1,16 +1,74 @@
 <div class="row">
+    <div class="col-12 mt-3 sub-table">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="card-title">Dữ liệu từ file</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="bootstraptable" class="table layout-primary bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                <td>2011/04/25</td>
+                                <td>$320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Garrett Winters</td>
+                                <td>Accountant</td>
+                                <td>Tokyo</td>
+                                <td>63</td>
+                                <td>2011/07/25</td>
+                                <td>$170,750</td>
+                            </tr>
+                            <tr>
+                                <td>Ashton Cox</td>
+                                <td>Junior Technical Author</td>
+                                <td>San Francisco</td>
+                                <td>66</td>
+                                <td>2009/01/12</td>
+                                <td>$86,000</td>
+                            </tr>
+                            <tr>
+                                <td>Cedric Kelly</td>
+                                <td>Senior Javascript Developer</td>
+                                <td>Edinburgh</td>
+                                <td>22</td>
+                                <td>2012/03/29</td>
+                                <td>$433,060</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    </div>
     <div class="col-12 mt-3">
         <div class="card">
             <div class="card-header  justify-content-between align-items-center">
-                <h4 class="card-title">Table Editor</h4>
+                <h4 class="card-title">Cơ sở dữ liệu</h4>
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="d-flex justify-content-start" style="margin-bottom: 1rem">
+                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
+                        <div class="d-flex justify-content-start">
                             <!-- SWITCH TABLE -->
                             <div class="btn-group">
-                                <button class="btn btn-primary btn-sm dropdown-toggle switch-table-btn" data-toggle="dropdown"
+                                <button class="btn btn-primary btn-sm dropdown-toggle margin-right-btn" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-exchange-alt"></i>
                                     Dữ liệu không khí
@@ -21,29 +79,39 @@
                                     <a class="dropdown-item" href="/admin/management/env-data/stations/water">Dữ liệu nước</a>
                                 </div>
                             </div>
-                            <button class="btn btn-success btn-sm rounded insert-btn" data-toggle="modal"
-                                data-target=".insert-form">
-                                <i class="fas fa-plus"></i>
-                                Insert
-                            </button>
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fas fa-regular fa-eye-slash"></i>
+                                    Ẩn/Hiện cột
+                                </button>
+                                <div class="dropdown-menu p-0 switch-table-selections">
+                                    <a class="dropdown-item">
+                                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                        <label for="vehicle1"> I have a bike</label><br>
+                                    </a>
+                                    <a class="dropdown-item">Dữ liệu đất</a>
+                                    <a class="dropdown-item">Dữ liệu nước</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="d-flex justify-content-end" style="margin-bottom: 1rem">
+                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
+                        <div class="d-flex justify-content-end">
                             <!-- IMPORT FILE -->
                             <div class="btn-group">
-                                <button class="btn btn-warning btn-sm dropdown-toggle import-btn" data-toggle="dropdown" aria-haspopup="true"
+                                <button class="btn btn-warning btn-sm dropdown-toggle margin-right-btn import-btn" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
                                     <i class="fas fa-file-import"></i>
                                     Import
                                 </button>
                                 <div class="dropdown-menu p-0 import-selections">
-                                    <a class="dropdown-item" href="#">Csv</a>
-                                    <a class="dropdown-item" href="#">Excel</a>
-                                    <a class="dropdown-item" href="#">Json</a>
+                                    <a class="dropdown-item show-sub-table" href="#">Excel</a>
+                                    <a class="dropdown-item show-sub-table" href="#">Csv</a>
+                                    <a class="dropdown-item show-sub-table" href="#">Json</a>
                                 </div>
                             </div>
-                    
+
                             <!-- EXPORT FILE -->
                             <div class="btn-group">
                                 <button class="btn btn-info btn-sm dropdown-toggle export-btn" data-toggle="dropdown" aria-haspopup="true"
@@ -52,20 +120,29 @@
                                     Export
                                 </button>
                                 <div class="dropdown-menu p-0 export-selections">
-                                    <a class="dropdown-item" href="#">Csv</a>
-                                    <a class="dropdown-item" href="#">Excel</a>
-                                    <a class="dropdown-item" href="#">Json</a>
+                                    <a class="dropdown-item show-sub-table" href="#">Excel</a>
+                                    <a class="dropdown-item show-sub-table" href="#">Csv</a>
+                                    <a class="dropdown-item show-sub-table" href="#">Json</a>
                                 </div>
                             </div>
                             <!-- END: EXPORT FILE -->
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
+                        <div class="d-flex justify-content-start">
+                            <button class="btn btn-success btn-sm insert-btn">
+                                <i class="fas fa-plus"></i>
+                                Thêm dữ liệu
+                            </button>
+                        </div>
+                    </div>
+                </div>        
                 <div class="table-responsive">
                     <table id="example" class="display table dataTable table-striped table-bordered editable-table">
                         <thead>
                             <tr>
-
                                 <th>Id</th>
                                 <th>Địa chỉ</th>
                                 <th>Latitude</th>
@@ -83,7 +160,6 @@
                         </thead>
                         <tfoot>
                             <tr>
-
                                 <th>Id</th>
                                 <th>Địa chỉ</th>
                                 <th>Latitude</th>
@@ -101,7 +177,7 @@
                         </tfoot>
                     </table>
                 </div>
-                <!-- BEGI: MODAL -->
+                <!-- BEGIN: TABLE MODAL HANDLER -->
                 <div class="modal fade bd-example-modal-lg" id="table-action-modal" tabindex="-1" role="dialog"
                     aria-labelledby="myLargeModalLabel10" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -120,7 +196,7 @@
                                         <div class="col-md-3 mb-3">
                                             <label for="AdressValid">Địa chỉ</label>
                                             <input type="text" class="form-control" name="AdressValid" id="AdressValid"
-                                                placeholder="Địa chỉ lấy mẫu" required>
+                                                placeholder="Địa chỉ lấy mẫu" spellcheck="false" required>
                                             <div class="invalid-feedback">Không hợp lệ</div>
                                         </div>
                                         <div class="col-md-3 mb-3">
@@ -184,8 +260,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <input type="hidden" id="actionId" />
-                                        <input type="hidden" id="actionType" value=""/>
+                                        <input type="hidden" id="actionId"/>
+                                        <input type="hidden" id="actionType"/>
                                         <input type="submit" id="save" class="btn btn-primary"/>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                                     </div>
@@ -195,7 +271,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- END: MODAL -->
+                <!-- END: TABLE MODAL HANDLER -->
+
+                <!--  -->
             </div>
         </div>
     </div>

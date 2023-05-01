@@ -1,6 +1,18 @@
-$(document).ready(function () {
+(function ($) {
+  // utils function
+  let formatDate = (date) => {
+    return date.substring(0, date.length - 5);
+  };
+
+  $(".sub-table").hide();
+  $(".show-sub-table").click(function () {
+    $(".sub-table").show();
+  });
+
   // Load data to table
   var dataTable = $("#example").DataTable({
+    // responsive: true,
+    autoWidth: false,
     processing: true,
     serverSide: true,
     searching: true,
@@ -25,17 +37,16 @@ $(document).ready(function () {
         previous: "Trước",
       },
     },
-    responsive: true,
-    // order: [],
+
     ajax: {
       url: "/admin/management/env-data/stations/air/datatables",
       type: "POST",
-      data: { action: "getAllData" },
+      data: { actionType: "getAllData" },
       dataType: "json",
     },
     columns: [
       { data: "_id", name: "Id" },
-      { data: "address", name: "Địa chỉ", width: "300px" },
+      { data: "address", name: "Địa chỉ", width: "20%", orderable: false },
       { data: "latitude", name: "Latitude" },
       { data: "longitude", name: "Longitude" },
       { data: "date", name: "Ngày giờ" },
@@ -48,6 +59,7 @@ $(document).ready(function () {
       { data: "result", name: "Định mức" },
       {
         // Thêm cột "Action"
+        orderable: false,
         data: null,
         name: "Hành Động",
         render: function (data, type, row) {
@@ -55,15 +67,13 @@ $(document).ready(function () {
             <div class="d-flex justify-content-center">
               <!-- EDIT BTN -->
               <span>
-                <a href="#" class="table-edit-btn text-info" data-toggle="modal"
-                  data-target=".edit-form" id="${row._id}">
+                <a href="#" class="text-info table-edit-btn" id="${row._id}">
                   <i class="fas fa-pencil-alt"></i>
                 </a>
               </span>
               <!-- DELETE BTN -->
               <span>
-                <a href="#" class="text-danger table-delete-btn" data-toggle="modal"
-                  data-target=".delete-form" id="${row._id}">
+                <a href="#" class="text-danger table-delete-btn" id="${row._id}">
                   <i class="fas fa-trash-alt"></i>
                 </a>
               </span>
@@ -79,31 +89,118 @@ $(document).ready(function () {
     $("#table-action-modal").modal("show");
     $("#form-action-modal")[0].reset();
     $(".modal-title").html("Thêm dữ liệu");
-    $("#action").val("insertData");
+    $("#actionType").val("insertData"); // define action
     $(".modal-footer #save").val("Thêm");
   });
 
+  $("#example").on("click", ".table-edit-btn", function () {
+    var actionId = $(this).attr("id");
+    $("#actionId").val(actionId);
+
+    $.ajax({
+      url: "/api/v1/airs/" + actionId,
+      type: "GET",
+      dataType: "json",
+      success: function (res) {
+        $("#table-action-modal").modal("show");
+        $("#actionType").val("updateDataById"); // define action
+        $(".modal-title").html("Sửa dữ liệu");
+        $("#save").val("Cập nhật");
+
+        $("#AdressValid").val(res.location.address);
+        $("#LatitudeValid").val(res.location.latitude);
+        $("#LongitudeValid").val(res.location.longitude);
+        $("#DatetimeValid").val(formatDate(res.date));
+        $("#WindDegreeValid").val(res.wind_degree);
+        $("#HumidityValid").val(res.humidity);
+        $("#WindSpeedValid").val(res.wind_speed);
+        $("#WindDustValid").val(res.wind_dust);
+        $("#SulfurDioxideValid").val(res.sulfur_dioxide);
+        $("#NitoDioxideValid").val(res.nito_dioxit);
+      },
+    });
+  });
+
+  $("#table-action-modal").on("hidden.bs.modal", function () {
+    $("#actionId").val("");
+  });
+  
   // Form Handler
-  $(".table-action-modal").on("submit", ".form-action-modal", function (event) {
+  $("#table-action-modal").on("submit", "#form-action-modal", function (event) {
     event.preventDefault();
     $("#save").attr("disabled", "disabled");
-    var formData = $(this).serialize();
-    console.log(formData);
+
+    let address_val = $("#AdressValid").val();
+    let lat_val = $("#LatitudeValid").val();
+    let long_val = $("#LongitudeValid").val();
+    let date_val = $("#DatetimeValid").val();
+    let wind_degree_val = $("#WindDegreeValid").val();
+    let humidity_val = $("#HumidityValid").val();
+    let wind_speed_val = $("#WindSpeedValid").val();
+    let wind_dust_val = $("#WindDustValid").val();
+    let sulfur_dioxide_val = $("#SulfurDioxideValid").val();
+    let nito_dioxide_val = $("#NitoDioxideValid").val();
+    let actionData = {
+      location: {
+        address: address_val,
+        latitude: lat_val,
+        longitude: long_val,
+      },
+      date: date_val,
+      wind_degree: wind_degree_val,
+      humidity: humidity_val,
+      wind_speed: wind_speed_val,
+      wind_dust: wind_dust_val,
+      sulfur_dioxide: sulfur_dioxide_val,
+      nito_dioxit: nito_dioxide_val,
+    };
+
+    let actionType = $("#actionType").val();
+    if ($("#actionId").val()) {
+      actionId = $("#actionId").val();
+      actionData._id = actionId;
+    }
+
+    console.log(actionData);
+
     $.ajax({
       url: "/admin/management/env-data/stations/air/datatables",
       type: "POST",
-      data: formData,
-      success: function (data) {
-        $(".form-action-modal")[0].reset();
-        $(".table-action-modal").modal("hide");
+      dataType: "json",
+      data: { actionData: actionData, actionType: actionType },
+      success: function (res) {
+        event.preventDefault();
+        $("#form-action-modal")[0].reset();
+        $("#table-action-modal").modal("toggle");
         $("#save").attr("disabled", false);
+        if (actionType == "insertData") {
+          Swal.fire(
+            "Thêm thành công!",
+            "Bản ghi đã được thêm vào CSDL",
+            "success"
+          );
+        } else {
+          Swal.fire(
+            "Cập nhật thành công!",
+            "Bản ghi đã được cập nhật vào CSDL",
+            "success"
+          );
+        }
         dataTable.ajax.reload();
+      },
+      error: function (xhr, status, error) {
+        Swal.fire({
+          icon: "error",
+          title: status,
+          text: error,
+          footer: '<a href="">Hãy nhập lại thông tin chính xác!</a>',
+        });
       },
     });
   });
 
   $("#example").on("click", ".table-delete-btn", function () {
-    var deleteId = $(this).attr("id");
+    var actionId = $(this).attr("id");
     // sweetalert2
     Swal.fire({
       title: "Xác nhận xoá",
@@ -119,14 +216,23 @@ $(document).ready(function () {
         $.ajax({
           url: "/admin/management/env-data/stations/air/datatables",
           type: "POST",
-          data: { deleteId: deleteId, action: "delDataById" },
+          data: { actionId: actionId, actionType: "delDataById" },
           dataType: "json",
-          success: function (data) {
-            Swal.fire("Đã xoá!", "Bản ghi đã được xoá", "success");
+          success: function (res) {
+            Swal.fire(
+              "Xoá thành công!",
+              "Bản ghi đã được xoá khỏi CSDL",
+              "success"
+            );
             dataTable.ajax.reload();
           },
-          error: function () {
-            alert("Xảy ra lỗi khi xoá!");
+          error: function (xhr, status, error) {
+            Swal.fire({
+              icon: "error",
+              title: status,
+              text: error,
+              footer: '<a href="">Hãy nhập lại thông tin chính xác!</a>',
+            });
           },
         });
       } else {
@@ -135,29 +241,22 @@ $(document).ready(function () {
     });
   });
 
-  
-
-  
-
-  // t.on("draw", function () {
-  //   //setting the next and prev buttons with active or disabled state
-
-  //   //setting the index column with values.
-  //   t.column(0, { search: "applied", order: "applied" })
-  //     .nodes()
-  //     .each(function (cell, i) {
-  //       cell.innerHTML = i + 1;
-  //     });
-  // });
-  // //paging
-  // $("#next").on("click", function () {
-  //   t.page("next").draw("page");
-  // });
-
-  // $("#previous").on("click", function () {
-  //   t.page("previous").draw("page");
-  // });
-
-
-  $("#example").DataTable();
-});
+  var dataTable2 = $("#bootstraptable").DataTable({
+    language: {
+      search: "",
+      searchPlaceholder: "Tìm kiếm",
+      processing: "Đang xử lý...",
+      lengthMenu: "Hiển thị _MENU_ bản ghi trên mỗi trang",
+      zeroRecords: "Không tìm thấy dữ liệu",
+      info: "Hiển thị trang _PAGE_ của _PAGES_",
+      infoEmpty: "Không có dữ liệu để hiển thị",
+      infoFiltered: "(được lọc từ _MAX_ bản ghi)",
+      paginate: {
+        first: "Đầu",
+        last: "Cuối",
+        next: "Tiếp theo",
+        previous: "Trước",
+      },
+    },
+  });
+})(jQuery);

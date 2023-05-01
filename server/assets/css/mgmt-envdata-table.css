@@ -1,9 +1,6 @@
     /* Overwrite libs */
-    .table-responsive__action::after,
-    .table-responsive__action::before {
-        visibility: hidden;
-        display: none;
-        width: 0;
+    #example {
+        width: 100% !important;
     }
 
     .switch-table-selections a:hover {
@@ -11,8 +8,8 @@
         background-color: #1e3d73 !important;
     }
 
-    .insert-btn, .export-btn {
-        margin-left: 5px;
+    .margin-right-btn {
+        margin-right: 5px;
     }
 
     /* Export btn */

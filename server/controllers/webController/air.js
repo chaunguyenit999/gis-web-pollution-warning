@@ -1,4 +1,5 @@
 const Air = require("../../models/AirModel");
+const calcResult = require("../../helpers/calc-env_result");
 
 const airRender = {
   // GET ENVIRONMENT DATA MANAGEMENT PAGE
@@ -37,7 +38,7 @@ const airRender = {
     });
   },
   fetchDataTables: async (req, res) => {
-    switch (req.body.action) {
+    switch (req.body.actionType) {
       case "getAllData":
         const draw = req.body.draw;
         const start = parseInt(req.body.start);
@@ -45,15 +46,15 @@ const airRender = {
 
         let query = {};
         if (req.body.search.value) {
-          console.log("searh value: ", req.body.search.value);
           const searchValue = req.body.search.value;
+          console.log("search value: ", searchValue);
           query.$or = [
-            { address: { $regex: searchValue, $options: "i" } },
-            // { latitude: { $regex: searchValue, $options: "i" } },
-            // { longitude: { $regex: searchValue, $options: "i" } },
+            { "location.address": { $regex: searchValue, $options: "i" } },
+            // { "location.latitude": { $regex: searchValue, $options: "i" } },
+            // { "location.longitude": { $regex: searchValue, $options: "i" } },
             // { date: { $regex: searchValue, $options: "i" } },
             // { windDegree: { $regex: searchValue, $options: "i" } },
-            // { humidity: { $regex: searchValue} },
+            // { humidity: { $regex: searchValue } },
             // { windSpeed: { $regex: searchValue, $options: "i" } },
             // { windDust: { $regex: searchValue, $options: "i" } },
             // { sulfurDioxide: { $regex: searchValue, $options: "i" } },
@@ -63,18 +64,19 @@ const airRender = {
         }
 
         const sortQuery = {};
-        if (req.body.column) {
-          const columnOrder = req.body.order[0].column;
-          const columnDir = req.body.order[0].dir;
-          const columnName = req.body.columns[columnOrder].data;
-          sortQuery[columnName] = columnDir === "asc" ? 1 : -1;
+        if (req.body.order) {
+          let columns = req.body.columns;
+          let order = req.body.order;
+          const sortColumn = columns[order[0].column].data;
+          const sortDirection = order[0].dir === "asc" ? 1 : -1;
+          sortQuery[sortColumn] = sortDirection;
         }
+
         Air.countDocuments(query, function (err, totalCount) {
           if (err) {
             console.error(err);
             return res.status(500).json({ error: err });
           }
-
           Air.find(query)
             .sort(sortQuery)
             .skip(start)
@@ -98,7 +100,6 @@ const airRender = {
                 nito_dioxit: item.nito_dioxit,
                 result: item.result,
               }));
-              console.log(formattedData);
               res.status(200).json({
                 draw,
                 recordsTotal: totalCount,
@@ -109,15 +110,37 @@ const airRender = {
         });
         break;
 
+      case "insertData":
+        try {
+          const newAir = new Air(req.body.actionData);
+          const savedAir = await newAir.save();
+          res.status(200).json(savedAir);
+        } catch (error) {
+          res.status(500).json({ message: error.message });
+        }
+        break;
+
+      case "updateDataById":
+        try {
+          const id = req.body.actionData._id; // get the record need to update
+          const result = await calcResult.air(req.body.actionData); // calculate result with req.body
+          const updateValue = { ...req.body.actionData, result: result }; // create the new update value
+          const air = await Air.findById(id); // get the old record
+          await air.updateOne({ $set: updateValue }); // $set make unique value
+          res.status(200).json({ ...updateValue, _id: id }); // return the update value
+        } catch (error) {
+          res.status(500).json({ message: error });
+        }
+        break;
+
       case "delDataById":
         try {
-          const id = req.body.deleteId;
+          const id = req.body.actionId;
           await Air.findByIdAndDelete(id);
           res.status(200).json(id);
         } catch (error) {
           res.status(500).json(err);
         }
-
       default:
         break;
     }
