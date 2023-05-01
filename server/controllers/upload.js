@@ -1,46 +1,44 @@
-const excelToJson = require("convert-excel-to-json");
-const list_data = []
+const xlsx = require('xlsx');
 const Air = require("../models/AirModel")
-const ShowData = async (req, res) => {
-    try{
-    const file = req.file.path
-    // const quanlity = req.data.quanlity
-    const result = excelToJson({
-        sourceFile: file,
-            header: {
-                rows: 3
-            },
-            columnToKey:{
-                B:"location.address",
-                C: "location.latitude",
-                D: "location.longitude",
-                E: "date",
-                F: "wind_degree",
-                G: "humidity",
-                H: "wind_speed",
-                I: "wind_dust",
-                J: "sulfur_dioxide",
-                K: "nito_dioxit",
-            }
-    })
-    for(i=0; i<result.length;i++){
-        list_data.push(result[i]);
-    }
-    // data = await Air.insertMany(result[sheet][1])
-    // res.render("../views/table",{data:result[sheet]})
-    // res.status(200).json(Object.keys(result))
-    res.render("../views/sheet",{data:Object.keys(result)})
-    // res.redirect('/upload')
-    }catch (error) {
-        res.status(500).json(error);
-    }
-}
+
 const Uploadfiles = async (req, res) => {
     res.render("../views/upload")
 }
 const Import = async(req, res) => {
-    const sheet = req.body.sheet
     // res.render("../views/table",{data:list_data[sheet]})
-    res.status(200).json("sheet")
+    data = await Air.insertMany(list_data[0])
+    res.status(200).json("Ok")
 }
-module.exports = {ShowData, Uploadfiles, Import}
+const ReadExcel = async(req, res) => {
+    const file = req.file.path
+    const workbook = xlsx.readFile(file,{cellDates:true});
+    const sheetName = workbook.SheetNames[5];
+    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, range:2});
+
+    // Lấy tiêu đề cột cần chuyển đổi thành key
+    const result = [];
+
+    // Lặp qua các dòng trong sheet, bắt đầu từ dòng thứ 2
+    for (let i = 1; i < sheetData.length; i++) {
+    const row = sheetData[i]
+    // Tạo đối tượng JSON từ dữ liệu của mỗi dòng
+    const obj = {};
+        obj["location.address"] = row[1]
+        obj["location.latitude"] = row[2]
+        obj["location.longitude"] = row[3]
+        obj["date"] = new Date(row[4])
+        obj["wind_degree"] = row[5]
+        obj["humidity"] = row[6]
+        obj["wind_speed"] = row[7]
+        obj["wind_dust"] = row[8]
+        obj["sulfur_dioxide"] = row[9]
+        obj["nito_dioxit"] = row[10]
+    
+    // Chuyển đổi giá trị của cột thành key của đối tượng JSON
+    
+    result.push(obj);
+    }
+    data = await Air.insertMany(result)
+    res.send('Ok ')
+}
+module.exports = {Uploadfiles, Import, ReadExcel}

@@ -24,9 +24,9 @@
             </tr>
         </thead>
         <tbody>
-            <% data.forEach(function(data, index){%>
+            <% data.forEach(function(data, i){%>
             <tr>
-                <td><%= index+1 %></td>
+                <td><%= i+1 %></td>
                 <td><%= data["location.address"] %></td>
                 <td><%= data["location.latitude"] %></td>
                 <td><%= data["location.longitude"] %></td>
@@ -40,7 +40,7 @@
             </tr>
             <%})%>
         </tbody>
-        <form action="import">
+        <form action="/import">
             <button>Thêm dữ liệu</button>
         </form>
     </table>

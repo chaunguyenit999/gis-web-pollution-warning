@@ -19,7 +19,7 @@ try {
                 count: {$gt:1 }
             }
         }
-        ]).allowDiskUse().exec  (function(err,data){
+        ]).allowDiskUse().exec(function(err,data){
             for(i in data){
                 ids.push(data[i].dups)
             }

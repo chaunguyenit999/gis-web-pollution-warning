@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Select Excel Sheet Example</title>
+</head>
+<body>
+  <form action="/import">
+    <input type="file" id="file-input">
+    <select id="sheet-select" name="sheet"></select>
+    <table id="sheet-data"></table>
+    <button>submit</button>
+  </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('file-input');
+    const sheetSelect = document.getElementById('sheet-select');
+    const sheetData = document.getElementById('sheet-data');
+    let workbook, selectedSheet;
+
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.readAsArrayBuffer(file);
+
+      reader.onload = (event) => {
+        const data = new Uint8Array(event.target.result);
+        workbook = XLSX.read(data, {type: 'array'});
+
+        sheetSelect.innerHTML = '';
+        for (const sheetName of workbook.SheetNames) {
+          const option = document.createElement('option');
+          option.value = sheetName;
+          option.textContent = sheetName;
+          sheetSelect.appendChild(option);
+        }
+
+        selectSheet(workbook.SheetNames[0]);
+      };
+    });
+
+    sheetSelect.addEventListener('change', (event) => {
+      const selectedSheetName = event.target.value;
+      selectSheet(selectedSheetName);
+    });
+
+    function selectSheet(sheetName) {
+      selectedSheet = workbook.Sheets[sheetName];
+      const html = XLSX.utils.sheet_to_html(selectedSheet);
+      sheetData.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

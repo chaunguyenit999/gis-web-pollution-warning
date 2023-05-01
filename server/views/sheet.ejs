@@ -9,9 +9,7 @@
 <body>
     <form action="/import">
         <select name="sheet" >
-            <% for(i=0; i < data.length;i++){ %>
             <option value="<%= data[i]%>"> <%= data[i]%> </option>
-            <% } %>
         </select>
         <button>submit</button>
     </form>
