@@ -1,15 +1,16 @@
 const Air = require("../models/AirModel")
-const ids=[]
 const checked = async(req, res, next) => {
 try {
     await Air.aggregate([
         { $group: 
         { _id: { 
             longitude: "$location.longitude", 
-            latitude: "$location.latitude" 
+            latitude: "$location.latitude", 
+            address: "$location.address",
+            date: "$date",
         },
         dups: {
-            $addToSet: "$_id",
+            $push: "$_id",
         },count: { 
             $sum: 1 
         },
@@ -19,13 +20,17 @@ try {
                 count: {$gt:1 }
             }
         }
-        ]).allowDiskUse().exec(function(err,data){
-            for(i in data){
-                ids.push(data[i].dups)
-            }
-            Air.deleteOne({"_id":{$in:ids[1]}})
-            console.log(ids[1])
-        })
+        ], function(err, results) {
+            if (err) throw err;
+            results.forEach(function(result) {
+                Air.deleteMany({ _id: { $in: result.dups.slice(1) }}, function(err) {
+                if (err) throw err;
+                console.log("Deleted " + (result.dups.length - 1) + " duplicate documents.");
+                });
+                // console.log("Deleted " + result.dups.length + " duplicate documents")
+            });
+            // console.log(results)
+          });
     }catch(err) {
         console.error(err)
     }
