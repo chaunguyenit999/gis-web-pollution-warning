@@ -1,61 +1,51 @@
 <div class="row">
-    <div class="col-12 mt-3 sub-table">
+    <div class="col-12 mt-3 sub-datatable">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Dữ liệu từ file</h4>
             </div>
             <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
+                        <div class="d-flex justify-content-start">
+
+                        </div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table id="bootstraptable" class="table layout-primary bordered">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Địa chỉ</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Ngày giờ</th>
+                                <th>Độ gió</th>
+                                <th>Độ ẩm</th>
+                                <th>Tốc độ gió</th>
+                                <th>Bụi mịn</th>
+                                <th>SO2</th>
+                                <th>NO2</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>Garrett Winters</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>63</td>
-                                <td>2011/07/25</td>
-                                <td>$170,750</td>
-                            </tr>
-                            <tr>
-                                <td>Ashton Cox</td>
-                                <td>Junior Technical Author</td>
-                                <td>San Francisco</td>
-                                <td>66</td>
-                                <td>2009/01/12</td>
-                                <td>$86,000</td>
-                            </tr>
-                            <tr>
-                                <td>Cedric Kelly</td>
-                                <td>Senior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td>2012/03/29</td>
-                                <td>$433,060</td>
+                                <td>Địa chỉ</td>
+                                <td>Latitude</td>
+                                <td>Longitude</td>
+                                <td>Ngày giờ</td>
+                                <td>Độ gió</td>
+                                <td>Độ ẩm</td>
+                                <td>Tốc độ gió</td>
+                                <td>Bụi mịn</td>
+                                <td>SO2</td>
+                                <td>NO2</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    
     </div>
     <div class="col-12 mt-3">
         <div class="card">
@@ -63,82 +53,6 @@
                 <h4 class="card-title">Cơ sở dữ liệu</h4>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
-                        <div class="d-flex justify-content-start">
-                            <!-- SWITCH TABLE -->
-                            <div class="btn-group">
-                                <button class="btn btn-primary btn-sm dropdown-toggle margin-right-btn" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-exchange-alt"></i>
-                                    Dữ liệu không khí
-                                </button>
-                                <div class="dropdown-menu p-0 switch-table-selections">
-                                    <a class="dropdown-item" href="/admin/management/env-data/stations/air">Dữ liệu không khí</a>
-                                    <a class="dropdown-item" href="/admin/management/env-data/stations/soil">Dữ liệu đất</a>
-                                    <a class="dropdown-item" href="/admin/management/env-data/stations/water">Dữ liệu nước</a>
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="fas fa-regular fa-eye-slash"></i>
-                                    Ẩn/Hiện cột
-                                </button>
-                                <div class="dropdown-menu p-0 switch-table-selections">
-                                    <a class="dropdown-item">
-                                        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                        <label for="vehicle1"> I have a bike</label><br>
-                                    </a>
-                                    <a class="dropdown-item">Dữ liệu đất</a>
-                                    <a class="dropdown-item">Dữ liệu nước</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
-                        <div class="d-flex justify-content-end">
-                            <!-- IMPORT FILE -->
-                            <div class="btn-group">
-                                <button class="btn btn-warning btn-sm dropdown-toggle margin-right-btn import-btn" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="fas fa-file-import"></i>
-                                    Import
-                                </button>
-                                <div class="dropdown-menu p-0 import-selections">
-                                    <a class="dropdown-item show-sub-table" href="#">Excel</a>
-                                    <a class="dropdown-item show-sub-table" href="#">Csv</a>
-                                    <a class="dropdown-item show-sub-table" href="#">Json</a>
-                                </div>
-                            </div>
-
-                            <!-- EXPORT FILE -->
-                            <div class="btn-group">
-                                <button class="btn btn-info btn-sm dropdown-toggle export-btn" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="fas fa-file-export"></i>
-                                    Export
-                                </button>
-                                <div class="dropdown-menu p-0 export-selections">
-                                    <a class="dropdown-item show-sub-table" href="#">Excel</a>
-                                    <a class="dropdown-item show-sub-table" href="#">Csv</a>
-                                    <a class="dropdown-item show-sub-table" href="#">Json</a>
-                                </div>
-                            </div>
-                            <!-- END: EXPORT FILE -->
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
-                        <div class="d-flex justify-content-start">
-                            <button class="btn btn-success btn-sm insert-btn">
-                                <i class="fas fa-plus"></i>
-                                Thêm dữ liệu
-                            </button>
-                        </div>
-                    </div>
-                </div>        
                 <div class="table-responsive">
                     <table id="example" class="display table dataTable table-striped table-bordered editable-table">
                         <thead>
@@ -177,104 +91,107 @@
                         </tfoot>
                     </table>
                 </div>
-                <!-- BEGIN: TABLE MODAL HANDLER -->
-                <div class="modal fade bd-example-modal-lg" id="table-action-modal" tabindex="-1" role="dialog"
-                    aria-labelledby="myLargeModalLabel10" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="myLargeModalLabel10"></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <!-- START: INSERT FORM-->
-                            <div class="modal-body">
-                                <!-- type number + step any = float type-->
-                                <form id="form-action-modal">
-                                    <div class="form-row">
-                                        <div class="col-md-3 mb-3">
-                                            <label for="AdressValid">Địa chỉ</label>
-                                            <input type="text" class="form-control" name="AdressValid" id="AdressValid"
-                                                placeholder="Địa chỉ lấy mẫu" spellcheck="false" required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="LatitudeValid">Toạ độ Latitude</label>
-                                            <input type="number" step="any" class="form-control" id="LatitudeValid"
-                                                placeholder="Toạ độ Lat" required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="LongitudeValid">Toạ độ Longitude</label>
-                                            <input type="number" step="any" class="form-control" id="LongitudeValid"
-                                                placeholder="Toạ độ Long" required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="DatetimeValid">Ngày giờ lấy mẫu</label>
-                                            <input type="datetime-local" class="form-control" id="DatetimeValid">
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="WindDegreeValid">Độ gió</label>
-                                            <input type="number" step="any" class="form-control" id="WindDegreeValid"
-                                                placeholder="Độ gió" required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="HumidityValid">Độ ẩm</label>
-                                            <input type="number" step="any" class="form-control" id="HumidityValid" placeholder="Độ ẩm"
-                                                required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="WindSpeedValid">Tốc độ gió</label>
-                                            <input type="number" step="any" class="form-control" id="WindSpeedValid"
-                                                placeholder="Tốc độ gió" required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="WindDustValid">Bụi mịn</label>
-                                            <input type="number" step="any" class="form-control" id="WindDustValid"
-                                                placeholder="Bụi mịn" required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="SulfurDioxideValid">SO2</label>
-                                            <input type="number" step="any" class="form-control" id="SulfurDioxideValid"
-                                                placeholder="Sulfur Dioxit" required>
-                                            <div class="invalid-feedback">Không hợp lệ</div>
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="NitoDioxideValid">NO2</label>
-                                            <input type="number" step="any" class="form-control" id="NitoDioxideValid"
-                                                placeholder="Nito Dioxit" required>
-                                            <div class="invalid-feedback">
-                                                Không hợp lệ.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="hidden" id="actionId"/>
-                                        <input type="hidden" id="actionType"/>
-                                        <input type="submit" id="save" class="btn btn-primary"/>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- END: INSERT FORM-->
-                        </div>
-                    </div>
-                </div>
-                <!-- END: TABLE MODAL HANDLER -->
-
-                <!--  -->
             </div>
         </div>
     </div>
 </div>
+
+<!-- BEGIN: SUB-DATATABLE MODAL HANDLER -->
+
+<!-- END: SUB-DATATABLE MODAL HANDLER -->
+
+<!-- BEGIN: TABLE MODAL HANDLER -->
+<div class="modal fade bd-example-modal-lg" id="table-action-modal" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel10" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myLargeModalLabel10"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- START: INSERT FORM-->
+            <div class="modal-body">
+                <!-- type number + step any = float type-->
+                <form id="form-action-modal">
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <label for="AdressValid">Địa chỉ</label>
+                            <input type="text" class="form-control" name="AdressValid" id="AdressValid"
+                                placeholder="Địa chỉ lấy mẫu" spellcheck="false" required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="LatitudeValid">Toạ độ Latitude</label>
+                            <input type="number" step="any" class="form-control" id="LatitudeValid"
+                                placeholder="Toạ độ Lat" required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="LongitudeValid">Toạ độ Longitude</label>
+                            <input type="number" step="any" class="form-control" id="LongitudeValid"
+                                placeholder="Toạ độ Long" required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="DatetimeValid">Ngày giờ lấy mẫu</label>
+                            <input type="datetime-local" class="form-control" id="DatetimeValid">
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="WindDegreeValid">Độ gió</label>
+                            <input type="number" step="any" class="form-control" id="WindDegreeValid"
+                                placeholder="Độ gió" required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="HumidityValid">Độ ẩm</label>
+                            <input type="number" step="any" class="form-control" id="HumidityValid" placeholder="Độ ẩm"
+                                required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="WindSpeedValid">Tốc độ gió</label>
+                            <input type="number" step="any" class="form-control" id="WindSpeedValid"
+                                placeholder="Tốc độ gió" required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="WindDustValid">Bụi mịn</label>
+                            <input type="number" step="any" class="form-control" id="WindDustValid"
+                                placeholder="Bụi mịn" required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="SulfurDioxideValid">SO2</label>
+                            <input type="number" step="any" class="form-control" id="SulfurDioxideValid"
+                                placeholder="Sulfur Dioxit" required>
+                            <div class="invalid-feedback">Không hợp lệ</div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="NitoDioxideValid">NO2</label>
+                            <input type="number" step="any" class="form-control" id="NitoDioxideValid"
+                                placeholder="Nito Dioxit" required>
+                            <div class="invalid-feedback">
+                                Không hợp lệ.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="actionId" />
+                        <input type="hidden" id="actionType" />
+                        <input type="submit" id="save" class="btn btn-primary" />
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                    </div>
+                </form>
+            </div>
+            <!-- END: INSERT FORM-->
+        </div>
+    </div>
+</div>
+<!-- END: TABLE MODAL HANDLER -->

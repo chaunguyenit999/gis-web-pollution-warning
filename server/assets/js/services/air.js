@@ -4,23 +4,107 @@
     return date.substring(0, date.length - 5);
   };
 
-  $(".sub-table").hide();
-  $(".show-sub-table").click(function () {
-    $(".sub-table").show();
-  });
-
   // Load data to table
   var dataTable = $("#example").DataTable({
-    // responsive: true,
+    dom: "lBfrtip",
+    buttons: [
+      {
+        className: "insert-btn",
+        text: " <i class='fas fa-plus'></i> Thêm",
+      },
+      {
+        extend: "collection",
+        text: " <i class='fas fa-regular fa-eye-slash'></i> Ẩn/Hiện cột",
+        buttons: [
+          // các checkbox ở
+        ],
+      },
+      {
+        extend: "collection",
+        text: "<i class='fas fa-exchange-alt'></i> Chuyển",
+        buttons: [
+          {
+            text: "Dữ liệu không khí</a>",
+            action: function () {
+              window.location.href = "/admin/management/env-data/stations/air";
+            },
+          },
+          {
+            text: "Dữ liệu đất</a>",
+            action: function () {
+              window.location.href = "/admin/management/env-data/stations/soil";
+            },
+          },
+          {
+            text: "Dữ liệu nước",
+            action: function () {
+              window.location.href =
+                "/admin/management/env-data/stations/water";
+            },
+          },
+        ],
+      },
+      {
+        text: " <i class='fas fa-file-import'></i> Nhập",
+      },
+      {
+        extend: "collection",
+        text: "<i class='fas fa-file-export'></i> Xuất",
+        buttons: [
+          {
+            extend: "copy",
+            text: "Sao chép",
+            charset: "utf-8", // thêm cấu hình mã hóa UTF-8
+            bom: true, // thêm ký tự bom
+            exportOptions: {
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+            },
+            title: null,
+          },
+          {
+            extend: "csv",
+            text: "Định dạng CSV",
+            charset: "utf-8", // thêm cấu hình mã hóa UTF-8
+            bom: true, // thêm ký tự bom
+            exportOptions: {
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+            },
+            title: null,
+          },
+          {
+            extend: "excel",
+            text: "Định dạng Excel",
+            charset: "utf-8", // thêm cấu hình mã hóa UTF-8
+            bom: true, // thêm ký tự bom
+            exportOptions: {
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+            },
+            title: null,
+          },
+          {
+            extend: "print",
+            text: "In",
+            charset: "utf-8", // thêm cấu hình mã hóa UTF-8
+            bom: true, // thêm ký tự bom
+            exportOptions: {
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+            },
+            title: null,
+          },
+        ],
+      },
+    ],
+    responsive: true,
     autoWidth: false,
     processing: true,
     serverSide: true,
     searching: true,
     searchDelay: 300,
     lengthMenu: [
-      [5, 10, 20, 40, -1],
-      [5, 10, 20, 40, "All"],
+      [10, 25, 50, 100, 1000, 10000, -1],
+      [10, 25, 50, 100, 1000, 10000, "All"],
     ],
+    order: [],
     language: {
       search: "",
       searchPlaceholder: "Tìm kiếm",
@@ -124,7 +208,7 @@
   $("#table-action-modal").on("hidden.bs.modal", function () {
     $("#actionId").val("");
   });
-  
+
   // Form Handler
   $("#table-action-modal").on("submit", "#form-action-modal", function (event) {
     event.preventDefault();
@@ -241,7 +325,13 @@
     });
   });
 
-  var dataTable2 = $("#bootstraptable").DataTable({
+  // SUBTABLE HANDLER
+  $(".sub-datatable").hide();
+  $(".show-sub-datatable").click(function () {
+    $(".sub-table").show();
+  });
+
+  var subDataTable = $("#bootstraptable").DataTable({
     language: {
       search: "",
       searchPlaceholder: "Tìm kiếm",
