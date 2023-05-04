@@ -15,7 +15,7 @@ const waterController = {
 
   getAllWaterInfor: async (req, res) => {
     try {
-      const waters = await Water.find();
+      const waters = await Water.find().sort({ date: 1 });
       res.status(200).json(waters);
     } catch (error) {
       res.status(500).json;

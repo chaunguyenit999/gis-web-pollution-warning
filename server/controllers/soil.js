@@ -15,7 +15,7 @@ const soilController = {
 
   getAllSoilInfor: async (req, res) => {
     try {
-      const soils = await Soil.find();
+      const soils = await Soil.find().sort({ date: 1 });
       res.status(200).json(soils);
     } catch (error) {
       res.status(500).json;
