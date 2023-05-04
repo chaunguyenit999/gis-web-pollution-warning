@@ -113,9 +113,9 @@ const resultWater = {
             res7 = 1
           }else if(water.NO2 < 0,03) {
             res7 = 2
-          }else if(water.NO2 < 0.05) {
+          }else if(water.NO2 < 0,05) {
             res7 = 3
-          }else if(water.NO2 >= 0.05) {
+          }else if(water.NO2 >= 0,05) {
             res7 = 4 }
 
           //NO3-
