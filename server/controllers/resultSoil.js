@@ -81,7 +81,7 @@ const resultSoil = {
             res5 = 1
           }else if(soil.calci < 7000) {
             res5 = 2
-          }else if(soil.calci < 1000) {
+          }else if(soil.calci < 10000) {
             res5 = 3
           }else if(soil.calci >= 10000) {
             res5 = 4 }
