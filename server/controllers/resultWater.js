@@ -127,9 +127,9 @@ const resultWater = {
 */
           if (water.NO3 < 2) {
             res8 = 1
-          }else if(water.NO3 < 5) {
-            res8 = 2
           }else if(water.NO3 < 10) {
+            res8 = 2
+          }else if(water.NO3 < 15) {
             res8 = 3
           }else if(water.NO3 >= 15) {
             res8 = 4 }
