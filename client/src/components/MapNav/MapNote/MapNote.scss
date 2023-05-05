@@ -10,11 +10,12 @@
 }
 
 .accordin-header {
-  color: #333333;
+  color: #333333 !important;
   padding: 0 !important;
   align-items: center;
   display: flex;
   span {
+    color: #333333 !important;
     font-size: 1rem;
   }
   button {
@@ -28,6 +29,7 @@
 }
 
 .accordin-icon {
+  color: #333333 !important;
   margin-right: 8px;
 }
 

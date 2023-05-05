@@ -1,0 +1,390 @@
+<div class="row">
+    <div class="col-12 mt-3">
+        <div class="card">
+            <div class="card-header  justify-content-between align-items-center">
+                <h4 class="card-title">Table Editor</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="d-flex justify-content-start" style="margin-bottom: 1rem">
+                            <!-- SWITCH TABLE -->
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-sm dropdown-toggle switch-table-btn" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    Dữ liệu đất
+                                </button>
+                                <div class="dropdown-menu p-0 switch-table-selections">
+                                    <a class="dropdown-item" href="/admin/management/env-data/stations/soil">Dữ liệu đất</a>
+                                    <a class="dropdown-item" href="/admin/management/env-data/stations/water">Dữ liệu nước</a>
+                                    <a class="dropdown-item" href="/admin/management/env-data/stations/air">Dữ liệu không khí</a>
+                                </div>
+                            </div>
+                            <!-- INSERT TOGGLE -->
+                            <button class="btn btn-success btn-sm rounded insert-btn" data-toggle="modal"
+                                data-target=".insert-form">
+                                <i class="fas fa-plus"></i>
+                                Insert
+                            </button>
+                            <div class="modal fade bd-example-modal-lg insert-form" tabindex="-1" role="dialog"
+                                aria-labelledby="myLargeModalLabel10" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="myLargeModalLabel10">Thêm dữ liệu đất</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <!-- START: INSERT FORM-->
+                                        <div class="modal-body">
+                                            <!-- type number + step any = float type-->
+                                            <form id="insertForm">
+                                                <div class="form-row">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="AdressValid">Địa chỉ</label>
+                                                        <input type="text" class="form-control" name="AdressValid" id="AdressValid" placeholder="Địa chỉ lấy mẫu" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="LatitudeValid">Toạ độ Latitude</label>
+                                                        <input type="number" step="any" class="form-control" id="LatitudeValid" placeholder="Toạ độ Lat" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="LongitudeValid">Toạ độ Longitude</label>
+                                                        <input type="number" step="any" class="form-control" id="LongitudeValid" placeholder="Toạ độ Long" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="DatetimeValid">Ngày giờ lấy mẫu</label>
+                                                        <input type="datetime-local" class="form-control" id="DatetimeValid">
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="">pHKCL</label>
+                                                        <input type="number" step="any" class="form-control" id="Phkclvalid" placeholder="Độ chua" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="NitoValid">N2 (Nito Dioxit)</label>
+                                                        <input type="number" step="any" class="form-control" id="NitoValid" placeholder="Tổng Nito" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="PhophoValid">P (Photpho)</label>
+                                                        <input type="number" step="any" class="form-control" id="PhophoValid" placeholder="Tổng Photpho" required>
+                                                        <div class="invalid-feedback">N</div>
+                                                    </div>
+                                                    <div class="col-md-3 mb-3">
+                                                        <label for="KaliValid">K (Kali)</label>
+                                                        <input type="number" step="any" class="form-control" id="KaliValid" placeholder="Tổng Kali" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="CanxiValid">Canxi (Ca)</label>
+                                                        <input type="number" step="any" class="form-control" id="CanxiValid" placeholder="Tổng Canxi" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="MagieValid">Magie (Mg)</label>
+                                                        <input type="number" step="any" class="form-control" id="MagieValid" placeholder="Tổng Magie" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="ZnValid">Kẽm (Zn)</label>
+                                                        <input type="number" step="any" class="form-control" id="ZnValid" placeholder="Tổng Zn" required>
+                                                        <div class="invalid-feedback">
+                                                            Không hợp lệ.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="PbValid">Pb</label>
+                                                        <input type="number" step="any" class="form-control" id="PbValid" placeholder="Tổng Pb" required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="CuValid">Cu</label>
+                                                        <input type="number" step="any" class="form-control" id="CuValid" placeholder="Tổng Cu"
+                                                            required>
+                                                        <div class="invalid-feedback">Không hợp lệ</div>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="AsValid">As</label>
+                                                        <input type="number" step="any" class="form-control" id="AsValid" placeholder="Tổng As" required>
+                                                        <div class="invalid-feedback">
+                                                            Không hợp lệ.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Insert</button>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- END: INSERT FORM-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END: INSERT TOGGLE -->
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="d-flex justify-content-end" style="margin-bottom: 1rem">
+                            <!-- IMPORT FILE -->
+                            <div class="btn-group">
+                                <button class="btn btn-warning btn-sm dropdown-toggle import-btn" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fas fa-file-import"></i>
+                                    Import
+                                </button>
+                                <div class="dropdown-menu p-0 import-selections">
+                                    <a class="dropdown-item" href="#">Csv</a>
+                                    <a class="dropdown-item" href="#">Excel</a>
+                                    <a class="dropdown-item" href="#">Json</a>
+                                </div>
+                            </div>
+                    
+                            <!-- EXPORT FILE -->
+                            <div class="btn-group">
+                                <button class="btn btn-info btn-sm dropdown-toggle export-btn" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fas fa-file-export"></i>
+                                    Export
+                                </button>
+                                <div class="dropdown-menu p-0 export-selections">
+                                    <a class="dropdown-item" href="#">Csv</a>
+                                    <a class="dropdown-item" href="#">Excel</a>
+                                    <a class="dropdown-item" href="#">Json</a>
+                                </div>
+                            </div>
+                            <!-- END: EXPORT FILE -->
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="example" class="display table dataTable table-striped table-bordered editable-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Địa chỉ</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Ngày giờ</th>
+                                <th>pHKCL</th>
+                                <th>N2</th>
+                                <th>P</th>
+                                <th>K</th>
+                                <th>Ca2+</th>
+                                <th>Mg2+</th>
+                                <th>Zn</th>
+                                <th>Pb</th>
+                                <th>Cu</th>
+                                <th>As</th>
+                                <th>Định mức</th>
+                                <th class="table-responsive__action">Hành động</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- TABLE DATA -->
+                            <% for(var i=0; i < soil_infor.length; i++) { %>
+                            <tr id="<%= soil_infor[i]._id %>">
+                                <td><%= i + 1 %></td>
+                                <td><%= soil_infor[i].location.address %></td>
+                                <td><%= soil_infor[i].location.latitude %></td>
+                                <td><%= soil_infor[i].location.longitude %></td>
+                                <td><%= soil_infor[i].date %></td>
+                                <td><%= soil_infor[i].exchange_acidity %></td>
+                                <td><%= soil_infor[i].total_nitrogen %></td>
+                                <td><%= soil_infor[i].total_photpho %></td>
+                                <td><%= soil_infor[i].total_kali %></td>
+                                <td><%= soil_infor[i].calci %></td>
+                                <td><%= soil_infor[i].magie %></td>
+                                <td><%= soil_infor[i].zinc %></td>
+                                <td><%= soil_infor[i].plumbum %></td>
+                                <td><%= soil_infor[i].copper %></td>
+                                <td><%= soil_infor[i].arsenic %></td>
+                                <td><%= soil_infor[i].result %></td>
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <!-- EDIT BTN -->
+                                        <span data-toggle="tooltip tooltip-btn" data-placement="top" title="Edit">
+                                            <a href="#" class="table-edit-btn text-info" data-toggle="modal" data-target=".edit-form"
+                                                data-actionid="<%= soil_infor[i]._id %>">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        </span>
+                                        <!-- DELETE BTN -->
+                                        <span data-toggle="tooltip tooltip-btn" data-placement="top" title="Delete">
+                                            <a href="#" class="text-danger table-delete-btn" data-toggle="modal" data-target=".delete-form"
+                                                data-actionid="<%= soil_infor[i]._id %>">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Địa chỉ</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Ngày giờ</th>
+                                <th>pHKCL</th>
+                                <th>N2</th>
+                                <th>P</th>
+                                <th>K</th>
+                                <th>Ca2+</th>
+                                <th>Mg2+</th>
+                                <th>Zn</th>
+                                <th>Pb</th>
+                                <th>Cu</th>
+                                <th>As</th>
+                                <th>Định mức</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- CONFIRM DELETE -->
+                <div class="modal fade delete-form" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xoá bản ghi</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body kkkk">
+                                Bạn có chắc chắn muốn xoá bản ghi này?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger delete-record">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- EDIT FORM -->
+                <div class="modal fade bd-example-modal-lg edit-form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel10"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="myLargeModalLabel10">Sửa dữ liệu đất</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updateForm">
+                                    <div class="form-row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="AdressValid">Địa chỉ</label>
+                                            <input type="text" class="form-control" name="AdressValid" id="AdressValid" placeholder="Địa chỉ lấy mẫu"
+                                                required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="LatitudeValid">Toạ độ Latitude</label>
+                                            <input type="number" step="any" class="form-control" id="LatitudeValid" placeholder="Toạ độ Lat" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="LongitudeValid">Toạ độ Longitude</label>
+                                            <input type="number" step="any" class="form-control" id="LongitudeValid" placeholder="Toạ độ Long" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="DatetimeValid">Ngày giờ lấy mẫu</label>
+                                            <input type="datetime-local" class="form-control" id="DatetimeValid">
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="">pHKCL</label>
+                                            <input type="number" step="any" class="form-control" id="Phkclvalid" placeholder="Độ chua" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="NitoValid">N2 (Nito Dioxit)</label>
+                                            <input type="number" step="any" class="form-control" id="NitoValid" placeholder="Tổng Nito" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="PhophoValid">P (Photpho)</label>
+                                            <input type="number" step="any" class="form-control" id="PhophoValid" placeholder="Tổng Photpho" required>
+                                            <div class="invalid-feedback">N</div>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="KaliValid">K (Kali)</label>
+                                            <input type="number" step="any" class="form-control" id="KaliValid" placeholder="Tổng Kali" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="CanxiValid">Canxi (Ca)</label>
+                                            <input type="number" step="any" class="form-control" id="CanxiValid" placeholder="Tổng Canxi" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="MagieValid">Magie (Mg)</label>
+                                            <input type="number" step="any" class="form-control" id="MagieValid" placeholder="Tổng Magie" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="ZnValid">Kẽm (Zn)</label>
+                                            <input type="number" step="any" class="form-control" id="ZnValid" placeholder="Tổng Zn" required>
+                                            <div class="invalid-feedback">
+                                                Không hợp lệ.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="PbValid">Pb</label>
+                                            <input type="number" step="any" class="form-control" id="PbValid" placeholder="Tổng Pb" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="CuValid">Cu</label>
+                                            <input type="number" step="any" class="form-control" id="CuValid" placeholder="Tổng Cu" required>
+                                            <div class="invalid-feedback">Không hợp lệ</div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="AsValid">As</label>
+                                            <input type="number" step="any" class="form-control" id="AsValid" placeholder="Tổng As" required>
+                                            <div class="invalid-feedback">
+                                                Không hợp lệ.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
