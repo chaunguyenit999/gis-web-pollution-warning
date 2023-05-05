@@ -6,10 +6,14 @@
         <a href="#"><i class="icon-home mr-1"></i>Bảng điều khiển</a>
         <ul>
           <li>
-            <a href="/admin/dashboard/home"><i class="icon-home"></i>Trang chủ</a>
+            <a href="/admin/dashboard/home"
+              ><i class="icon-home"></i>Trang chủ</a
+            >
           </li>
           <li>
-            <a href="/admin/dashboard/notification"><i class="icon-bell"></i>Thông báo</a>
+            <a href="/admin/dashboard/notification"
+              ><i class="icon-bell"></i>Thông báo</a
+            >
           </li>
           <li>
             <a href="/admin/dashboard/message"
@@ -21,31 +25,59 @@
       <li class="dropdown">
         <a href="#"><i class="icon-layers mr-1"></i>Quản trị</a>
         <ul>
-          <li>
-            <li class="dropdown">
-              <a href="#"><i class="icon-globe-alt"></i>Dữ liệu môi trường</a>
-              <ul class="sub-menu">
-                <li class="dropdown"><a href="#" class="d-flex align-items-center"><i class="icon-control-pause"></i>Trạm quan trắc</a>
-                  <ul class="sub-menu">
-                    <li><a href="/admin/management/env-data/stations/air">Dữ liệu không khí</a></li>
-                    <li><a href="/admin/management/env-data/stations/water">Dữ liệu nước</a></li>
-                    <li><a href="/admin/management/env-data/stations/soil">Dữ liệu đất</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown"><a href="#" class="d-flex align-items-center"><i class="icon-control-pause"></i>Mạng xã hội</a>
-                  <ul class="sub-menu">
-                    <li><a href="/admin/management/env-data/social-networks/fb">Facebook</a></li>
-                    <li><a href="/admin/management/env-data/social-networks/tw">Twitter</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
+          <li class="dropdown">
+            <a href="#"><i class="icon-globe-alt"></i>Dữ liệu môi trường</a>
+            <ul class="sub-menu">
+              <li class="dropdown">
+                <a href="#" class="d-flex align-items-center"
+                  ><i class="icon-control-pause"></i>Trạm quan trắc</a
+                >
+                <ul class="sub-menu">
+                  <li>
+                    <a href="/admin/management/env-data/stations/air"
+                      >Dữ liệu không khí</a
+                    >
+                  </li>
+                  <li>
+                    <a href="/admin/management/env-data/stations/water"
+                      >Dữ liệu nước</a
+                    >
+                  </li>
+                  <li>
+                    <a href="/admin/management/env-data/stations/soil"
+                      >Dữ liệu đất</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="d-flex align-items-center"
+                  ><i class="icon-control-pause"></i>Mạng xã hội</a
+                >
+                <ul class="sub-menu">
+                  <li>
+                    <a href="/admin/management/env-data/social-networks/fb"
+                      >Facebook</a
+                    >
+                  </li>
+                  <li>
+                    <a href="/admin/management/env-data/social-networks/tw"
+                      >Twitter</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </li>
           <li>
-            <a href="/admin/management/users"><i class="icon-people"></i>Thành viên</a>
+            <a href="/admin/management/users"
+              ><i class="icon-people"></i>Thành viên</a
+            >
           </li>
           <li>
-            <a href="/admin/management/posts"><i class="icon-pencil"></i>Bài viết</a>
+            <a href="/admin/management/posts"
+              ><i class="icon-pencil"></i>Bài viết</a
+            >
           </li>
           <li>
             <a href="/admin/management/files"
@@ -78,7 +110,11 @@
     <!-- END: Menu-->
     <ol class="breadcrumb bg-transparent align-self-center m-0 p-0 ml-auto">
       <% for(let i=0; i < locals.breadcrumb.length; i++) { %>
-        <li class="breadcrumb-item"><a href="<%= locals.breadcrumb[i].link %>"><%= locals.breadcrumb[i].tag %></a></li>
+      <li class="breadcrumb-item">
+        <a href="<%= locals.breadcrumb[i].link %>"
+          ><%= locals.breadcrumb[i].tag %></a
+        >
+      </li>
       <% } %>
     </ol>
   </div>

@@ -45,6 +45,7 @@
         ],
       },
       {
+        className: "open-file-modal",
         text: " <i class='fas fa-file-import'></i> Nhập",
       },
       {
@@ -172,7 +173,7 @@
   $(".insert-btn").click(function () {
     $("#table-action-modal").modal("show");
     $("#form-action-modal")[0].reset();
-    $(".modal-title").html("Thêm dữ liệu");
+    $("#myLargeModalLabel10").html("Thêm dữ liệu");
     $("#actionType").val("insertData"); // define action
     $(".modal-footer #save").val("Thêm");
   });
@@ -323,6 +324,66 @@
         return false;
       }
     });
+  });
+
+  $("#file-modal-handler").on("hidden.bs.modal", function () {
+    $("#actionId").val(null);
+    $(".custom-file-input")
+      .siblings(".custom-file-label")
+      .removeClass("selected")
+      .html("Choose file");
+  });
+
+  // FILE IMPORT
+  $(".open-file-modal").click(function () {
+    $("#file-modal-handler").modal("show");
+    $(".show-file-sheet").hide();
+    $("#customFile").val(null);
+    $("#show-file-sheet").val(null);
+  });
+
+  $(".custom-file-input").on("change", function (e) {
+    let fileName = $(this).val().split("\\").pop();
+    let fileExt = fileName.split(".").pop().toLowerCase();
+    // Show file name
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    // Check file type
+    if (fileExt === "xlsx") {
+      $(".show-file-sheet").show();
+      var input = $("#custom-file-input")[0];
+      var select = $("#show-file-sheet");
+      // Định nghĩa hàm để đọc tệp và tạo danh sách các option
+      function readWorkbook() {
+        console.log(input.files[0]);
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var data = new Uint8Array(e.target.result);
+          var workbook = XLSX.read(data, { type: "array" });
+          var sheetNames = workbook.SheetNames; // Lấy tên của các sheet trong tệp
+          $.each(sheetNames, function (index, value) {
+            // Tạo các option cho select với giá trị là tên của các sheet
+            select.append($("<option>").val(value).text(value));
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+      select.empty(); // Xóa tất cả các option cũ trong select
+      readWorkbook();
+    } else if (fileExt === "csv") {
+      return;
+    } else if (fileExt === "json") {
+      return;
+    } else {
+      $("#customFile").val(null);
+      Swal.fire({
+        icon: "error",
+        title: "File không được hỗ trợ!",
+        text: "Định dạng phù hợp: xlxs, csv, json!",
+        footer: '<a href="">Hãy nhập lại file</a>',
+      });
+      return;
+    }
   });
 
   // SUBTABLE HANDLER

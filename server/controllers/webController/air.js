@@ -43,23 +43,25 @@ const airRender = {
         const draw = req.body.draw;
         const start = parseInt(req.body.start);
         const length = parseInt(req.body.length);
+        
 
         let query = {};
         if (req.body.search.value) {
           const searchValue = req.body.search.value;
-          console.log("search value: ", searchValue);
+          const date = new Date(searchValue);
+          // console.log(date);
           query.$or = [
             { "location.address": { $regex: searchValue, $options: "i" } },
-            // { "location.latitude": { $regex: searchValue, $options: "i" } },
-            // { "location.longitude": { $regex: searchValue, $options: "i" } },
-            // { date: { $regex: searchValue, $options: "i" } },
-            // { windDegree: { $regex: searchValue, $options: "i" } },
-            // { humidity: { $regex: searchValue } },
-            // { windSpeed: { $regex: searchValue, $options: "i" } },
-            // { windDust: { $regex: searchValue, $options: "i" } },
-            // { sulfurDioxide: { $regex: searchValue, $options: "i" } },
-            // { nitoDioxit: { $regex: searchValue, $options: "i" } },
-            // { result: { $regex: searchValue, $options: "i" } },
+            { "location.latitude": { $eq: searchValue } },
+            { "location.longitude": { $eq: searchValue } },
+            // { date: { $eq: date } },
+            { windDegree: { $eq: searchValue } },
+            { humidity: { $eq: searchValue } },
+            { windSpeed: { $eq: searchValue } },
+            { windDust: { $eq: searchValue } },
+            { sulfurDioxide: { $eq: searchValue } },
+            { nitoDioxit: { $eq: searchValue } },
+            { result: { $eq: searchValue } },
           ];
         }
 
