@@ -70,12 +70,7 @@ const waterQualitySchema = new mongoose.Schema({
     Coliform:{
         type:Number,
         required:true,
-    },
-    Oil:{
-        type:Number,
-        required:true,
-    },
-    
+    }
 
 })
 module.exports = mongoose.model('waterQuality', waterQualitySchema);
