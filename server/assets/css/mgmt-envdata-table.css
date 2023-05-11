@@ -4,11 +4,11 @@
     }
 
     /* Table CSS */
-    .table-responsive tbody tr {
+    .row-hover tbody tr {
         transition: 0.3s;
     }
 
-    .table-responsive tbody tr:hover {
+    .row-hover tbody tr:hover {
         opacity: 1;
         background-color: #1e3d73;
         color: white;

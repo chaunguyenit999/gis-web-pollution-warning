@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const calcResult = require("../helpers/calc-env_result");
+const Aqi = require("../helpers/aqi_calculator");
 
 const airQualitySchema = new mongoose.Schema({
   location: {
@@ -16,48 +16,54 @@ const airQualitySchema = new mongoose.Schema({
       required: true,
     },
   },
-  date: {
-    type: Date,
-    default: Date.now(),
+  datetime: {
+    type: String,
   },
-  wind_degree: {
+  tsp: {
     type: Number,
     required: true,
   },
-  humidity: {
+  so2: {
     type: Number,
     required: true,
   },
-  wind_speed: {
+  no2: {
     type: Number,
     required: true,
   },
-  wind_dust: {
-    type: Number,
-    required: true,
-  },
-  sulfur_dioxide: {
-    type: Number,
-    required: true,
-  },
-  nito_dioxit: {
-    type: Number,
-    required: true,
-  },
-  result: {
-    type: Number,
-    default: function () {
-      let wind_dust = this.wind_dust;
-      let sulfur_dioxide = this.sulfur_dioxide;
-      let nito_dioxit = this.nito_dioxit;
-      let calc_data = {
-        wind_dust,
-        sulfur_dioxide,
-        nito_dioxit,
-      };
-      let result_val = calcResult.air(calc_data);
-
-      return result_val;
+  aqi: {
+    tsp: {
+      type: Number,
+      default: function () {
+        let data = {
+          value: this.tsp,
+          type: "tsp",
+        };
+        let aqi = Aqi.compute(data);
+        return aqi;
+      },
+    },
+    so2: {
+      type: Number,
+      default: function () {
+        let data = {
+          value: this.so2,
+          type: "so2",
+        };
+        let aqi = Aqi.compute(data);
+        return aqi;
+      },
+    },
+    no2: {
+      type: Number,
+      default: function () {
+        let data = {
+          value: this.no2,
+          type: "no2",
+        };
+        let aqi = Aqi.compute(data);
+        return aqi;
+      },
     },
   },
 });

@@ -1,5 +1,5 @@
 const Air = require("../../models/AirModel");
-const calcResult = require("../../helpers/calc-env_result");
+const Aqi = require("../../helpers/aqi_calculator");
 
 const airRender = {
   // GET ENVIRONMENT DATA MANAGEMENT PAGE
@@ -41,27 +41,27 @@ const airRender = {
     switch (req.body.actionType) {
       case "getAllData":
         const draw = req.body.draw;
-        const start = parseInt(req.body.start);
-        const length = parseInt(req.body.length);
-        
+        let start = parseInt(req.body.start);
+        let length = parseInt(req.body.length);
+        // check if user selected All
+        if (length == -1) {
+          length = 1000000000000000;
+        }
 
         let query = {};
         if (req.body.search.value) {
           const searchValue = req.body.search.value;
-          const date = new Date(searchValue);
-          // console.log(date);
+
+          console.log("searchValue", typeof searchValue, searchValue);
           query.$or = [
             { "location.address": { $regex: searchValue, $options: "i" } },
-            { "location.latitude": { $eq: searchValue } },
-            { "location.longitude": { $eq: searchValue } },
-            // { date: { $eq: date } },
-            { windDegree: { $eq: searchValue } },
-            { humidity: { $eq: searchValue } },
-            { windSpeed: { $eq: searchValue } },
-            { windDust: { $eq: searchValue } },
-            { sulfurDioxide: { $eq: searchValue } },
-            { nitoDioxit: { $eq: searchValue } },
-            { result: { $eq: searchValue } },
+            { "location.latitude": searchValue, expectedType: "Double" },
+            { "location.longitude": searchValue, expectedType: "Double" },
+            { datetime: { $regex: searchValue, $options: "i" } },
+            { tsp: searchValue, expectedType: "Double" },
+            { so2: searchValue, expectedType: "Double" },
+            { no2: searchValue, expectedType: "Double" },
+            { aqi: searchValue, expectedType: "Double" },
           ];
         }
 
@@ -88,19 +88,17 @@ const airRender = {
                 console.error(err);
                 return res.status(500).json({ error: err });
               }
+              let i = 0
               const formattedData = data.map((item) => ({
+                index: (i += 1),
                 _id: item._id,
                 address: item.location.address,
                 latitude: item.location.latitude,
                 longitude: item.location.longitude,
-                date: item.date,
-                wind_degree: item.wind_degree,
-                humidity: item.humidity,
-                wind_speed: item.wind_speed,
-                wind_dust: item.wind_dust,
-                sulfur_dioxide: item.sulfur_dioxide,
-                nito_dioxit: item.nito_dioxit,
-                result: item.result,
+                datetime: item.datetime,
+                tsp: item.tsp,
+                so2: item.so2,
+                no2: item.no2,
               }));
               res.status(200).json({
                 draw,
@@ -125,8 +123,21 @@ const airRender = {
       case "updateDataById":
         try {
           const id = req.body.actionData._id; // get the record need to update
-          const result = await calcResult.air(req.body.actionData); // calculate result with req.body
-          const updateValue = { ...req.body.actionData, result: result }; // create the new update value
+          const aqi = {
+            tsp: Aqi.compute({
+              value: req.body.actionData.tsp,
+              type: "tsp",
+            }),
+            so2: Aqi.compute({
+              value: req.body.actionData.so2,
+              type: "so2",
+            }),
+            no2: Aqi.compute({
+              value: req.body.actionData.no2,
+              type: "no2",
+            }),
+          };
+          const updateValue = { ...req.body.actionData, aqi: aqi }; // create the new update value
           const air = await Air.findById(id); // get the old record
           await air.updateOne({ $set: updateValue }); // $set make unique value
           res.status(200).json({ ...updateValue, _id: id }); // return the update value
@@ -143,6 +154,9 @@ const airRender = {
         } catch (error) {
           res.status(500).json(err);
         }
+
+      // SUB-DATATABLE
+      // case ""
       default:
         break;
     }

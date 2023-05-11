@@ -6,8 +6,6 @@ const notiRender = require("../controllers/webController/notification");
 const messageRender = require("../controllers/webController/message");
 
 const airRender = require("../controllers/webController/air");
-const soilRender = require("../controllers/webController/soil");
-const waterRender = require("../controllers/webController/water");
 const usersRender = require("../controllers/webController/users");
 const postsRender = require("../controllers/webController/posts");
 const filesRender = require("../controllers/webController/files");
@@ -32,8 +30,6 @@ const initAPIRoute = (app) => {
   router.get("/management/env-data/stations/air", airRender.getAirPage);
   router.post("/management/env-data/stations/air/datatables", airRender.fetchDataTables);
 
-  router.get("/management/env-data/stations/soil", soilRender.getSoilPage);
-  router.get("/management/env-data/stations/water", waterRender.getWaterPage);
   router.get("/management/users", usersRender.getUsersPage);
   router.get("/management/posts", postsRender.getPostsPage);
   router.get("/management/files", filesRender.getFilesPage);

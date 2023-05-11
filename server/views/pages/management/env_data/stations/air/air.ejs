@@ -5,42 +5,28 @@
                 <h4 class="card-title">Dữ liệu từ file</h4>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6" style="margin-bottom: 5px">
-                        <div class="d-flex justify-content-start">
-
-                        </div>
-                    </div>
-                </div>
                 <div class="table-responsive">
-                    <table id="bootstraptable" class="table layout-primary bordered">
+                    <table id="bootstraptable" class="display table dataTable table-striped table-bordered editable-table layout-info">
+                        <div class="row d-flex justify-content-around align-items-center">
+                            <div class="col-md-1">
+                                <select id="table-sheet-select" class="form-control">
+                                </select>
+                            </div>
+                            <button>Lưu dữ liệu</button>
+                            <button>Thoát</button>
+                        </div>
                         <thead>
                             <tr>
                                 <th>Địa chỉ</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
                                 <th>Ngày giờ</th>
-                                <th>Độ gió</th>
-                                <th>Độ ẩm</th>
-                                <th>Tốc độ gió</th>
-                                <th>Bụi mịn</th>
+                                <th>TSP</th>
                                 <th>SO2</th>
                                 <th>NO2</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Địa chỉ</td>
-                                <td>Latitude</td>
-                                <td>Longitude</td>
-                                <td>Ngày giờ</td>
-                                <td>Độ gió</td>
-                                <td>Độ ẩm</td>
-                                <td>Tốc độ gió</td>
-                                <td>Bụi mịn</td>
-                                <td>SO2</td>
-                                <td>NO2</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -54,38 +40,32 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="example" class="display table dataTable table-striped table-bordered editable-table">
+                    <table id="example" class="display table row-hover dataTable table-striped table-bordered editable-table">
                         <thead>
                             <tr>
+                                <th>STT</th>
                                 <th>Id</th>
                                 <th>Địa chỉ</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
                                 <th>Ngày giờ</th>
-                                <th>Độ gió</th>
-                                <th>Độ ẩm</th>
-                                <th>Tốc độ gió</th>
-                                <th>Bụi mịn</th>
+                                <th>TSP</th>
                                 <th>SO2</th>
                                 <th>NO2</th>
-                                <th>Định mức</th>
-                                <th class="table-responsive__action">Hành động</a></th>
+                                <th>Hành động</a></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>STT</th>
                                 <th>Id</th>
                                 <th>Địa chỉ</th>
                                 <th>Latitude</th>
                                 <th>Longitude</th>
                                 <th>Ngày giờ</th>
-                                <th>Độ gió</th>
-                                <th>Độ ẩm</th>
-                                <th>Tốc độ gió</th>
-                                <th>Bụi mịn</th>
+                                <th>TSP</th>
                                 <th>SO2</th>
                                 <th>NO2</th>
-                                <th>Định mức</th>
                                 <th>Hành động</th>
                             </tr>
                         </tfoot>
@@ -96,17 +76,13 @@
     </div>
 </div>
 
-<!-- BEGIN: SUB-DATATABLE MODAL HANDLER -->
-
-<!-- END: SUB-DATATABLE MODAL HANDLER -->
-
 <!-- BEGIN: TABLE MODAL HANDLER -->
 <div class="modal fade bd-example-modal-lg" id="table-action-modal" tabindex="-1" role="dialog"
-    aria-labelledby="myLargeModalLabel10" aria-hidden="true">
+    aria-labelledby="tableModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel10"></h5>
+                <h5 class="modal-title" id="tableModalTitle"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -142,41 +118,20 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label for="WindDegreeValid">Độ gió</label>
-                            <input type="number" step="any" class="form-control" id="WindDegreeValid"
-                                placeholder="Độ gió" required>
+                            <label for="TspValid">TSP (Total Suspended Particles)</label>
+                            <input type="number" step="any" class="form-control" id="TspValid" placeholder="Giá trị hợp lệ 0 - 500.4" required>
                             <div class="invalid-feedback">Không hợp lệ</div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="HumidityValid">Độ ẩm</label>
-                            <input type="number" step="any" class="form-control" id="HumidityValid" placeholder="Độ ẩm"
-                                required>
+                            <label for="So2Valid">SO2 (Sulfur Dioxit)</label>
+                            <input type="number" step="any" class="form-control" id="So2Valid"
+                                placeholder="Giá trị hợp lệ 0 - 1004" required>
                             <div class="invalid-feedback">Không hợp lệ</div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="WindSpeedValid">Tốc độ gió</label>
-                            <input type="number" step="any" class="form-control" id="WindSpeedValid"
-                                placeholder="Tốc độ gió" required>
-                            <div class="invalid-feedback">Không hợp lệ</div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="WindDustValid">Bụi mịn</label>
-                            <input type="number" step="any" class="form-control" id="WindDustValid"
-                                placeholder="Bụi mịn" required>
-                            <div class="invalid-feedback">Không hợp lệ</div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="SulfurDioxideValid">SO2</label>
-                            <input type="number" step="any" class="form-control" id="SulfurDioxideValid"
-                                placeholder="Sulfur Dioxit" required>
-                            <div class="invalid-feedback">Không hợp lệ</div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="NitoDioxideValid">NO2</label>
-                            <input type="number" step="any" class="form-control" id="NitoDioxideValid"
-                                placeholder="Nito Dioxit" required>
+                            <label for="No2Valid">NO2 (Nito Dioxit)</label>
+                            <input type="number" step="any" class="form-control" id="No2Valid"
+                                placeholder="Giá trị hợp lệ 0 - 2049" required>
                             <div class="invalid-feedback">
                                 Không hợp lệ.
                             </div>
@@ -185,7 +140,7 @@
                     <div class="modal-footer">
                         <input type="hidden" id="actionId" />
                         <input type="hidden" id="actionType" />
-                        <input type="submit" id="save" class="btn btn-primary" />
+                        <input type="submit" id="tableSaveChange" class="btn btn-primary" />
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
                     </div>
                 </form>
@@ -208,25 +163,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-import-file">
-                    <div class="form-row">
-                        <div class="col-md-12 mb-3">
-                            <div class="custom-file mb-3">
-                                <input type="file" class="custom-file-input" id="customFile" name="filename" accept=".xlsx, .csv, .json">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                            <div class="custom-file mb-3 show-file-sheet">
-                                <label for="show-file-sheet">Sheet</label>
-                                <select id="show-file-sheet" class="form-control">
-                                    
-                                </select>
-                            </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                        <div class="file-input-wrapper mb-3">
+                            <input type="file" class="custom-file-input" id="file_input" name="filename" accept=".xlsx, .csv, .json, .xls">
+                            <label class="custom-file-label" for="file_input">Choose file</label>
+                        </div>
+                        <div class="custom-file mb-3 select-sheet-wrapper">
+                            <label for="sheet-select">Sheet</label>
+                            <select id="sheet-select" class="form-control">
+                                
+                            </select>
                         </div>
                     </div>
-                </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Hiển thị</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="show-sub-datatable">Hiển thị</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                </div>
             </div>
         </div>
     </div>

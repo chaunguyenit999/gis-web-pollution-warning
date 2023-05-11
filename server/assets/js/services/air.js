@@ -1,10 +1,7 @@
 (function ($) {
-  // utils function
-  let formatDate = (date) => {
-    return date.substring(0, date.length - 5);
-  };
-
-  // Load data to table
+  /**
+   * @description DATATABLE AREA
+   */
   var dataTable = $("#example").DataTable({
     dom: "lBfrtip",
     buttons: [
@@ -29,19 +26,6 @@
               window.location.href = "/admin/management/env-data/stations/air";
             },
           },
-          {
-            text: "Dữ liệu đất</a>",
-            action: function () {
-              window.location.href = "/admin/management/env-data/stations/soil";
-            },
-          },
-          {
-            text: "Dữ liệu nước",
-            action: function () {
-              window.location.href =
-                "/admin/management/env-data/stations/water";
-            },
-          },
         ],
       },
       {
@@ -58,9 +42,9 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
             },
-            title: null,
+            title: "Dữ liệu môi trường",
           },
           {
             extend: "csv",
@@ -68,9 +52,9 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
             },
-            title: null,
+            title: "Dữ liệu môi trường",
           },
           {
             extend: "excel",
@@ -78,9 +62,9 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
             },
-            title: null,
+            title: "Dữ liệu môi trường",
           },
           {
             extend: "print",
@@ -88,9 +72,9 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
             },
-            title: null,
+            title: "Dữ liệu môi trường",
           },
         ],
       },
@@ -100,10 +84,10 @@
     processing: true,
     serverSide: true,
     searching: true,
-    searchDelay: 300,
+    searchDelay: 800,
     lengthMenu: [
-      [10, 25, 50, 100, 1000, 10000, -1],
-      [10, 25, 50, 100, 1000, 10000, "All"],
+      [10, 25, 50, 100, -1],
+      [10, 25, 50, 100, "All"],
     ],
     order: [],
     language: {
@@ -130,18 +114,15 @@
       dataType: "json",
     },
     columns: [
+      { data: "index", name: "STT" },
       { data: "_id", name: "Id" },
-      { data: "address", name: "Địa chỉ", width: "20%", orderable: false },
+      { data: "address", name: "Địa chỉ" },
       { data: "latitude", name: "Latitude" },
       { data: "longitude", name: "Longitude" },
-      { data: "date", name: "Ngày giờ" },
-      { data: "wind_degree", name: "Độ gió" },
-      { data: "humidity", name: "Độ ẩm" },
-      { data: "wind_speed", name: "Tốc độ gió" },
-      { data: "wind_dust", name: "Bụi mịn" },
-      { data: "sulfur_dioxide", name: "SO2" },
-      { data: "nito_dioxit", name: "NO2" },
-      { data: "result", name: "Định mức" },
+      { data: "datetime", name: "Ngày giờ" },
+      { data: "tsp", name: "TSP" },
+      { data: "so2", name: "SO2" },
+      { data: "no2", name: "NO2" },
       {
         // Thêm cột "Action"
         orderable: false,
@@ -169,95 +150,92 @@
     ],
   });
 
+  var insert_btn = $(".insert-btn");
+  var table_action_modal = $("#table-action-modal");
+  var form_action_modal = $("#form-action-modal");
+  var table_modal_title = $("#tableModalTitle");
+  var table_save_change = $(".modal-footer #tableSaveChange");
+  var table_action_id = $("#actionId");
+  var table_action_type = $("#actionType");
+
+  var address_valid = $("#AdressValid");
+  var latitude_valid = $("#LatitudeValid");
+  var longitude_valid = $("#LongitudeValid");
+  var datetime_valid = $("#DatetimeValid");
+  var tsp_valid = $("#TspValid");
+  var so2_valid = $("#So2Valid");
+  var no2_valid = $("#No2Valid");
+
   // Edit action form is Insert Data
-  $(".insert-btn").click(function () {
-    $("#table-action-modal").modal("show");
-    $("#form-action-modal")[0].reset();
-    $("#myLargeModalLabel10").html("Thêm dữ liệu");
-    $("#actionType").val("insertData"); // define action
-    $(".modal-footer #save").val("Thêm");
+  insert_btn.click(function () {
+    table_action_modal.modal("show");
+    form_action_modal[0].reset();
+    table_modal_title.html("Thêm dữ liệu");
+    table_action_type.val("insertData"); // define action
+    table_save_change.val("Thêm");
   });
 
   $("#example").on("click", ".table-edit-btn", function () {
-    var actionId = $(this).attr("id");
-    $("#actionId").val(actionId);
+    var targetId = $(this).attr("id");
+    table_action_id.val(targetId);
 
     $.ajax({
-      url: "/api/v1/airs/" + actionId,
+      url: "/api/v1/airs/" + targetId,
       type: "GET",
       dataType: "json",
       success: function (res) {
-        $("#table-action-modal").modal("show");
-        $("#actionType").val("updateDataById"); // define action
-        $(".modal-title").html("Sửa dữ liệu");
-        $("#save").val("Cập nhật");
-
-        $("#AdressValid").val(res.location.address);
-        $("#LatitudeValid").val(res.location.latitude);
-        $("#LongitudeValid").val(res.location.longitude);
-        $("#DatetimeValid").val(formatDate(res.date));
-        $("#WindDegreeValid").val(res.wind_degree);
-        $("#HumidityValid").val(res.humidity);
-        $("#WindSpeedValid").val(res.wind_speed);
-        $("#WindDustValid").val(res.wind_dust);
-        $("#SulfurDioxideValid").val(res.sulfur_dioxide);
-        $("#NitoDioxideValid").val(res.nito_dioxit);
+        table_action_modal.modal("show");
+        table_action_type.val("updateDataById"); // define action
+        table_modal_title.html("Sửa dữ liệu");
+        table_save_change.val("Cập nhật");
+        // lấy dữ liệu để truyền vào form
+        address_valid.val(res.location.address);
+        latitude_valid.val(res.location.latitude);
+        longitude_valid.val(res.location.longitude);
+        datetime_valid.val(res.datetime);
+        tsp_valid.val(res.tsp);
+        so2_valid.val(res.so2);
+        no2_valid.val(res.no2);
       },
     });
   });
 
-  $("#table-action-modal").on("hidden.bs.modal", function () {
-    $("#actionId").val("");
+  table_action_modal.on("hidden.bs.modal", function () {
+    table_action_id.val("");
   });
 
   // Form Handler
-  $("#table-action-modal").on("submit", "#form-action-modal", function (event) {
+  table_action_modal.on("submit", "#form-action-modal", function (event) {
     event.preventDefault();
-    $("#save").attr("disabled", "disabled");
-
-    let address_val = $("#AdressValid").val();
-    let lat_val = $("#LatitudeValid").val();
-    let long_val = $("#LongitudeValid").val();
-    let date_val = $("#DatetimeValid").val();
-    let wind_degree_val = $("#WindDegreeValid").val();
-    let humidity_val = $("#HumidityValid").val();
-    let wind_speed_val = $("#WindSpeedValid").val();
-    let wind_dust_val = $("#WindDustValid").val();
-    let sulfur_dioxide_val = $("#SulfurDioxideValid").val();
-    let nito_dioxide_val = $("#NitoDioxideValid").val();
+    table_save_change.attr("disabled", "disabled");
     let actionData = {
       location: {
-        address: address_val,
-        latitude: lat_val,
-        longitude: long_val,
+        address: address_valid.val(),
+        latitude: latitude_valid.val(),
+        longitude: longitude_valid.val(),
       },
-      date: date_val,
-      wind_degree: wind_degree_val,
-      humidity: humidity_val,
-      wind_speed: wind_speed_val,
-      wind_dust: wind_dust_val,
-      sulfur_dioxide: sulfur_dioxide_val,
-      nito_dioxit: nito_dioxide_val,
+      datetime: datetime_valid.val(),
+      tsp: tsp_valid.val(),
+      so2: so2_valid.val(),
+      no2: no2_valid.val(),
     };
 
-    let actionType = $("#actionType").val();
-    if ($("#actionId").val()) {
-      actionId = $("#actionId").val();
-      actionData._id = actionId;
+    // Nếu có id, nghĩa là thực hiện tính năng update
+    if (table_action_id.val()) {
+      // truyền thêm action id vào actionData
+      actionData._id = table_action_id.val();
     }
-
-    console.log(actionData);
 
     $.ajax({
       url: "/admin/management/env-data/stations/air/datatables",
       type: "POST",
       dataType: "json",
-      data: { actionData: actionData, actionType: actionType },
+      data: { actionData: actionData, actionType: table_action_type.val() },
       success: function (res) {
         event.preventDefault();
-        $("#form-action-modal")[0].reset();
-        $("#table-action-modal").modal("toggle");
-        $("#save").attr("disabled", false);
+        form_action_modal[0].reset();
+        table_action_modal.modal("toggle");
+        table_save_change.attr("disabled", false);
         if (actionType == "insertData") {
           Swal.fire(
             "Thêm thành công!",
@@ -285,7 +263,7 @@
   });
 
   $("#example").on("click", ".table-delete-btn", function () {
-    var actionId = $(this).attr("id");
+    var targetId = $(this).attr("id");
     // sweetalert2
     Swal.fire({
       title: "Xác nhận xoá",
@@ -301,7 +279,7 @@
         $.ajax({
           url: "/admin/management/env-data/stations/air/datatables",
           type: "POST",
-          data: { actionId: actionId, actionType: "delDataById" },
+          data: { actionId: targetId, actionType: "delDataById" },
           dataType: "json",
           success: function (res) {
             Swal.fire(
@@ -326,72 +304,10 @@
     });
   });
 
-  $("#file-modal-handler").on("hidden.bs.modal", function () {
-    $("#actionId").val(null);
-    $(".custom-file-input")
-      .siblings(".custom-file-label")
-      .removeClass("selected")
-      .html("Choose file");
-  });
-
-  // FILE IMPORT
-  $(".open-file-modal").click(function () {
-    $("#file-modal-handler").modal("show");
-    $(".show-file-sheet").hide();
-    $("#customFile").val(null);
-    $("#show-file-sheet").val(null);
-  });
-
-  $(".custom-file-input").on("change", function (e) {
-    let fileName = $(this).val().split("\\").pop();
-    let fileExt = fileName.split(".").pop().toLowerCase();
-    // Show file name
-    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    // Check file type
-    if (fileExt === "xlsx") {
-      $(".show-file-sheet").show();
-      var input = $("#custom-file-input")[0];
-      var select = $("#show-file-sheet");
-      // Định nghĩa hàm để đọc tệp và tạo danh sách các option
-      function readWorkbook() {
-        console.log(input.files[0]);
-        var file = input.files[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          var data = new Uint8Array(e.target.result);
-          var workbook = XLSX.read(data, { type: "array" });
-          var sheetNames = workbook.SheetNames; // Lấy tên của các sheet trong tệp
-          $.each(sheetNames, function (index, value) {
-            // Tạo các option cho select với giá trị là tên của các sheet
-            select.append($("<option>").val(value).text(value));
-          });
-        };
-        reader.readAsArrayBuffer(file);
-      }
-      select.empty(); // Xóa tất cả các option cũ trong select
-      readWorkbook();
-    } else if (fileExt === "csv") {
-      return;
-    } else if (fileExt === "json") {
-      return;
-    } else {
-      $("#customFile").val(null);
-      Swal.fire({
-        icon: "error",
-        title: "File không được hỗ trợ!",
-        text: "Định dạng phù hợp: xlxs, csv, json!",
-        footer: '<a href="">Hãy nhập lại file</a>',
-      });
-      return;
-    }
-  });
-
-  // SUBTABLE HANDLER
+  /**
+   * @description SUB DATATABLE AREA
+   */
   $(".sub-datatable").hide();
-  $(".show-sub-datatable").click(function () {
-    $(".sub-table").show();
-  });
-
   var subDataTable = $("#bootstraptable").DataTable({
     language: {
       search: "",
@@ -409,5 +325,120 @@
         previous: "Trước",
       },
     },
+    // lengthMenu: [5, 10, 25, 50, 75, 100],
+    lengthMenu: [
+      [10, 25, 50, 100, -1],
+      [10, 25, 50, 100, "All"],
+    ],
   });
+
+  var file_modal_handler = $("#file-modal-handler");
+  var file_input = $("#file_input");
+  var show_sub_datatable = $("#show-sub-datatable");
+  var select_sheet_wrapper = $(".select-sheet-wrapper");
+  var sheet_select = $("#sheet-select");
+  var table_sheet_select = $("#table-sheet-select");
+
+  file_modal_handler.on("hidden.bs.modal", function () {
+    file_input
+      .siblings(".custom-file-label")
+      .removeClass("selected")
+      .html("Choose file");
+  });
+
+  // FILE IMPORT TO SUB-DATATABLE
+  $(".open-file-modal").click(function () {
+    file_modal_handler.modal("show");
+    // Chặn nút show subdatatable
+    show_sub_datatable.prop("disabled", true);
+    show_sub_datatable.css("cursor", "not-allowed");
+    select_sheet_wrapper.hide();
+    file_input.val(null);
+    sheet_select.val(null);
+  });
+
+  show_sub_datatable.on("click", function (e) {
+    let fileName = file_input.val().split("\\").pop();
+    if (fileName == "") {
+      Swal.fire({
+        icon: "error",
+        title: "File không được dể trống!",
+        text: "Vui lòng nhập file!",
+        footer: '<a href="">Hãy nhập lại file trước khi hiển thị</a>',
+      });
+    }
+  });
+
+  var workbook;
+  // Khi người dùng chọn file
+  file_input.change(function (event) {
+    // Show file name
+    let fileName = $(this).val().split("\\").pop();
+    let fileExt = fileName.split(".").pop().toLowerCase();
+    if (!fileExt) {
+      $(this)
+        .siblings(".custom-file-label")
+        .removeClass("selected")
+        .html("Choose file");
+    } else {
+      $(this)
+        .siblings(".custom-file-label")
+        .addClass("selected")
+        .html(fileName);
+    }
+
+    if (fileExt === "xlsx") {
+      show_sub_datatable.prop("disabled", false);
+      show_sub_datatable.css("cursor", "pointer");
+      // Check file type
+      select_sheet_wrapper.show();
+      // Đọc file Excel
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var data = e.target.result;
+        workbook = XLSX.read(data, { type: "array" });
+        // Đổi tên các sheet vào select option
+        sheet_select.empty();
+        $.each(workbook.SheetNames, function (index, sheetName) {
+          sheet_select.append($("<option>").text(sheetName));
+        });
+
+        show_sub_datatable.on("click", function (e) {
+          file_modal_handler.modal("hide");
+          $(".sub-datatable").show();
+          var sheetToShow = sheet_select.val();
+          displaySheetData(sheetToShow);
+          $.each(workbook.SheetNames, function (index, sheetName) {
+            table_sheet_select.append($("<option>").text(sheetName));
+          });
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "File không được hỗ trợ!",
+        text: "Định dạng phù hợp: xlxs, csv, json!",
+        footer: '<a href="">Hãy nhập lại file</a>',
+      });
+    }
+  });
+
+  table_sheet_select.change(function (e) {
+    displaySheetData($(this).val());
+  });
+
+  function displaySheetData(sheetName) {
+    $(".sub-datatable").show();
+    // Lấy dữ liệu của sheet
+    var worksheet = workbook.Sheets[sheetName];
+    var data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+    // xoá header của sheet
+    var datarows = data.slice(1);
+    // Xóa tất cả các dòng cũ trong subDataTable
+    subDataTable.clear().draw();
+    // Thêm các dòng mới vào subDataTable
+    subDataTable.rows.add(datarows).draw();
+  }
 })(jQuery);
