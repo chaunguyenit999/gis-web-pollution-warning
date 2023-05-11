@@ -1,15 +1,13 @@
 import { MapContainer, TileLayer, LayerGroup, Circle, Marker, GeoJSON, Popup, LayersControl } from 'react-leaflet';
-import { caculateCenterRadius, iconBlack, iconRed, iconYellow } from "./exten.js";
 import { useRef, useEffect } from 'react';
+import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "./Mapbody.scss";
 
 
 function Mapbody(props) {
   let mapContent;
-
   let center = props.center
-
   const mapRef = useRef(null);
   const handleClick = () => {
     if (mapRef.current) {
@@ -26,22 +24,69 @@ function Mapbody(props) {
   }, [props.center]);
 
 
-  if (props.type === "air") {
+  if (props.type === "airs") {
     const points = props.data
     let markers = [];
     let circle = [];
     let latlng = [];
+
+    function classPoint(pollutionLevel) {
+      if (pollutionLevel === 1) {
+        return [L.icon({
+          iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+          iconRetinaUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          tooltipAnchor: [16, -28],
+        }), "green"];
+      }
+      else if (pollutionLevel === 2) {
+        return [L.icon({
+          iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+          iconRetinaUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          tooltipAnchor: [16, -28]
+        }), "yellow"];
+      }
+      else if (pollutionLevel === 3) {
+        return [L.icon({
+          iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+          iconRetinaUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          tooltipAnchor: [16, -28],
+        }), "orange"];
+      }
+      else if (pollutionLevel === 4) {
+        return [L.icon({
+          iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+          iconRetinaUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          tooltipAnchor: [16, -28],
+        }), "red"];
+      }
+    }
+
     for (let i = 0; i < points.length; i++) {
+      const color = classPoint(points[i].result)
       markers.push(
-        <Marker position={[points[i].location.latitude, points[i].location.longitude]} icon={iconRed}>
+        <Marker position={[points[i].location.latitude, points[i].location.longitude]} icon={color[0]}>
           <Popup>
             <div dangerouslySetInnerHTML={{
               __html: (() => {
-                let result = '';
                 let keys = Object.keys(points[i]);
-                for (let index = 3; index < keys.length; index++) {
-                  result += `${keys[index]}: ${points[i][keys[index]]}<br/>`;
+                let result = '<table><tr><th style = "border-bottom: 3px solid black">  ';
+                result += `${points[i].location.address}</th></tr>`
+                for (let index = 3; index < keys.length - 2; index++) {
+                  result += `<tr><td>${keys[index]}: ${points[i][keys[index]]}</td></tr>`;
                 }
+                result += '</tr>'
                 return result;
               })()
             }} />
@@ -52,13 +97,12 @@ function Mapbody(props) {
       circle.push(
         <Circle
           center={[points[i].location.latitude, points[i].location.longitude]}
-          color={'red'}
-          radius={400}
+          color={color[1]}
+          radius={1700}
         />);
 
       latlng.push([points[i].location.latitude, points[i].location.longitude])
     }
-    center = caculateCenterRadius(latlng)[0]
 
     mapContent = (
       <LayersControl position="topright">
@@ -67,7 +111,7 @@ function Mapbody(props) {
             {markers}
           </LayerGroup>
         </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Circles">
+        <LayersControl.Overlay name="Circles">
           <LayerGroup>
             {circle}
           </LayerGroup>
@@ -76,7 +120,7 @@ function Mapbody(props) {
     )
   }
 
-  else if (props.type === "earth") {
+  else if (props.type === "earths") {
     const multiPolygonStyle = {
       fillColor: 'red', // màu tô đậm MultiPolygon
       fillOpacity: 0.3, // độ trong suốt của tô đậm
@@ -84,15 +128,15 @@ function Mapbody(props) {
       color: '#000000' // màu của đường viền
     }
     mapContent = (
-      <GeoJSON data={props.data} fillColor={'green'} color={'#000000'} weight={0.5} style={(feature) => feature.properties.NAME_3 === 'AnĐổ' ? multiPolygonStyle : null} />
+      <GeoJSON data={props.geojson} fillColor={'green'} color={'#000000'} weight={0.5} style={(feature) => feature.properties.NAME_3 === 'AnĐổ' ? multiPolygonStyle : null} />
     )
   }
 
-  else if (props.type === "water") {
+  else if (props.type === "waters") {
     mapContent = (
       <div>
-        <GeoJSON data={props.data[0]} color={'#11D51E'} />
-        <GeoJSON data={props.data[1]} color={'#1117D5'} />
+        <GeoJSON data={props.geojson[0]} color={'#11D51E'} />
+        <GeoJSON data={props.geojson[1]} color={'#1117D5'} />
       </div>
     )
   }

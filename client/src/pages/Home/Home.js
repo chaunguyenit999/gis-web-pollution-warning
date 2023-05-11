@@ -3,11 +3,11 @@ import Slider from 'components/Slider/';
 import Footer from 'components/Footer';
 import HomeBody from "components/HomeBody/HomeBody";
 
-function Home() {
+function Home(props) {
     return (
         <div>
             <HomeNav/>
-            <Slider/>
+            <Slider callApi ={props.callApi}/>
             <HomeBody/>
             <Footer/>
         </div>
