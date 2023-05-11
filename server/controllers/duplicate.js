@@ -1,5 +1,5 @@
 const Air = require("../models/AirModel")
-const checked = async(req, res, next) => {
+const removeDuplicates = async(req, res, next) => {
 try {
     await Air.aggregate([
         { $group: 
@@ -39,5 +39,5 @@ try {
 
 // })
 
-module.exports = checked
+module.exports = removeDuplicates
 

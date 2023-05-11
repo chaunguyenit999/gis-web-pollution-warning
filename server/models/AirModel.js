@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 const calcResult = require("../helpers/calc-env_result");
-
+const findCity = require("../helpers/findcity");
 
 const airQualitySchema = new mongoose.Schema({
+  city :{
+    type: String,
+    defautl: "Hà Nammm"
+  },
   location: {
     address: {
       type: String,
@@ -61,5 +65,6 @@ const airQualitySchema = new mongoose.Schema({
       return result_val;
     },
   },
+
 });
 module.exports = mongoose.model("airQuality", airQualitySchema);
