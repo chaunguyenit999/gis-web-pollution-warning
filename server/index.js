@@ -1,25 +1,37 @@
 const express = require("express");
 const dotenv = require("dotenv")
+const cron = require('node-cron');
 const morgan = require('morgan');
 const bodyparser = require("body-parser");
 const helmet = require("helmet");
 const cors = require("cors");
-const route = require("./routes/apiWeather");
 const methodOverride = require('method-override')
+// ROUTES
 const deleteDups = require("./routes/removeDups")
-
+const Upload = require(".//routes/uploadExcel")
 // MODULES
 const configViewEngine = require("./configs/viewEngine");
 const connectDB = require("./configs/database");
-const apiWeather = require("./routes/apiWeather");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const Upload = require(".//routes/uploadExcel")
 // PORT
+
+
+const getWeather = require("./controllers/ApiWeather")
+
 dotenv.config({path: 'config.env'});
 
 // MONGODB CONNECTION
 connectDB();
+
+// RUN UPDATE DATA API
+cron.schedule('5 * * * * *', () => {
+  console.log('running 12 hours');
+  getWeather()
+},{
+  scheduled:true,
+  timezone:"Asia/Ho_Chi_Minh"
+});
 
 // USE MIDDLEWARE LIBARIES
 app.use(morgan('combined')); // log requests in terminal
@@ -31,7 +43,7 @@ app.use(cors()); // allow sharing of resources between websites
 
 // SETUP VIEW ENGINE
 configViewEngine(app);
-apiWeather(app)
+// apiWeather(app)
 Upload(app)
 deleteDups(app)
 

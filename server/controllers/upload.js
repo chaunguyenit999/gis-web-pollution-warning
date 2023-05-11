@@ -7,13 +7,13 @@ const Uploadfiles = async (req, res) => {
 }
 const Import = async(req, res) => {
     // res.render("../views/table",{data:list_data[sheet]})
-    data = await Air.insertMany(list_data[0])
+    data = await Air.insertMany(list_data[1])
     res.status(200).json("Ok")
 }
 const ReadExcelAir = async(req, res) => {
     const file = req.file.path
     const workbook = xlsx.readFile(file,{cellDates:true});
-    const sheetName = workbook.SheetNames[5];
+    const sheetName = workbook.SheetNames[1];
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, range:3});
 
     
@@ -40,13 +40,14 @@ const ReadExcelAir = async(req, res) => {
     // Chuyển đổi giá trị của cột thành key của đối tượng JSON
     }
     // console.log(new Date("14/6/2017"))
-    // data = await Air.insertMany(result)
+    data = await Air.insertMany(result)
     // res.send('Ok ')
+    // console.log(result)
 }
 const ReadExcelWater = async(req, res) => {
     const file = req.file.path
     const workbook = xlsx.readFile(file,{cellDates:true});
-    const sheetName = workbook.SheetNames[0];
+    const sheetName = workbook.SheetNames[5];
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, range:3});
 
     

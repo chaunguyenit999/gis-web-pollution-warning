@@ -30,7 +30,7 @@ try {
                 // console.log("Deleted " + result.dups.length + " duplicate documents")
             });
             // console.log(results)
-          });
+            });
     }catch(err) {
         console.error(err)
     }
