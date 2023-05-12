@@ -27,13 +27,6 @@
       },
       {
         extend: "collection",
-        text: " <i class='fas fa-regular fa-eye-slash'></i> Ẩn/Hiện cột",
-        buttons: [
-          // các checkbox ở
-        ],
-      },
-      {
-        extend: "collection",
         text: "<i class='fas fa-exchange-alt'></i> Chuyển",
         buttons: [
           {
@@ -463,6 +456,10 @@
     subDataTable.rows.add(datarows).draw();
   }
 
+  $("#cancelSendData").click(function(e) {
+    $(".sub-datatable").hide();
+  });
+
   /**
    * @description INSERT DATA FROM SUBDATA TABLE
    */
@@ -491,6 +488,7 @@
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       success: function (response) {
+      // Clean up duplicate records
       $.ajax({
         url: "/api/v1/delete-temps/collection/air",
         type: "DELETE",
