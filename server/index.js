@@ -30,7 +30,7 @@ cron.schedule('12  * * * *', () => {
   scheduled:true,
   timezone:"Asia/Ho_Chi_Minh"
 });
-cron.schedule('1 * * * * *', () => {
+cron.schedule('10 * * * * *', () => {
   console.log('delete');
   removeDuplicates()
 },{

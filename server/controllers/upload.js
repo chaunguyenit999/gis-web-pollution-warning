@@ -12,7 +12,7 @@ const Import = async(req, res) => {
 const ReadExcelAir = async(req, res) => {
     const file = req.file.path
     const workbook = xlsx.readFile(file,{cellDates:true});
-    const sheetName = workbook.SheetNames[1];
+    const sheetName = workbook.SheetNames[0];
     const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1, range:3});
 
     
@@ -38,6 +38,7 @@ const ReadExcelAir = async(req, res) => {
     
     // Chuyển đổi giá trị của cột thành key của đối tượng JSON
     }
+    
     // console.log(new Date("14/6/2017"))
     data = await Air.insertMany(result)
     // res.send('Ok ')

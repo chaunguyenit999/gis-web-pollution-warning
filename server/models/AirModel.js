@@ -1,11 +1,23 @@
 const mongoose = require("mongoose");
 const calcResult = require("../helpers/calc-env_result");
-const findCity = require("../helpers/findcity");
+
 
 const airQualitySchema = new mongoose.Schema({
-  city :{
+  result: {
     type: String,
-    defautl: "Hà Nammm"
+    default: function () {
+      let wind_dust_val = this.wind_dust;
+      let sulfur_dioxide_val = this.sulfur_dioxide;
+      let nito_dioxit_val = this.nito_dioxit;
+      let cal_data = {
+        wind_dust_val: wind_dust_val,
+        sulfur_dioxide_val: sulfur_dioxide_val,
+        nito_dioxit_val: nito_dioxit_val,
+      };
+      let result_val = calcResult.air(cal_data);
+
+      return result_val;
+    },
   },
   location: {
     address: {
@@ -49,22 +61,9 @@ const airQualitySchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  result: {
-    type: Number,
-    default: function () {
-      let wind_dust_val = this.wind_dust;
-      let sulfur_dioxide_val = this.sulfur_dioxide;
-      let nito_dioxit_val = this.nito_dioxit;
-      let cal_data = {
-        wind_dust_val: wind_dust_val,
-        sulfur_dioxide_val: sulfur_dioxide_val,
-        nito_dioxit_val: nito_dioxit_val,
-      };
-      let result_val = calcResult.air(cal_data);
-
-      return result_val;
-    },
+  city: {
+    type: String,
+    default: "Hà Nam"
   },
-
 });
 module.exports = mongoose.model("airQuality", airQualitySchema);
