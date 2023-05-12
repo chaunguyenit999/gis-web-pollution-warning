@@ -1,10 +1,6 @@
 const Air = require("../../models/AirModel");
 const Aqi = require("../../helpers/aqi_calculator");
-
-// UTILS FUNCTION
-function isNumber(input_str) {
-  return !isNaN(input_str) && !isNaN(parseFloat(input_str));
-}
+const checkDataType = require("../../helpers/check_dataType");
 
 const airRender = {
   // GET ENVIRONMENT DATA MANAGEMENT PAGE
@@ -56,7 +52,12 @@ const airRender = {
         let query = {};
         if (req.body.search.value) {
           const searchValue = req.body.search.value;
-          if (isNumber(searchValue)) {
+          // if (isMongoId(searchValue)) {
+          //   query.$or = [
+          //     { _id: searchValue }
+          //   ]
+          // } else if (isNumber(searchValue)) {
+          if (checkDataType.isNumber(searchValue)) {
             query.$or = [
               { "location.address": { $regex: searchValue, $options: "i" } },
               { "location.latitude": searchValue, expectedType: "Double" },
@@ -68,10 +69,16 @@ const airRender = {
               { aqi: searchValue, expectedType: "Double" },
             ];
           } else {
-            query.$or = [
-              { "location.address": { $regex: searchValue, $options: "i" } },
-              { date: { $regex: searchValue, $options: "i" } },
-            ];
+            if (checkDataType.isValidObjectId(searchValue)) {
+              query.$or = [{ _id: searchValue }];
+            } else {
+              query.$or = [
+                {
+                  "location.address": { $regex: searchValue, $options: "i" },
+                },
+                { date: { $regex: searchValue, $options: "i" } },
+              ];
+            }
           }
         }
 

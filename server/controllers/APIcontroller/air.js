@@ -1,5 +1,6 @@
 const Air = require("../../models/AirModel");
 const Aqi = require("../../helpers/aqi_calculator");
+const calResultByAqi = require("../../helpers/result_calculator");
 
 const airController = {
   addAirInfo: async (req, res) => {
@@ -25,8 +26,31 @@ const airController = {
 
   getAllAirInfor: async (req, res) => {
     try {
-      const airs = await Air.find().sort({ date: 1 });
-      res.status(200).json(airs);
+      Air.find().sort({ date: 1 }).exec(function (err, data) {
+        const formattedData = data.map((item) => ({
+          _id: item._id,
+          address: item.location.address,
+          latitude: item.location.latitude,
+          longitude: item.location.longitude,
+          date: new Date(item.date),
+          tsp: {
+            value: item.tsp,
+            aqi: item.aqi.tsp,
+            result: calResultByAqi(item.aqi.tsp),
+          },
+          so2: {
+            value: item.so2,
+            aqi: item.aqi.so2,
+            result: calResultByAqi(item.aqi.so2),
+          },
+          no2: {
+            value: item.no2,
+            aqi: item.aqi.no2,
+            result: calResultByAqi(item.aqi.no2),
+          },
+        }));
+        res.status(200).json(formattedData);
+      });
     } catch (error) {
       res.status(500).json;
     }

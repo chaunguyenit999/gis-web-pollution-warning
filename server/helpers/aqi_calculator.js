@@ -18,7 +18,6 @@
  * 151 <= i <= 200: Unhealthy - Level 4,
  * 201 <= i <= 300: Very Unhealthy - Level 5,
  * 301 <= i <= 500: Hazardous - Level 6
- * 
  */
 
 class Aqi {
