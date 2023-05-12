@@ -51,7 +51,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -61,7 +61,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -71,7 +71,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -81,7 +81,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -89,7 +89,6 @@
       },
     ],
     responsive: true,
-    autoWidth: false,
     processing: true,
     serverSide: true,
     searching: true,
@@ -132,6 +131,9 @@
       { data: "tsp", name: "TSP" },
       { data: "so2", name: "SO2" },
       { data: "no2", name: "NO2" },
+      { data: "aqi_tsp", name: "TSP AQI" },
+      { data: "aqi_so2", name: "SO2 AQI" },
+      { data: "aqi_no2", name: "NO2 AQI" },
       {
         // Thêm cột "Action"
         orderable: false,

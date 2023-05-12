@@ -1,6 +1,11 @@
 const Air = require("../../models/AirModel");
 const Aqi = require("../../helpers/aqi_calculator");
 
+// UTILS FUNCTION
+function isNumber(input_str) {
+  return !isNaN(input_str) && !isNaN(parseFloat(input_str));
+}
+
 const airRender = {
   // GET ENVIRONMENT DATA MANAGEMENT PAGE
   getAirPage: async (req, res) => {
@@ -51,17 +56,23 @@ const airRender = {
         let query = {};
         if (req.body.search.value) {
           const searchValue = req.body.search.value;
-          
-          query.$or = [
-            { "location.address": { $regex: searchValue, $options: "i" } },
-            { "location.latitude": searchValue, expectedType: "Double" },
-            { "location.longitude": searchValue, expectedType: "Double" },
-            { date: { $regex: searchValue, $options: "i" } },
-            { tsp: searchValue, expectedType: "Double" },
-            { so2: searchValue, expectedType: "Double" },
-            { no2: searchValue, expectedType: "Double" },
-            { aqi: searchValue, expectedType: "Double" },
-          ];
+          if (isNumber(searchValue)) {
+            query.$or = [
+              { "location.address": { $regex: searchValue, $options: "i" } },
+              { "location.latitude": searchValue, expectedType: "Double" },
+              { "location.longitude": searchValue, expectedType: "Double" },
+              { date: { $regex: searchValue, $options: "i" } },
+              { tsp: searchValue, expectedType: "Double" },
+              { so2: searchValue, expectedType: "Double" },
+              { no2: searchValue, expectedType: "Double" },
+              { aqi: searchValue, expectedType: "Double" },
+            ];
+          } else {
+            query.$or = [
+              { "location.address": { $regex: searchValue, $options: "i" } },
+              { date: { $regex: searchValue, $options: "i" } },
+            ];
+          }
         }
 
         const sortQuery = {};
@@ -98,6 +109,9 @@ const airRender = {
                 tsp: item.tsp,
                 so2: item.so2,
                 no2: item.no2,
+                aqi_tsp: item.aqi.tsp,
+                aqi_so2: item.aqi.so2,
+                aqi_no2: item.aqi.no2,
               }));
               res.status(200).json({
                 draw,
