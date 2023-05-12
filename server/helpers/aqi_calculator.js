@@ -172,15 +172,14 @@ class Aqi {
             (level_5_c_high.tsp - level_5_c_low.tsp)) *
             (value - level_5_c_low.tsp) +
           level_5_i_low;
-      } else if (
-        value >= level_6_c_low.c_low.tsp &&
-        value <= level_6_c_high.tsp
-      ) {
+      } else if (value >= level_6_c_low.tsp && value <= level_6_c_high.tsp) {
         aqi =
           ((level_6_i_high - level_6_i_low) /
             (level_6_c_high.tsp - level_6_c_low.tsp)) *
             (value - level_6_c_low.tsp) +
           level_6_i_low;
+      } else if (value > level_6_c_high.tsp) {
+        aqi = level_6_i_high;
       }
     }
 
@@ -191,51 +190,38 @@ class Aqi {
             (level_1_c_high.so2 - level_1_c_low.so2)) *
             (value - level_1_c_low.so2) +
           level_1_i_low;
-      } else if (
-        value >= level_2_c_low.so2 &&
-        value <= level_2_c_high.so2
-      ) {
+      } else if (value >= level_2_c_low.so2 && value <= level_2_c_high.so2) {
         aqi =
           ((level_2_i_high - level_2_i_low) /
             (level_2_c_high.so2 - level_2_c_low.so2)) *
             (value - level_2_c_low.so2) +
           level_2_i_low;
-      } else if (
-        value >= level_3_c_low.so2 &&
-        value <= level_3_c_high.so2
-      ) {
+      } else if (value >= level_3_c_low.so2 && value <= level_3_c_high.so2) {
         aqi =
           ((level_3_i_high - level_3_i_low) /
             (level_3_c_high.so2 - level_3_c_low.so2)) *
             (value - level_3_c_low.so2) +
           level_3_i_low;
-      } else if (
-        value >= level_4_c_low.so2 &&
-        value <= level_4_c_high.so2
-      ) {
+      } else if (value >= level_4_c_low.so2 && value <= level_4_c_high.so2) {
         aqi =
           ((level_4_i_high - level_4_i_low) /
             (level_4_c_high.so2 - level_4_c_low.so2)) *
             (value - level_4_c_low.so2) +
           level_4_i_low;
-      } else if (
-        value >= level_5_c_low.so2 &&
-        value <= level_5_c_high.so2
-      ) {
+      } else if (value >= level_5_c_low.so2 && value <= level_5_c_high.so2) {
         aqi =
           ((level_5_i_high - level_5_i_low) /
             (level_5_c_high.so2 - level_5_c_low.so2)) *
             (value - level_5_c_low.so2) +
           level_5_i_low;
-      } else if (
-        value >= level_6_c_low.c_low.so2 &&
-        value <= level_6_c_high.so2
-      ) {
+      } else if (value >= level_6_c_low.so2 && value <= level_6_c_high.so2) {
         aqi =
           ((level_6_i_high - level_6_i_low) /
             (level_6_c_high.so2 - level_6_c_low.so2)) *
             (value - level_6_c_low.so2) +
           level_6_i_low;
+      } else if (value > level_6_c_high.so2) {
+        aqi = level_6_i_high;
       }
     }
 
@@ -246,51 +232,38 @@ class Aqi {
             (level_1_c_high.no2 - level_1_c_low.no2)) *
             (value - level_1_c_low.no2) +
           level_1_i_low;
-      } else if (
-        value >= level_2_c_low.no2 &&
-        value <= level_2_c_high.no2
-      ) {
+      } else if (value >= level_2_c_low.no2 && value <= level_2_c_high.no2) {
         aqi =
           ((level_2_i_high - level_2_i_low) /
             (level_2_c_high.no2 - level_2_c_low.no2)) *
             (value - level_2_c_low.no2) +
           level_2_i_low;
-      } else if (
-        value >= level_3_c_low.no2 &&
-        value <= level_3_c_high.no2
-      ) {
+      } else if (value >= level_3_c_low.no2 && value <= level_3_c_high.no2) {
         aqi =
           ((level_3_i_high - level_3_i_low) /
             (level_3_c_high.no2 - level_3_c_low.no2)) *
             (value - level_3_c_low.no2) +
           level_3_i_low;
-      } else if (
-        value >= level_4_c_low.no2 &&
-        value <= level_4_c_high.no2
-      ) {
+      } else if (value >= level_4_c_low.no2 && value <= level_4_c_high.no2) {
         aqi =
           ((level_4_i_high - level_4_i_low) /
             (level_4_c_high.no2 - level_4_c_low.no2)) *
             (value - level_4_c_low.no2) +
           level_4_i_low;
-      } else if (
-        value >= level_5_c_low.no2 &&
-        value <= level_5_c_high.no2
-      ) {
+      } else if (value >= level_5_c_low.no2 && value <= level_5_c_high.no2) {
         aqi =
           ((level_5_i_high - level_5_i_low) /
             (level_5_c_high.no2 - level_5_c_low.no2)) *
             (value - level_5_c_low.no2) +
           level_5_i_low;
-      } else if (
-        value >= level_6_c_low.c_low.no2 &&
-        value <= level_6_c_high.no2
-      ) {
+      } else if (value >= level_6_c_low.no2 && value <= level_6_c_high.no2) {
         aqi =
           ((level_6_i_high - level_6_i_low) /
             (level_6_c_high.no2 - level_6_c_low.no2)) *
             (value - level_6_c_low.no2) +
           level_6_i_low;
+      } else if (value > level_6_c_high.no2) {
+        aqi = level_6_i_high;
       }
     }
 

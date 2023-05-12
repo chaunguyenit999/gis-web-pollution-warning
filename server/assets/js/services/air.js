@@ -1,5 +1,21 @@
 (function ($) {
   /**
+   * @description UTILS FUNCTION
+   */
+  // suitable format for conversion dd/mm/yyyy
+  function convertStringToDate(dateString) {
+    const [day, month, year] = dateString.split("/");
+    const isoDate = new Date(`${year}-${month}-${day}`);
+    return isoDate;
+  }
+
+  let formatDate = (date) => {
+    const newDate = new Date(date);
+    const formattedDate = newDate.toISOString().substring(0, 16);
+    return formattedDate;
+  };
+
+  /**
    * @description DATATABLE AREA
    */
   var dataTable = $("#example").DataTable({
@@ -119,7 +135,7 @@
       { data: "address", name: "Địa chỉ" },
       { data: "latitude", name: "Latitude" },
       { data: "longitude", name: "Longitude" },
-      { data: "datetime", name: "Ngày giờ" },
+      { data: "date", name: "Ngày giờ" },
       { data: "tsp", name: "TSP" },
       { data: "so2", name: "SO2" },
       { data: "no2", name: "NO2" },
@@ -161,7 +177,7 @@
   var address_valid = $("#AdressValid");
   var latitude_valid = $("#LatitudeValid");
   var longitude_valid = $("#LongitudeValid");
-  var datetime_valid = $("#DatetimeValid");
+  var date_valid = $("#DateValid");
   var tsp_valid = $("#TspValid");
   var so2_valid = $("#So2Valid");
   var no2_valid = $("#No2Valid");
@@ -179,6 +195,7 @@
     var targetId = $(this).attr("id");
     table_action_id.val(targetId);
 
+
     $.ajax({
       url: "/api/v1/airs/" + targetId,
       type: "GET",
@@ -192,7 +209,7 @@
         address_valid.val(res.location.address);
         latitude_valid.val(res.location.latitude);
         longitude_valid.val(res.location.longitude);
-        datetime_valid.val(res.datetime);
+        date_valid.val(formatDate(res.date));
         tsp_valid.val(res.tsp);
         so2_valid.val(res.so2);
         no2_valid.val(res.no2);
@@ -208,13 +225,15 @@
   table_action_modal.on("submit", "#form-action-modal", function (event) {
     event.preventDefault();
     table_save_change.attr("disabled", "disabled");
+
+    console.log(date_valid.val());
     let actionData = {
       location: {
         address: address_valid.val(),
         latitude: latitude_valid.val(),
         longitude: longitude_valid.val(),
       },
-      datetime: datetime_valid.val(),
+      date: date_valid.val(),
       tsp: tsp_valid.val(),
       so2: so2_valid.val(),
       no2: no2_valid.val(),
@@ -308,7 +327,7 @@
    * @description SUB DATATABLE AREA
    */
   $(".sub-datatable").hide();
-  var subDataTable = $("#bootstraptable").DataTable({
+  var subDataTable = $("#sub-datatable").DataTable({
     language: {
       search: "",
       searchPlaceholder: "Tìm kiếm",
@@ -338,6 +357,7 @@
   var select_sheet_wrapper = $(".select-sheet-wrapper");
   var sheet_select = $("#sheet-select");
   var table_sheet_select = $("#table-sheet-select");
+  var open_file_modal = $(".open-file-modal");
 
   file_modal_handler.on("hidden.bs.modal", function () {
     file_input
@@ -347,7 +367,7 @@
   });
 
   // FILE IMPORT TO SUB-DATATABLE
-  $(".open-file-modal").click(function () {
+  open_file_modal.click(function () {
     file_modal_handler.modal("show");
     // Chặn nút show subdatatable
     show_sub_datatable.prop("disabled", true);
@@ -405,6 +425,7 @@
         });
 
         show_sub_datatable.on("click", function (e) {
+          table_sheet_select.val("");
           file_modal_handler.modal("hide");
           $(".sub-datatable").show();
           var sheetToShow = sheet_select.val();
@@ -441,4 +462,57 @@
     // Thêm các dòng mới vào subDataTable
     subDataTable.rows.add(datarows).draw();
   }
+
+  /**
+   * @description INSERT DATA FROM SUBDATA TABLE
+   */
+  $("#sendData").click(function (e) {
+    var rows = subDataTable.rows().data().toArray();
+
+    // Map each row to a JSON object
+    var data = rows.map(function (row) {
+      return {
+        location: {
+          address: row[0],
+          latitude: row[1],
+          longitude: row[2],
+        },
+        date: convertStringToDate(row[3]),
+        tsp: row[4],
+        so2: row[5],
+        no2: row[6],
+      };
+    });
+
+    $.ajax({
+      url: "/api/v1/airs/bulk",
+      type: "POST",
+      data: JSON.stringify(data),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function (response) {
+      $.ajax({
+        url: "/api/v1/delete-temps/collection/air",
+        type: "DELETE",
+        success: function (response) {
+          Swal.fire(
+            "Thêm thành công!",
+            "Bản ghi đã được thêm vào CSDL",
+            "success"
+          );
+          $(".sub-datatable").hide();
+          dataTable.ajax.reload();
+        },
+      });
+      },
+      error: function (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Lỗi khi nhập dữ liệu từ file!",
+        text: "Hãy nhập lại định dạng của file phù hợp: Ví dụ trường date: dd/mm/yyyy!",
+        footer: '<a href="">Hãy nhập lại file</a>',
+      });
+      },
+    });
+  });
 })(jQuery);

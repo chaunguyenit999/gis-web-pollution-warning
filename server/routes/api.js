@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const airController = require("../controllers/APIcontroller/air");
+const recordCleanup = require("../middlewares/recordCleanup");
 
 const initAPIRoute = (app) => {
   /**
@@ -13,10 +14,16 @@ const initAPIRoute = (app) => {
    * @description AIR ROUTES
    */
   router.post("/airs", airController.addAirInfo);
+  router.post("/airs/bulk",airController.addManyAirInfo);
   router.get("/airs", airController.getAllAirInfor);
   router.get("/airs/:id", airController.getAirInforById);
   router.put("/airs/:id", airController.updateAirInforById);
   router.delete("/airs/:id", airController.deleteAirInforById);
+
+  /**
+   * @description CLEAN TEMP DATA
+   */
+  router.delete("/delete-temps/collection/air", recordCleanup.airCollection);
 
   return app.use("/api/v1", router);
 };

@@ -2,12 +2,22 @@ const Air = require("../../models/AirModel");
 const Aqi = require("../../helpers/aqi_calculator");
 
 const airController = {
-  //ADD AUTHOR
   addAirInfo: async (req, res) => {
     try {
       const newAir = new Air(req.body);
       const savedAir = await newAir.save();
       res.status(200).json(savedAir);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  addManyAirInfo: async (req, res, next) => {
+    try {
+      const airData = req.body;
+      const savedAir = await Air.insertMany(airData);
+      res.status(200).json(savedAir);
+      next();
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -24,7 +34,7 @@ const airController = {
 
   getAirInforById: async (req, res) => {
     try {
-      const airRes= await Air.findById(req.params.id);
+      const airRes = await Air.findById(req.params.id);
       res.status(200).json(airRes);
     } catch (error) {
       res.status(500).json;
@@ -50,8 +60,8 @@ const airController = {
       };
       const updateValue = { ...req.body, aqi: aqi }; // create the new update value
       const air = await Air.findById(id); // get the old record
-      await air.updateOne({$set: updateValue}); // $set make unique value
-      res.status(200).json({...updateValue, _id: id}); // return the update value
+      await air.updateOne({ $set: updateValue }); // $set make unique value
+      res.status(200).json({ ...updateValue, _id: id }); // return the update value
     } catch (error) {
       res.status(500).json({ message: error });
     }

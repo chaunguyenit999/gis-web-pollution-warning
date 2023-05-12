@@ -51,13 +51,12 @@ const airRender = {
         let query = {};
         if (req.body.search.value) {
           const searchValue = req.body.search.value;
-
-          console.log("searchValue", typeof searchValue, searchValue);
+          
           query.$or = [
             { "location.address": { $regex: searchValue, $options: "i" } },
             { "location.latitude": searchValue, expectedType: "Double" },
             { "location.longitude": searchValue, expectedType: "Double" },
-            { datetime: { $regex: searchValue, $options: "i" } },
+            { date: { $regex: searchValue, $options: "i" } },
             { tsp: searchValue, expectedType: "Double" },
             { so2: searchValue, expectedType: "Double" },
             { no2: searchValue, expectedType: "Double" },
@@ -95,7 +94,7 @@ const airRender = {
                 address: item.location.address,
                 latitude: item.location.latitude,
                 longitude: item.location.longitude,
-                datetime: item.datetime,
+                date: new Date(item.date),
                 tsp: item.tsp,
                 so2: item.so2,
                 no2: item.no2,
@@ -112,6 +111,7 @@ const airRender = {
 
       case "insertData":
         try {
+
           const newAir = new Air(req.body.actionData);
           const savedAir = await newAir.save();
           res.status(200).json(savedAir);
