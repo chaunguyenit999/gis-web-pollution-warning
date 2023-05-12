@@ -25,7 +25,7 @@ const airController = {
 
   getAllAirInfor: async (req, res) => {
     try {
-      const airs = await Air.find().sort({ date: 'asc' });
+      const airs = await Air.find().sort({ date: 1 });
       res.status(200).json(airs);
     } catch (error) {
       res.status(500).json;
