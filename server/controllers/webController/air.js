@@ -130,7 +130,6 @@ const airRender = {
 
       case "insertData":
         try {
-
           const newAir = new Air(req.body.actionData);
           const savedAir = await newAir.save();
           res.status(200).json(savedAir);

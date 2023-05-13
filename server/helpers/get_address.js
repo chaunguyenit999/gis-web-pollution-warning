@@ -38,9 +38,6 @@ async function getAddress(params) {
   const response_json = await response.json();
   let data = {};
 
-  console.log(lat, long);
-
-
   if (full_address) {
     data.full_address = response_json.display_name;
   }

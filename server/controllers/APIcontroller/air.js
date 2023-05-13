@@ -1,9 +1,18 @@
 const Air = require("../../models/AirModel");
 const Aqi = require("../../helpers/aqi_calculator");
 const calResultByAqi = require("../../helpers/result_calculator");
-const getAddress = require("../../helpers/get_address");
 
 const airController = {
+  testAqi: async (req, res) => {
+    try {
+      const newAir = new Air(req.body);
+      const savedAir = await newAir.save();
+      res.status(200).json(savedAir);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
   addAirInfo: async (req, res) => {
     try {
       const newAir = new Air(req.body);
@@ -36,8 +45,8 @@ const airController = {
           _id: item._id,
           location: {
             address: item.location.address,
-            latitude: item.location.lat,
-            longitude: item.location.long,
+            latitude: item.location.latitude,
+            longitude: item.location.longitude,
             state: item.location.state,
           },
           date: {
@@ -66,7 +75,7 @@ const airController = {
 
       res.status(200).json(formattedData);
     } catch (error) {
-      res.status(500).json();
+      res.status(500).json(error);
     }
   },
 
