@@ -1,6 +1,7 @@
 const Air = require("../../models/AirModel");
 const Aqi = require("../../helpers/aqi_calculator");
 const calResultByAqi = require("../../helpers/result_calculator");
+const getAddress = require("../../helpers/get_address");
 
 const airController = {
   addAirInfo: async (req, res) => {
@@ -26,13 +27,25 @@ const airController = {
 
   getAllAirInfor: async (req, res) => {
     try {
-      Air.find().sort({ date: 1 }).exec(function (err, data) {
-        const formattedData = data.map((item) => ({
+      const data = await Air.find().sort({ date: 1 }).exec();
+      const formattedData = [];
+
+      for (const item of data) {
+        const date = new Date(item.date);
+        formattedData.push({
           _id: item._id,
-          address: item.location.address,
-          latitude: item.location.latitude,
-          longitude: item.location.longitude,
-          date: new Date(item.date),
+          location: {
+            address: item.location.address,
+            latitude: item.location.lat,
+            longitude: item.location.long,
+            state: item.location.state,
+          },
+          date: {
+            iso: date,
+            day: date.getDate(),
+            month: date.getMonth() + 1,
+            year: date.getFullYear(),
+          },
           tsp: {
             value: item.tsp,
             aqi: item.aqi.tsp,
@@ -48,11 +61,12 @@ const airController = {
             aqi: item.aqi.no2,
             result: calResultByAqi(item.aqi.no2),
           },
-        }));
-        res.status(200).json(formattedData);
-      });
+        });
+      }
+
+      res.status(200).json(formattedData);
     } catch (error) {
-      res.status(500).json;
+      res.status(500).json();
     }
   },
 

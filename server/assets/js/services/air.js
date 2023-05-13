@@ -51,7 +51,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -61,7 +61,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -71,7 +71,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -81,7 +81,7 @@
             charset: "utf-8", // thêm cấu hình mã hóa UTF-8
             bom: true, // thêm ký tự bom
             exportOptions: {
-              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], // chỉ xuất các cột 0, 1, 3
+              columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], // chỉ xuất các cột 0, 1, 3
             },
             title: "Dữ liệu môi trường",
           },
@@ -125,6 +125,7 @@
       { data: "index", name: "STT" },
       { data: "_id", name: "Id" },
       { data: "address", name: "Địa chỉ" },
+      { data: "state", name: "Tỉnh" },
       { data: "latitude", name: "Latitude" },
       { data: "longitude", name: "Longitude" },
       { data: "date", name: "Ngày giờ" },
@@ -170,6 +171,7 @@
   var table_action_type = $("#actionType");
 
   var address_valid = $("#AdressValid");
+  var state_valid = $("#StateValid");
   var latitude_valid = $("#LatitudeValid");
   var longitude_valid = $("#LongitudeValid");
   var date_valid = $("#DateValid");
@@ -202,6 +204,7 @@
         table_save_change.val("Cập nhật");
         // lấy dữ liệu để truyền vào form
         address_valid.val(res.location.address);
+        state_valid.val(res.location.state);
         latitude_valid.val(res.location.latitude);
         longitude_valid.val(res.location.longitude);
         date_valid.val(formatDate(res.date));
@@ -220,11 +223,10 @@
   table_action_modal.on("submit", "#form-action-modal", function (event) {
     event.preventDefault();
     table_save_change.attr("disabled", "disabled");
-
-    console.log(date_valid.val());
     let actionData = {
       location: {
         address: address_valid.val(),
+        state: state_valid.val(),
         latitude: latitude_valid.val(),
         longitude: longitude_valid.val(),
       },
@@ -473,13 +475,14 @@
       return {
         location: {
           address: row[0],
-          latitude: row[1],
-          longitude: row[2],
+          state: row[1],
+          latitude: row[2],
+          longitude: row[3],
         },
-        date: convertStringToDate(row[3]),
-        tsp: row[4],
-        so2: row[5],
-        no2: row[6],
+        date: convertStringToDate(row[4]),
+        tsp: row[5],
+        so2: row[6],
+        no2: row[7],
       };
     });
 

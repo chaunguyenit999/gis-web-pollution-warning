@@ -7,6 +7,10 @@ const airQualitySchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    state: {
+      type: String,
+      required: true,
+    },
     latitude: {
       type: Number,
       required: true,
@@ -18,6 +22,10 @@ const airQualitySchema = new mongoose.Schema({
   },
   date: {
     type: String,
+    default: function () {
+      const now = new Date();
+      return now.toISOString();
+    },
   },
   tsp: {
     type: Number,

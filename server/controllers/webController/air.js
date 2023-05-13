@@ -52,14 +52,10 @@ const airRender = {
         let query = {};
         if (req.body.search.value) {
           const searchValue = req.body.search.value;
-          // if (isMongoId(searchValue)) {
-          //   query.$or = [
-          //     { _id: searchValue }
-          //   ]
-          // } else if (isNumber(searchValue)) {
           if (checkDataType.isNumber(searchValue)) {
             query.$or = [
               { "location.address": { $regex: searchValue, $options: "i" } },
+              { "location.state": { $regex: searchValue, $options: "i" } },
               { "location.latitude": searchValue, expectedType: "Double" },
               { "location.longitude": searchValue, expectedType: "Double" },
               { date: { $regex: searchValue, $options: "i" } },
@@ -73,6 +69,7 @@ const airRender = {
               query.$or = [{ _id: searchValue }];
             } else {
               query.$or = [
+                { "location.state": { $regex: searchValue, $options: "i" } },
                 {
                   "location.address": { $regex: searchValue, $options: "i" },
                 },
@@ -110,6 +107,7 @@ const airRender = {
                 index: (i += 1),
                 _id: item._id,
                 address: item.location.address,
+                state: item.location.state,
                 latitude: item.location.latitude,
                 longitude: item.location.longitude,
                 date: new Date(item.date),
