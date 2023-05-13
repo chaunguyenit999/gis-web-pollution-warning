@@ -1,6 +1,6 @@
 const Air = require("../models/AirModel");
 
-const recordCleanup = {
+const deleteDuplicatates = {
   airCollection: async (req, res, next) => {
     try {
       await Air.aggregate(
@@ -10,7 +10,7 @@ const recordCleanup = {
               _id: {
                 longitude: "$location.longitude",
                 latitude: "$location.latitude",
-                address: "$location.address",
+                // address: "$location.address",
                 date: "$date",
               },
               dups: {
@@ -51,4 +51,4 @@ const recordCleanup = {
   },
 };
 
-module.exports = recordCleanup;
+module.exports = deleteDuplicatates;

@@ -194,7 +194,7 @@
 
 
     $.ajax({
-      url: "/api/v1/airs/" + targetId,
+      url: "/api/v1/stations/airs/" + targetId,
       type: "GET",
       dataType: "json",
       success: function (res) {
@@ -222,7 +222,6 @@
   // Form Handler
   table_action_modal.on("submit", "#form-action-modal", function (event) {
     event.preventDefault();
-    table_save_change.attr("disabled", "disabled");
     let actionData = {
       location: {
         address: address_valid.val(),
@@ -241,7 +240,6 @@
       // truyền thêm action id vào actionData
       actionData._id = table_action_id.val();
     }
-
     $.ajax({
       url: "/admin/management/env-data/stations/air/datatables",
       type: "POST",
@@ -251,7 +249,6 @@
         event.preventDefault();
         form_action_modal[0].reset();
         table_action_modal.modal("toggle");
-        table_save_change.attr("disabled", false);
         if (actionType == "insertData") {
           Swal.fire(
             "Thêm thành công!",
@@ -268,6 +265,7 @@
         dataTable.ajax.reload();
       },
       error: function (xhr, status, error) {
+
         Swal.fire({
           icon: "error",
           title: status,
@@ -487,7 +485,7 @@
     });
 
     $.ajax({
-      url: "/api/v1/airs/bulk",
+      url: "/api/v1/stations/airs/bulk",
       type: "POST",
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",
@@ -495,7 +493,7 @@
       success: function (response) {
       // Clean up duplicate records
       $.ajax({
-        url: "/api/v1/delete-temps/collection/air",
+        url: "/api/v1/delete-duplicates/collection/air",
         type: "DELETE",
         success: function (response) {
           Swal.fire(

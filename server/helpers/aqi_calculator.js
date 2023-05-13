@@ -158,7 +158,7 @@ class Aqi {
   compute(data) {
     var aqi;
     const type = data.type;
-    var value = data.value;
+    var value = Number(data.value);
 
     const level_1_i_low = this.level_1.i_low;
     const level_2_i_low = this.level_2.i_low;

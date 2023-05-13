@@ -102,7 +102,7 @@ const airRender = {
                 console.error(err);
                 return res.status(500).json({ error: err });
               }
-              let i = 0
+              let i = 0;
               const formattedData = data.map((item) => ({
                 index: (i += 1),
                 _id: item._id,
@@ -155,12 +155,14 @@ const airRender = {
               type: "no2",
             }),
           };
+
           const updateValue = { ...req.body.actionData, aqi: aqi }; // create the new update value
           const air = await Air.findById(id); // get the old record
           await air.updateOne({ $set: updateValue }); // $set make unique value
           res.status(200).json({ ...updateValue, _id: id }); // return the update value
         } catch (error) {
-          res.status(500).json({ message: error });
+          // res.status(500).json({ message: error });
+          res.status(500).json("cac");
         }
         break;
 
@@ -173,8 +175,6 @@ const airRender = {
           res.status(500).json(err);
         }
 
-      // SUB-DATATABLE
-      // case ""
       default:
         break;
     }

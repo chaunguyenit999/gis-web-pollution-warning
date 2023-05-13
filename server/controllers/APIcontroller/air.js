@@ -24,6 +24,10 @@ const airController = {
             value: req.body.so2,
             type: "so2",
           }),
+          aqi_tsp: Aqi.compute({
+            value: req.body.tsp,
+            type: "tsp",
+          }),
           aqi_pm2_5: Aqi.compute({
             value: req.body.pm2_5,
             type: "pm2_5",
