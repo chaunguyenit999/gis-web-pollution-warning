@@ -49,7 +49,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}/admin/dashboard/home`);
 });
 // AUTO UPDATE DATA
-cron.schedule('12  * * * *', () => {
+cron.schedule('1 * * * * *', () => {
   console.log('running 12 hours');
   getWeather()
 },{

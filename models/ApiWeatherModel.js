@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const getAddress = require("../helpers/get_address")
 
 const apiWeatherSchema = new mongoose.Schema({
     latitude:{
@@ -8,6 +9,10 @@ const apiWeatherSchema = new mongoose.Schema({
     longitude:{
         type:Number,
         required:true,
+    },
+    distric_city:{
+        type:String,
+        require:true 
     },
     main:{
         aqi:{
@@ -49,9 +54,33 @@ const apiWeatherSchema = new mongoose.Schema({
             required:true,
         }
     },
-    dt:{
-        type:Date,
-        required:Date.now(),
-    }
+    date:{
+        type: String,
+        default: function () {
+              const now = new Date();
+              return now.toISOString();
+            },
+        }
 })
+
+apiWeatherSchema.pre("save", async function () {
+    // let tsp = this.tsp;
+    // let so2 = this.so2;
+    // let no2 = this.no2;
+    let lat = this.latitude;
+    let long = this.longitude;
+    let getAddressInfo = await getAddress(
+        {
+            lat,
+            long,
+            distric_city: true
+        }
+    )
+
+    if(getAddressInfo) {
+        this.distric_city = distric_city;
+    }
+  });
+
+
 module.exports = mongoose.model('apiweather', apiWeatherSchema);
