@@ -1,5 +1,6 @@
 const axios = require('axios');
 const apiWeather = require("../models/ApiWeatherModel")
+const getAddress = require("../helpers/get_address")
 
 const DISTRICTS =[{name:'Ba Đình', lat: 21.03468, lon: 105.81432 },
                   {name:'Bắc Từ Liêm', lat: 21.06957, lon: 105.75357 },
@@ -36,6 +37,7 @@ const getWeather = async () => {
     i= 0
     for (const district of DISTRICTS) {
       try {
+
         const response = await axios.get(url, {
           params: {
             lat: district.lat,
@@ -43,12 +45,21 @@ const getWeather = async () => {
             appid: "aea8f48cc62acada70be71623f56f3eb",
           }})
           const { coord, list } = response.data;
+          const lat = coord.lat;
+          const long = coord.lon;
+          const addressInfo = await getAddress(
+            {
+              lat,
+              long,
+              full_address: true,
+              city_district : true
+            }
+        );
           const airPollutionData = {
             latitude: coord.lat,
             longitude: coord.lon,
-            main: {
-              aqi: list[0].main.aqi
-            },
+            aqi: list[0].main.aqi,
+            district_city: addressInfo.city_district,
             components: {
               co: list[0].components.no,
               no: list[0].components.co,
