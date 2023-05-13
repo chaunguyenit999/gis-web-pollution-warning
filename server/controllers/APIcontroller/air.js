@@ -5,9 +5,36 @@ const calResultByAqi = require("../../helpers/result_calculator");
 const airController = {
   testAqi: async (req, res) => {
     try {
-      const newAir = new Air(req.body);
-      const savedAir = await newAir.save();
-      res.status(200).json(savedAir);
+      let responeData = {
+        ...req.body,
+        aqi: {
+          aqi_co: Aqi.compute({
+            value: req.body.co,
+            type: "co",
+          }),
+          aqi_no2: Aqi.compute({
+            value: req.body.no2,
+            type: "no2",
+          }),
+          aqi_o3: Aqi.compute({
+            value: req.body.o3,
+            type: "o3",
+          }),
+          aqi_so2: Aqi.compute({
+            value: req.body.so2,
+            type: "so2",
+          }),
+          aqi_pm2_5: Aqi.compute({
+            value: req.body.pm2_5,
+            type: "pm2_5",
+          }),
+          aqi_pm10: Aqi.compute({
+            value: req.body.so2,
+            type: "pm10",
+          }),
+        },
+      };
+      res.status(200).json(responeData);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

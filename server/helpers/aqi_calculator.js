@@ -2,7 +2,7 @@
  * @Description
  * Information based on The United States Environmental Protection Agency (EPA)
  * https://en.wikipedia.org/wiki/Air_quality_index
- * 
+ *
  * Measured value
  * i: The (Air Quality) index,
  * c: The pollutant concentration,
@@ -10,7 +10,7 @@
  * c_high: The  concentration breakpoint that is more than (c),
  * i_low: The  index breakpoint corresponding to (c_low),
  * i_hight: The  index breakpoint corresponding to (c_high).
- * 
+ *
  * AQI thresholds for health effects according to norms
  * 0 <= i <= 50: Good - Level 1,
  * 51 <= i <= 100: Moderate - Level 2,
@@ -27,7 +27,7 @@ class Aqi {
       i_high: 50,
       c_low: {
         o3: 0,
-        pm25: 0,
+        pm2_5: 0,
         pm10: 0,
         co: 0,
         tsp: 0,
@@ -36,7 +36,7 @@ class Aqi {
       },
       c_high: {
         o3: 54,
-        pm25: 12,
+        pm2_5: 12,
         pm10: 54,
         co: 4.4,
         tsp: 15.4,
@@ -49,7 +49,7 @@ class Aqi {
         i_high: 100,
         c_low: {
           o3: 55,
-          pm25: 12.1,
+          pm2_5: 12.1,
           pm10: 55,
           co: 4.5,
           tsp: 15.5,
@@ -58,7 +58,7 @@ class Aqi {
         },
         c_high: {
           o3: 70,
-          pm25: 35.4,
+          pm2_5: 35.4,
           pm10: 154,
           co: 9.4,
           tsp: 40.4,
@@ -71,7 +71,7 @@ class Aqi {
         i_high: 150,
         c_low: {
           o3: 71,
-          pm25: 35.5,
+          pm2_5: 35.5,
           pm10: 155,
           co: 9.5,
           tsp: 40.5,
@@ -80,7 +80,7 @@ class Aqi {
         },
         c_high: {
           o3: 85,
-          pm25: 55.4,
+          pm2_5: 55.4,
           pm10: 254,
           co: 12.4,
           tsp: 65.4,
@@ -93,7 +93,7 @@ class Aqi {
         i_high: 200,
         c_low: {
           o3: 86,
-          pm25: 55.5,
+          pm2_5: 55.5,
           pm10: 255,
           co: 12.5,
           tsp: 65.5,
@@ -102,7 +102,7 @@ class Aqi {
         },
         c_high: {
           o3: 105,
-          pm25: 105.4,
+          pm2_5: 105.4,
           pm10: 354,
           co: 15.4,
           tsp: 150.4,
@@ -115,7 +115,7 @@ class Aqi {
         i_high: 300,
         c_low: {
           o3: 106,
-          pm25: 150.5,
+          pm2_5: 150.5,
           pm10: 355,
           co: 15.5,
           tsp: 150.5,
@@ -124,7 +124,7 @@ class Aqi {
         },
         c_high: {
           o3: 200,
-          pm25: 250.4,
+          pm2_5: 250.4,
           pm10: 424,
           co: 30.4,
           tsp: 250.4,
@@ -137,7 +137,7 @@ class Aqi {
         i_high: 500,
         c_low: {
           o3: 201,
-          pm25: 250.5,
+          pm2_5: 250.5,
           pm10: 425,
           co: 30.5,
           tsp: 250.5,
@@ -146,7 +146,7 @@ class Aqi {
         },
         c_high: {
           o3: 604,
-          pm25: 500.4,
+          pm2_5: 500.4,
           pm10: 604,
           co: 50.4,
           tsp: 500.4,
@@ -156,7 +156,7 @@ class Aqi {
       });
   }
   compute(data) {
-    var aqi
+    var aqi;
     const type = data.type;
     var value = data.value;
 
@@ -189,6 +189,7 @@ class Aqi {
     const level_6_c_high = this.level_6.c_high;
 
     if (type === "o3") {
+      value = Math.round(value);
       if (value >= level_1_c_low.o3 && value <= level_1_c_high.o3) {
         aqi =
           ((level_1_i_high - level_1_i_low) /
@@ -230,49 +231,51 @@ class Aqi {
       }
     }
 
-    if (type === "pm25") {
-      if (value >= level_1_c_low.pm25 && value <= level_1_c_high.pm25) {
+    if (type === "pm2_5") {
+      value = value.toFixed(1);
+      if (value >= level_1_c_low.pm2_5 && value <= level_1_c_high.pm2_5) {
         aqi =
           ((level_1_i_high - level_1_i_low) /
-            (level_1_c_high.pm25 - level_1_c_low.pm25)) *
-            (value - level_1_c_low.pm25) +
+            (level_1_c_high.pm2_5 - level_1_c_low.pm2_5)) *
+            (value - level_1_c_low.pm2_5) +
           level_1_i_low;
-      } else if (value >= level_2_c_low.pm25 && value <= level_2_c_high.pm25) {
+      } else if (value >= level_2_c_low.pm2_5 && value <= level_2_c_high.pm2_5) {
         aqi =
           ((level_2_i_high - level_2_i_low) /
-            (level_2_c_high.pm25 - level_2_c_low.pm25)) *
-            (value - level_2_c_low.pm25) +
+            (level_2_c_high.pm2_5 - level_2_c_low.pm2_5)) *
+            (value - level_2_c_low.pm2_5) +
           level_2_i_low;
-      } else if (value >= level_3_c_low.pm25 && value <= level_3_c_high.pm25) {
+      } else if (value >= level_3_c_low.pm2_5 && value <= level_3_c_high.pm2_5) {
         aqi =
           ((level_3_i_high - level_3_i_low) /
-            (level_3_c_high.pm25 - level_3_c_low.pm25)) *
-            (value - level_3_c_low.pm25) +
+            (level_3_c_high.pm2_5 - level_3_c_low.pm2_5)) *
+            (value - level_3_c_low.pm2_5) +
           level_3_i_low;
-      } else if (value >= level_4_c_low.pm25 && value <= level_4_c_high.pm25) {
+      } else if (value >= level_4_c_low.pm2_5 && value <= level_4_c_high.pm2_5) {
         aqi =
           ((level_4_i_high - level_4_i_low) /
-            (level_4_c_high.pm25 - level_4_c_low.pm25)) *
-            (value - level_4_c_low.pm25) +
+            (level_4_c_high.pm2_5 - level_4_c_low.pm2_5)) *
+            (value - level_4_c_low.pm2_5) +
           level_4_i_low;
-      } else if (value >= level_5_c_low.pm25 && value <= level_5_c_high.pm25) {
+      } else if (value >= level_5_c_low.pm2_5 && value <= level_5_c_high.pm2_5) {
         aqi =
           ((level_5_i_high - level_5_i_low) /
-            (level_5_c_high.pm25 - level_5_c_low.pm25)) *
-            (value - level_5_c_low.pm25) +
+            (level_5_c_high.pm2_5 - level_5_c_low.pm2_5)) *
+            (value - level_5_c_low.pm2_5) +
           level_5_i_low;
-      } else if (value >= level_6_c_low.pm25 && value <= level_6_c_high.pm25) {
+      } else if (value >= level_6_c_low.pm2_5 && value <= level_6_c_high.pm2_5) {
         aqi =
           ((level_6_i_high - level_6_i_low) /
-            (level_6_c_high.pm25 - level_6_c_low.pm25)) *
-            (value - level_6_c_low.pm25) +
+            (level_6_c_high.pm2_5 - level_6_c_low.pm2_5)) *
+            (value - level_6_c_low.pm2_5) +
           level_6_i_low;
-      } else if (value > level_6_c_high.pm25) {
+      } else if (value > level_6_c_high.pm2_5) {
         aqi = level_6_i_high;
       }
     }
 
     if (type === "pm10") {
+      value = Math.round(value);
       if (value >= level_1_c_low.pm10 && value <= level_1_c_high.pm10) {
         aqi =
           ((level_1_i_high - level_1_i_low) /
@@ -315,6 +318,7 @@ class Aqi {
     }
 
     if (type === "co") {
+      value = value.toFixed(1);
       if (value >= level_1_c_low.co && value <= level_1_c_high.co) {
         aqi =
           ((level_1_i_high - level_1_i_low) /
@@ -357,6 +361,7 @@ class Aqi {
     }
 
     if (type === "tsp") {
+      value = value.toFixed(1);
       if (value >= level_1_c_low.tsp && value <= level_1_c_high.tsp) {
         aqi =
           ((level_1_i_high - level_1_i_low) /
@@ -399,6 +404,7 @@ class Aqi {
     }
 
     if (type === "so2") {
+      value = Math.round(value);
       if (value >= level_1_c_low.so2 && value <= level_1_c_high.so2) {
         aqi =
           ((level_1_i_high - level_1_i_low) /
@@ -441,6 +447,7 @@ class Aqi {
     }
 
     if (type === "no2") {
+      value = Math.round(value);
       if (value >= level_1_c_low.no2 && value <= level_1_c_high.no2) {
         aqi =
           ((level_1_i_high - level_1_i_low) /

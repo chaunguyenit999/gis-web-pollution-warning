@@ -20,7 +20,7 @@ const initAPIRoute = (app) => {
   router.put("/airs/:id", airController.updateAirInforById);
   router.delete("/airs/:id", airController.deleteAirInforById);
 
-  router.delete("/test", airController.testAqi);
+  router.post("/test", airController.testAqi);
 
   /**
    * @description CLEAN TEMP DATA
