@@ -58,7 +58,7 @@ const airRender = {
               { "location.state": { $regex: searchValue, $options: "i" } },
               { "location.latitude": searchValue, expectedType: "Double" },
               { "location.longitude": searchValue, expectedType: "Double" },
-              { date: { $regex: searchValue, $options: "i" } },
+              { "date.string_type": { $regex: searchValue, $options: "i" } },
               { tsp: searchValue, expectedType: "Double" },
               { so2: searchValue, expectedType: "Double" },
               { no2: searchValue, expectedType: "Double" },
@@ -73,7 +73,7 @@ const airRender = {
                 {
                   "location.address": { $regex: searchValue, $options: "i" },
                 },
-                { date: { $regex: searchValue, $options: "i" } },
+                { "date.string_type": { $regex: searchValue, $options: "i" } },
               ];
             }
           }
@@ -110,7 +110,7 @@ const airRender = {
                 state: item.location.state,
                 latitude: item.location.latitude,
                 longitude: item.location.longitude,
-                date: new Date(item.date),
+                date: new Date(item.date.string_type),
                 tsp: item.tsp,
                 so2: item.so2,
                 no2: item.no2,

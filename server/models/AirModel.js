@@ -21,10 +21,13 @@ const airQualitySchema = new mongoose.Schema({
     },
   },
   date: {
-    type: String,
-    default: function () {
-      const now = new Date();
-      return now.toISOString();
+    date_type: {
+      type: Date,
+      required: true,
+    },
+    string_type: {
+      type: String,
+      required: true,
     },
   },
   tsp: {

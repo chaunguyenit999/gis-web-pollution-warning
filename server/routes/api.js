@@ -14,9 +14,10 @@ const initAPIRoute = (app) => {
   /**
    * @description AIR STATIONS ROUTES
    */
+  router.get("/stations/airs/filter", airController.filterAirInfor);
+  router.get("/stations/airs", airController.getAllAirInfor);
   router.post("/stations/airs", airController.addAirInfo);
   router.post("/stations/airs/bulk", airController.addManyAirInfo);
-  router.get("/stations/airs", airController.getAllAirInfor);
   router.get("/stations/airs/:id", airController.getAirInforById);
   router.put("/stations/airs/:id", airController.updateAirInforById);
   router.delete("/stations/airs/:id", airController.deleteAirInforById);
@@ -43,8 +44,6 @@ const initAPIRoute = (app) => {
     "/delete-duplicates/collection/air",
     deleteDuplicatates.airCollection
   );
-
-  router.post("/test", airController.testAqi);
 
   return app.use("/api/v1", router);
 };

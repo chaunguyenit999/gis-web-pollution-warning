@@ -2,21 +2,6 @@ const ApiWeather = require("../../models/ApiWeatherModel");
 const Aqi = require("../../helpers/aqi_calculator");
 const calResultByAqi = require("../../helpers/result_calculator");
 
-function splitDate(date) {
-  const options = {
-    timeZone: 'Asia/Bangkok',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
-  };
-  const formatter = new Intl.DateTimeFormat('en-US', options);
-  const dateString = formatter.format(date);
-}
-
 const openweathermapController = {
   addAir: async (req, res) => {
     try {
@@ -99,14 +84,15 @@ const openweathermapController = {
 
   filterAirInfor: async (req, res) => {
     try {
-      const { district_city, lat, long, record_time } = req.query;
+      const { district_city, lat, long, current_date } = req.query;
+      const { fromdate, todate } = req.query;
 
       var filter = {};
       if (district_city) {
         filter = {
           ...filter,
-          "location.district_city": district_city
-        }
+          "location.district_city": { $regex: district_city, $options: "i" },
+        };
       }
 
       if (lat && long) {
@@ -117,10 +103,20 @@ const openweathermapController = {
         };
       }
 
-      if (record_time) {
+      if (fromdate && todate) {
+        filter = {
+          ...filter,
+          "date.date_type": {
+            $gte: new Date(fromdate),
+            $lte: new Date(todate),
+          },
+        };
+      }
+
+      if (current_date) {
         const today = new Date();
-        switch (record_time) {
-          case "current_day":
+        switch (current_date) {
+          case "day":
             filter = {
               ...filter,
               $expr: {
@@ -136,7 +132,7 @@ const openweathermapController = {
               },
             };
             break;
-          case "current_month":
+          case "month":
             filter = {
               ...filter,
               $expr: {
@@ -149,7 +145,7 @@ const openweathermapController = {
               },
             };
             break;
-          case "current_year":
+          case "year":
             filter = {
               ...filter,
               $expr: {
@@ -159,10 +155,11 @@ const openweathermapController = {
               },
             };
             break;
+          // c
           default:
             filter = {
-              ...filter
-            }
+              ...filter,
+            };
         }
       }
 
@@ -219,8 +216,7 @@ const openweathermapController = {
           },
         });
       }
-
-      res.json(formattedData);
+      res.status(200).json(formattedData);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
