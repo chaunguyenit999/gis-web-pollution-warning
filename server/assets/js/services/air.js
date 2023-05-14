@@ -132,9 +132,9 @@
       { data: "tsp", name: "TSP" },
       { data: "so2", name: "SO2" },
       { data: "no2", name: "NO2" },
-      { data: "aqi_tsp", name: "TSP AQI" },
-      { data: "aqi_so2", name: "SO2 AQI" },
-      { data: "aqi_no2", name: "NO2 AQI" },
+      { data: "aqi_tsp", name: "AQI-TSP" },
+      { data: "aqi_so2", name: "AQI-SO2" },
+      { data: "aqi_no2", name: "AQI-NO2" },
       {
         // Thêm cột "Action"
         orderable: false,

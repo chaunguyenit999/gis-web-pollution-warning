@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const airController = require("../controllers/APIcontroller/air");
+const openweathermapController = require("../controllers/APIcontroller/openweathermap");
 const deleteDuplicatates = require("../middlewares/deleteDuplicatates");
 
 const initAPIRoute = (app) => {
@@ -23,7 +24,18 @@ const initAPIRoute = (app) => {
   /**
    * @description AIR OPEN WEATHER ROUTES
    */
-  router.get("/open-sources/openweathermap/airs", airController.getAllAirInfor);
+  router.post(
+    "/open-api/openweathermap/airs/",
+    openweathermapController.addAir
+  );
+  router.get(
+    "/open-api/openweathermap/airs/filter",
+    openweathermapController.filterAirInfor
+  );
+  router.get(
+    "/open-api/openweathermap/airs",
+    openweathermapController.getAllAirInfor
+  );
   /**
    * @description CLEAN TEMP DATA
    */
