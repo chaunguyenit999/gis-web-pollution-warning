@@ -1,36 +1,54 @@
 import MapNav from 'components/MapNav';
-import { pointInLayer } from 'leaflet-pip';
-import L from "leaflet";
 import { Spinner } from 'react-bootstrap';
 import Mapbody from 'components/Mapbody';
 import MapSidebar from 'components/MapSidebar';
 import { useState } from 'react';
 import './Map.scss';
-import administrativeAreas from '../../data/gadm41_VNM_1.json';
-import earthData from '../../data/gadm41_VNM_4.json';
-import waterData2 from '../../data/2a.json';
-import waterData1 from '../../data/1a.json';
-
 
 
 function Map(props) {
     let api = props.data
+    // get unique conscious and year
+    let conscious = {};
+    let year = []
+    let typeOfPollution = []
+    for (let index = 0; index < api.length; index++) {
+        const element = api[index];
+        const lat = element.location.latitude
+        const lng = element.location.longitude
+        const arr = element.location.state.split(" ");
+        arr.shift()
+        const result = arr.join(' ');
+        if (!(result in conscious)) {
+            conscious[result] = { latitude: lat, longitude: lng };
+        }
+        if (!(year.includes(element.date.year))) {
+            year.push(element.date.year)
+        }
+        for (let index = 3; index < Object.keys(element).length; index++) {
+            const chillElement = Object.keys(element)[index];
+            if (!(typeOfPollution.includes(chillElement))) {
+                typeOfPollution.push(chillElement)
+            }
+        }
+    }
+    const [selectedYear, setSelectedLayer] = useState('');
 
-    const [eventUserAddresss, setEventUserAddress] = useState('HaNam');
-    const [eventUserType, setEventUserType] = useState('airs');
+    const [eventUserAddresss, setEventUserAddress] = useState('Tỉnh Hà Nam');
     const [centerLatLng, setcenterLatLng] = useState([20.583520, 105.922990]);
-    const handleOptionChange = (event) => {
-        setEventUserAddress(event.target.value);
-        setcenterLatLng([event.target.options[event.target.selectedIndex].dataset.lat, event.target.options[event.target.selectedIndex].dataset.lng]);
+
+    const handleOptionChange = (event, type) => {
+        if (type === "tỉnh") {
+            setEventUserAddress("Tỉnh " + event.target.value);
+            setcenterLatLng([event.target.options[event.target.selectedIndex].dataset.lat, event.target.options[event.target.selectedIndex].dataset.lng]);
+        }
+        else if (type === "year") {
+            setSelectedLayer(event.target.value)
+        }
     };
 
-    const handleOptionClick = (type) => {
-        setEventUserType(type)
-        props.callApi(type)
-
-    };
     if (Object.keys(api).length === 0) {
-        props.callApi(eventUserType)
+        props.callApi()
         return (
             <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
                 <span className="sr-only">Loading...</span>
@@ -40,58 +58,33 @@ function Map(props) {
         );
     }
 
-    // Khởi tạo layer cho Hà Nam
-let HANAM = administrativeAreas.features.filter((element) => element.properties.VARNAME_1 === 'HaNam');
-let HANAM1 = HANAM[0].geometry.coordinates[0];
-let hanamLayer = L.geoJSON(HANAM1);
-
-// Khởi tạo điểm cần kiểm tra
-let pointToCheck = [20.583520, 105.922990];
-
-console.log(hanamLayer);
-
-    var dataMap;
-    var baseMap;
-
-    function filterDataByAddress(baseMap, dataInput, addressInput) {
-        let conscious;
+    function filterDataByAddress(dataInput, addressInput) {
         const points = [];
-        for (let index = 0; index < baseMap.features.length; index++) {
-            const element = baseMap.features[index];
-
-            if (element.properties.VARNAME_1 === addressInput) {
-                conscious = element.geometry.coordinates[0]
-            }
-        }
 
         for (let index = 0; index < dataInput.length; index++) {
             const element = dataInput[index];
-            if (pointInLayer([element.location.latitude, element.location.longitude], L.layerGroup(conscious))) {
+            if (element.location.state === addressInput) {
                 points.push(element);
             }
         }
         return points
     }
-    if (eventUserType === 'airs') {
-        dataMap = filterDataByAddress(administrativeAreas, api, eventUserAddresss)
-    }
-    else if (eventUserType === 'earths') {
-        baseMap = earthData
-    }
-    else if (eventUserType === 'waters') {
-        baseMap = [waterData1, waterData2]
-    }
-
+    var dataMap = filterDataByAddress(api, eventUserAddresss)
     if (Object.keys(api).length !== 0) {
-        return (
-            <div className='map-container'>
-                <MapNav />
-                <div className="body-wrapper">
-                    <MapSidebar onOptionChange={handleOptionChange} onOptionClick={handleOptionClick} />
-                    <Mapbody geojson={baseMap} data={dataMap} center={centerLatLng} type={eventUserType} />
+        if (selectedYear === '') {
+            setSelectedLayer(year[year.length - 1].toString())
+        }
+        else if (selectedYear !== '') {
+            return (
+                <div className='map-container'>
+                    <MapNav />
+                    <div className="body-wrapper">
+                        <MapSidebar conscious={conscious} onOptionChange={handleOptionChange} listOfYear={year} selectedYear={selectedYear} typeOfPollution={typeOfPollution} />
+                        <Mapbody data={dataMap} listOfYear={year} selectedYear={selectedYear} center={centerLatLng} />
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 

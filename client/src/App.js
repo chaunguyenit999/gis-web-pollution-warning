@@ -1,18 +1,20 @@
 // Libaries
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 // Modules
 import Home from 'pages/Home';
+import axios from 'axios';
 import Map from 'pages/Map';
 import { useState } from 'react';
-import axios from 'axios';
 
 function App() {
-
     const [api, setApi] = useState({});
 
-    function fecthAPi(type) {
-        axios.get(`http://localhost:8080/api/v1/${type}`)
+    function fecthAPi() {
+        axios.get(`https://gis-web-pollution-warning.onrender.com/api/v1/stations/airs`)
+        // axios.get(`http://localhost:8080/api/v1/airs`)
+
+
             .then((response)=> {
                 setApi(response.data);
             })
@@ -24,7 +26,7 @@ function App() {
         <Router>
             <Routes>
                 <Route exact path="/" element={<Home callApi ={fecthAPi}/>} />
-                <Route exact path="/map" element={<Map callApi ={fecthAPi} data={api} />} />
+                <Route exact path="/map" element={<Map callApi ={fecthAPi}  data={api} />} />
             </Routes>
         </Router>
     );

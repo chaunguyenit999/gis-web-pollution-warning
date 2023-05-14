@@ -19,7 +19,15 @@
     }
   }
 }
-
+h2.cus button.accordion-button.collapsed{
+  background-color: rgb(238, 233, 233);
+}
+.accordion-item-toggle-body1{
+  margin-bottom: -10%;
+}
+.sidebar-menu-items .accordion-item-toggle .accordion-item-toggle-body select.form-select{
+  border: 1px solid rgb(219, 214, 214);
+}
 .sidebar-menu-items {
   box-sizing: border-box;
   .menu-items-header {
