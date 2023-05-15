@@ -218,7 +218,7 @@ function Mapbody(props) {
         {/* <LocationMarker /> */}
         <Legend />
       </MapContainer>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>{modalHeader}</Modal.Title>
         </Modal.Header>
