@@ -51,17 +51,17 @@ app.listen(PORT, () => {
 
 // AUTO UPDATE DATA FROM OPEN WEATHER MAP
 // LONG
-cron.schedule(
-  "* * * * *",
-  () => {
-    console.log("running 12 hours", new Date(1684065099*1000));
-    // getWeather();
-  },
-  {
-    scheduled: true,
-    timezone: "Asia/Ho_Chi_Minh",
-  }
-);
+// cron.schedule(
+//   "* * * * *",
+//   () => {
+//     console.log("running 12 hours", new Date(1684065099*1000));
+//     // getWeather();
+//   },
+//   {
+//     scheduled: true,
+//     timezone: "Asia/Ho_Chi_Minh",
+//   }
+// );
 
 // ME
 // cron.schedule(
