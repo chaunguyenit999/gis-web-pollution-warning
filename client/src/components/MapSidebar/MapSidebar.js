@@ -61,7 +61,6 @@ function MapSidebar(props) {
                       </label>
                     </div>
 ))}
-
                   </Accordion.Body>
 
                 </Accordion.Item>
