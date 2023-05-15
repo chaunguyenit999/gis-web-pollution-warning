@@ -32,11 +32,27 @@ function Map(props) {
             }
         }
     }
-    const [selectedYear, setSelectedLayer] = useState('');
+    const typeOfPollutions = {}
+    for (let index = 0; index < typeOfPollution.length; index++) {
+        const element = typeOfPollution[index];
+        typeOfPollutions[element] = {state:'1'}
+    }
 
+    const [pollutionState, setPollutionState] = useState(typeOfPollutions);
+    const [selectedYear, setSelectedLayer] = useState('');
     const [eventUserAddresss, setEventUserAddress] = useState('Tỉnh Hà Nam');
     const [centerLatLng, setcenterLatLng] = useState([20.583520, 105.922990]);
 
+    const handleTypeChange = (event) => {
+        const newState = {...pollutionState, [event.target.id]: {state:event.target.value === '1' ? '0' : '1'}};
+        const list = ['0', '0', '0']
+        if (!Object.values(newState).map(item => item.state).every((val, i) => val === list[i])) {
+            setPollutionState(newState);
+        }
+        else{
+            alert("chọn ít nhất 1 giá trị cho kiểu dữ liệu ")
+        }
+    }
     const handleOptionChange = (event, type) => {
         if (type === "tỉnh") {
             setEventUserAddress("Tỉnh " + event.target.value);
@@ -46,18 +62,6 @@ function Map(props) {
             setSelectedLayer(event.target.value)
         }
     };
-
-    if (Object.keys(api).length === 0) {
-        props.callApi()
-        return (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
-                <span className="sr-only">Loading...</span>
-                <Spinner animation="border" role="status">
-                </Spinner>
-            </div>
-        );
-    }
-
     function filterDataByAddress(dataInput, addressInput) {
         const points = [];
 
@@ -70,17 +74,30 @@ function Map(props) {
         return points
     }
     var dataMap = filterDataByAddress(api, eventUserAddresss)
+    if (Object.keys(api).length === 0) {
+        props.callApi()
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
+                <span className="sr-only">Loading...</span>
+                <Spinner animation="border" role="status">
+                </Spinner>
+            </div>
+        );
+    }
     if (Object.keys(api).length !== 0) {
         if (selectedYear === '') {
             setSelectedLayer(year[year.length - 1].toString())
         }
-        else if (selectedYear !== '') {
+        if (Object.keys(pollutionState).length===0) {
+            setPollutionState(typeOfPollutions)
+        }
+        else if (selectedYear !== '' && Object.keys(pollutionState).length!==0 ) {
             return (
                 <div className='map-container'>
                     <MapNav />
                     <div className="body-wrapper">
-                        <MapSidebar conscious={conscious} onOptionChange={handleOptionChange} listOfYear={year} selectedYear={selectedYear} typeOfPollution={typeOfPollution} />
-                        <Mapbody data={dataMap} listOfYear={year} selectedYear={selectedYear} center={centerLatLng} />
+                        <MapSidebar conscious={conscious} onOptionChange={handleOptionChange} onTypeChange={handleTypeChange} listOfYear={year} selectedYear={selectedYear} typeOfPollutions={pollutionState} />
+                        <Mapbody data={dataMap} listOfYear={year} selectedYear={selectedYear} center={centerLatLng} typeOfPollutions={pollutionState} />
                     </div>
                 </div>
             );
