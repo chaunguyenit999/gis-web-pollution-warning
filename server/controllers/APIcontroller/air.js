@@ -26,44 +26,49 @@ const airController = {
 
   getAllAirInfor: async (req, res) => {
     try {
-      const data = await Air.find().sort({ date: 1 }).exec();
-      const formattedData = [];
-
-      for (const item of data) {
-        const date = new Date(item.date.date_type);
-        formattedData.push({
-          _id: item._id,
-          location: {
-            address: item.location.address,
-            latitude: item.location.latitude,
-            longitude: item.location.longitude,
-            state: item.location.state,
-          },
-          date: {
-            iso: date,
-            day: date.getDate(),
-            month: date.getMonth() + 1,
-            year: date.getFullYear(),
-          },
-          tsp: {
-            value: item.tsp,
-            aqi: item.aqi.tsp,
-            result: calResultByAqi(item.aqi.tsp),
-          },
-          so2: {
-            value: item.so2,
-            aqi: item.aqi.so2,
-            result: calResultByAqi(item.aqi.so2),
-          },
-          no2: {
-            value: item.no2,
-            aqi: item.aqi.no2,
-            result: calResultByAqi(item.aqi.no2),
-          },
+      Air.find()
+        .sort({ date: -1 })
+        .exec(function (err, data) {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err });
+          }
+          const formattedData = [];
+          for (const item of data) {
+            const date = new Date(item.date.date_type);
+            formattedData.push({
+              _id: item._id,
+              location: {
+                address: item.location.address,
+                latitude: item.location.latitude,
+                longitude: item.location.longitude,
+                state: item.location.state,
+              },
+              date: {
+                iso: date,
+                day: date.getDate(),
+                month: date.getMonth() + 1,
+                year: date.getFullYear(),
+              },
+              tsp: {
+                value: item.tsp,
+                aqi: item.aqi.tsp,
+                result: calResultByAqi(item.aqi.tsp),
+              },
+              so2: {
+                value: item.so2,
+                aqi: item.aqi.so2,
+                result: calResultByAqi(item.aqi.so2),
+              },
+              no2: {
+                value: item.no2,
+                aqi: item.aqi.no2,
+                result: calResultByAqi(item.aqi.no2),
+              },
+            });
+          }
+          res.status(200).json(formattedData);
         });
-      }
-
-      res.status(200).json(formattedData);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -102,7 +107,7 @@ const airController = {
           ...filter,
           "date.date_type": {
             $gte: new Date(fromdate),
-            $lte: new Date(todate)
+            $lte: new Date(todate),
           },
         };
       }
@@ -151,52 +156,54 @@ const airController = {
             break;
           default:
             filter = {
-              ...filter
-            }
+              ...filter,
+            };
         }
       }
 
-      const data = await Air.find(filter).sort({ "date.date_type": -1 });
-      const formattedData = [];
-
-      for (const item of data) {
-        const formatDate = new Date(item.date.date_type);
-
-        formattedData.push({
-          _id: item._id,
-          location: {
-            address: item.location.address,
-            state: item.location.state,
-            latitude: item.location.latitude,
-            longitude: item.location.longitude,
-          },
-          date: {
-            iso: formatDate,
-            year: formatDate.getFullYear(),
-            month: formatDate.getMonth() + 1,
-            day: formatDate.getDate(),
-            hour: formatDate.getHours(),
-            minute: formatDate.getMinutes(),
-          },
-          tsp: {
-            value: item.tsp,
-            aqi: item.aqi.tsp,
-            result: calResultByAqi(item.aqi.tsp),
-          },
-          so2: {
-            value: item.so2,
-            aqi: item.aqi.so2,
-            result: calResultByAqi(item.aqi.so2),
-          },
-          no2: {
-            value: item.no2,
-            aqi: item.aqi.no2,
-            result: calResultByAqi(item.aqi.no2),
-          },
-        });
-      }
-
-      res.status(200).json(formattedData);
+      Air.find(filter)
+        .sort({ "date.date_type": -1 })
+        .exec(function (err, data) {
+          if (err) {
+            console.error(err);
+            return res.status(500).json({ error: err });
+          }
+          const formattedData = [];
+          for (const item of data) {
+            const date = new Date(item.date.date_type);
+            formattedData.push({
+              _id: item._id,
+              location: {
+                address: item.location.address,
+                latitude: item.location.latitude,
+                longitude: item.location.longitude,
+                state: item.location.state,
+              },
+              date: {
+                iso: date,
+                day: date.getDate(),
+                month: date.getMonth() + 1,
+                year: date.getFullYear(),
+              },
+              tsp: {
+                value: item.tsp,
+                aqi: item.aqi.tsp,
+                result: calResultByAqi(item.aqi.tsp),
+              },
+              so2: {
+                value: item.so2,
+                aqi: item.aqi.so2,
+                result: calResultByAqi(item.aqi.so2),
+              },
+              no2: {
+                value: item.no2,
+                aqi: item.aqi.no2,
+                result: calResultByAqi(item.aqi.no2),
+              },
+            });
+          }
+          res.status(200).json(formattedData);
+        });;
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

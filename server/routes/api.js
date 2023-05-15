@@ -25,17 +25,15 @@ const initAPIRoute = (app) => {
   /**
    * @description AIR OPEN WEATHER ROUTES
    */
-  router.post(
-    "/open-api/openweathermap/airs/",
-    openweathermapController.addAir
-  );
-  router.get(
-    "/open-api/openweathermap/airs/filter",
-    openweathermapController.filterAirInfor
-  );
+  // get all
   router.get(
     "/open-api/openweathermap/airs",
     openweathermapController.getAllAirInfor
+  );
+  // filter
+  router.get(
+    "/open-api/openweathermap/airs/filter",
+    openweathermapController.filterAirInfor
   );
   /**
    * @description CLEAN TEMP DATA
