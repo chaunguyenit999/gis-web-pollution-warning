@@ -252,7 +252,7 @@ const airController = {
     } catch (error) {
       res.status(500).json(err);
     }
-  },
+  }
 };
 
 module.exports = airController;
