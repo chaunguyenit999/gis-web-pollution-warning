@@ -88,19 +88,24 @@ function Map(props) {
             setSelectedMonth(event.target.value)
         }
     };
-    // function filterDataByAddress(dataInput, addressInput) {
-    //     const points = [];
+    function filterDataByAddress(dataInput, addressInput) {
+        const points = [];
 
-    //     for (let index = 0; index < dataInput.length; index++) {
-    //         const element = dataInput[index];
-    //         if (element.location.state === addressInput) {
-    //             points.push(element);
-    //         }
-    //     }
-    //     return points
-    // }
-    // var dataMap = filterDataByAddress(api, eventUserAddresss)
-    var dataMap = api
+        for (let index = 0; index < dataInput.length; index++) {
+            const element = dataInput[index];
+            if (element.location.state === addressInput) {
+                points.push(element);
+            }
+        }
+        return points
+    }
+    var dataMap;
+    if (selectedDataType === 'excel') {
+    dataMap = filterDataByAddress(api, eventUserAddresss)
+    }
+    else if (selectedDataType === 'weatherApi') {
+    dataMap = api
+    }
     if (Object.keys(api).length === 0) {
         props.callApi(selectedDataType)
         return (
