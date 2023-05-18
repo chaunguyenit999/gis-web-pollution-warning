@@ -9,17 +9,31 @@ import { useState } from 'react';
 
 function App() {
     const [api, setApi] = useState({});
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
 
-    function fecthAPi() {
-        axios.get(`https://gis-web-pollution-warning.onrender.com/api/v1/stations/airs`)
-            // axios.get(`http://localhost:8080/api/v1/stations/airs/`)x
-            .then((response) => {
-                setApi(response.data);
-            })
-            .catch(error => console.error(error))
+    const formattedDate = `${year}-${month}-${day}`;
 
+    function fecthAPi(dataType) {
+        if (dataType === '') { setApi({}) }
+        else if (dataType === 'excel') {
+            axios.get(`https://environment-admin.onrender.com/api/v1/stations/airs/`)
+                // axios.get(`http://localhost:8080/api/v1/stations/airs/`)
+                .then((response) => {
+                    setApi(response.data);
+                })
+                .catch(error => console.error(error))
+        }
+        else if (dataType === 'weatherApi') {
+            axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=${formattedDate}`)
+                .then((response) => {
+                    setApi(response.data);
+                })
+                .catch(error => console.error(error))
+        }
     }
-
     return (
         <Router>
             <Routes>
