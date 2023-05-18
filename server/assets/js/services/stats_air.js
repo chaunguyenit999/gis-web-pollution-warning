@@ -60,115 +60,112 @@
     };
 
     function barChartShow_avgAllLocationOfState_allMonthInYear() {
-        $.ajax({
-          url: `/api/v1/stations/airs/filter`,
-          type: "GET",
-          data: {
-            fromdate: year_choice.val() + "-01-01",
-            todate: year_choice.val() + "-12-31",
-          },
-          dataType: "json",
-          success: function (res) {
-            // Biến đổi dữ liệu
-            var months = {};
-            fetchValues = [];
+      $.ajax({
+        url: `/api/v1/stations/airs/filter`,
+        type: "GET",
+        data: {
+          fromdate: year_choice.val() + "-01-01",
+          todate: year_choice.val() + "-12-31",
+        },
+        dataType: "json",
+        success: function (res) {
+          var listObject = res.reduce(function (accumulator, item) {
+            var aqi_val = measure_choice(item, "aqi");
+            var measured_val = measure_choice(item, "measure");
+            var month = item.date.month;
 
-            res.forEach(function (item) {
-              var month = item.date.month;
-              var value = measure_choice(item, "measure");
-              var aqi = measure_choice(item, "aqi");
-
-              if (!months[month]) {
-                months[month] = {
-                  count: 0,
-                  sumValue: 0,
-                  sumAqi: 0,
-                };
-              }
-
-              months[month].count++;
-              months[month].sumValue += value;
-              months[month].sumAqi += aqi;
+            var existingMonth = accumulator.find(function (obj) {
+              return obj.month === month;
             });
-            for (var month in months) {
-              var count = months[month].count;
-              var avgValue = months[month].sumValue / count;
-              var avgAqi = months[month].sumAqi / count;
 
-              fetchValues.push([
-                Number(avgValue.toFixed(1)),
-                Math.round(avgAqi),
-                "Tháng " + month,
-              ]);
+            if (existingMonth) {
+              existingMonth.aqi_total += aqi_val;
+              existingMonth.measured_total += measured_val;
+              existingMonth.count++;
+            } else {
+              accumulator.push({
+                aqi_total: aqi_val,
+                measured_total: measured_val,
+                month: month,
+                count: 1,
+              });
             }
-            sourceList = [["aqi", "measured_val", "month"], ...fetchValues];
 
-            // Thay đổi
-            myBarChart.setOption({
-              dataset: {
-                source: sourceList,
-              },
-              series: [
-                {
-                  type: "bar",
-                  encode: {
-                    // Map the "Value" source column to X axis.
-                    x: "measured_val",
-                    // Map the "month" source column to Y axis
-                    y: "month",
-                  },
+            return accumulator;
+          }, []);
+
+          listObject.forEach(function (item) {
+            item.aqi_avg = item.aqi_total / item.count;
+            item.measured_avg = item.measured_total / item.count;
+            delete item.aqi_total;
+            delete item.measured_total;
+            delete item.count;
+          });
+
+          var sourceList = listObject.map(function (obj) {
+            return [obj.aqi_avg, obj.measured_avg, obj.month];
+          });
+
+          sourceList.unshift(["aqi", "measured_val", "month"]);
+
+          myBarChart.setOption({
+            dataset: {
+              source: sourceList,
+            },
+            series: [
+              {
+                type: "bar",
+                encode: {
+                  x: "measured_val",
+                  y: "month",
                 },
-              ],
-              ...baroption,
-            });
-          },
-        });
+              },
+            ],
+            ...baroption,
+          });
+        },
+      });
     }
 
     function barChartShow_eachLocationOfState_allMonthInYear() {
-        $.ajax({
-          url: `/api/v1/stations/airs/filter`,
-          type: "GET",
-          data: {
-            fromdate: year_choice.val() + "-01-01",
-            todate: year_choice.val() + "-12-31",
-            lat: location_choice.val().split("_")[0],
-            long: location_choice.val().split("_")[1],
-          },
-          dataType: "json",
-          success: function (res) {
-            // Biến đổi dữ liệu
-            fetchValues = [];
+      $.ajax({
+        url: `/api/v1/stations/airs/filter`,
+        type: "GET",
+        data: {
+          fromdate: year_choice.val() + "-01-01",
+          todate: year_choice.val() + "-12-31",
+          lat: location_choice.val().split("_")[0],
+          long: location_choice.val().split("_")[1],
+        },
+        dataType: "json",
+        success: function (res) {
+          var sourceList = res.map(function (item) {
+            var aqi_val = measure_choice(item, "aqi");
+            var measured_val = measure_choice(item, "measure");
+            var month = "Tháng " + item.date.month;
 
-            res.forEach(function (item) {
-              var measured_value = measure_choice(item, "measure");
-              var aqi_value = measure_choice(item, "aqi");
-              var month = "Tháng " + item.date.month;
+            return [aqi_val, measured_val, month];
+          });
 
-              fetchValues.push([measured_value, aqi_value, month]);
-            });
+          sourceList.unshift(["aqi", "measured_val", "month"]);
 
-            sourceList = [["aqi", "measured_val", "month"], ...fetchValues];
-            // Thay đổi
-            myBarChart.setOption({
-              dataset: {
-                source: sourceList,
-              },
-              series: [
-                {
-                  type: "bar",
-                  encode: {
-                    // Map the "Value" source column to X axis.
-                    x: "measured_val",
-                    // Map the "month" source column to Y axis
-                    y: "month",
-                  },
+          myBarChart.setOption({
+            dataset: {
+              source: sourceList,
+            },
+            series: [
+              {
+                type: "bar",
+                encode: {
+                  x: "measured_val",
+                  y: "month",
                 },
-              ],
-              ...baroption,
-            });
-          },
-        });
+              },
+            ],
+            ...baroption,
+          });
+        },
+      });
     }
 
     function barChartShow_avgAllLocationOfState_allDayInMonth() {
@@ -181,39 +178,45 @@
         },
         dataType: "json",
         success: function (res) {
-          // Biến đổi dữ liệu
-          var days = {};
-          fetchValues = [];
-
-          res.forEach(function (item) {
-            var value = measure_choice(item, "measure");
-            var aqi = measure_choice(item, "aqi");
+          var listObject = res.reduce(function (accumulator, item) {
+            var aqi_val = measure_choice(item, "aqi");
+            var measured_val = measure_choice(item, "measure");
             var day = item.date.day;
 
-            if (!days[day]) {
-              days[day] = {
-                count: 0,
-                sumValue: 0,
-                sumAqi: 0,
-              };
+            var existingDay = accumulator.find(function (obj) {
+              return obj.day === day;
+            });
+
+            if (existingDay) {
+              existingDay.aqi_total += aqi_val;
+              existingDay.measured_total += measured_val;
+              existingDay.count++;
+            } else {
+              accumulator.push({
+                aqi_total: aqi_val,
+                measured_total: measured_val,
+                day: day,
+                count: 1,
+              });
             }
 
-            days[day].count++;
-            days[day].sumValue += value;
-            days[day].sumAqi += aqi;
+            return accumulator;
+          }, []);
+
+          listObject.forEach(function (item) {
+            item.aqi_avg = item.aqi_total / item.count;
+            item.measured_avg = item.measured_total / item.count;
+            delete item.aqi_total;
+            delete item.measured_total;
+            delete item.count;
           });
-          for (var day in days) {
-            var count = days[day].count;
-            var avgValue = days[day].sumValue / count;
-            var avgValueAqi = days[day].sumAqi / count;
 
-            fetchValues.push([avgValue, avgValueAqi, "Ngày" + day]);
-          }
+          var sourceList = listObject.map(function (obj) {
+            return [obj.aqi_avg, obj.measured_avg, obj.day];
+          });
 
-          sourceList = [["aqi", "measured_val", "day"], ...fetchValues];
+          sourceList.unshift(["aqi", "measured_val", "day"]);
 
-          console.log(sourceList);
-          // Thay đổi
           myBarChart.setOption({
             dataset: {
               source: sourceList,
@@ -222,9 +225,7 @@
               {
                 type: "bar",
                 encode: {
-                  // Map the "Value" source column to X axis.
                   x: "measured_val",
-                  // Map the "day" source column to Y axis
                   y: "day",
                 },
               },
@@ -235,51 +236,45 @@
       });
     }
 
-    function barChartShow_eachAllLocationOfState_allDayInMonth() {
-        $.ajax({
-          url: `/api/v1/stations/airs/filter`,
-          type: "GET",
-          data: {
-            fromdate: year_choice.val() + "-" + month_choice.val() + "-01",
-            todate: year_choice.val() + "-" + month_choice.val() + "-31",
-            lat: location_choice.val().split("_")[0],
-            long: location_choice.val().split("_")[1],
-          },
-          dataType: "json",
-          success: function (res) {
-            fetchValues = [];
+    function barChartShow_eachLocationOfState_allDayInMonth() {
+      $.ajax({
+        url: `/api/v1/stations/airs/filter`,
+        type: "GET",
+        data: {
+          fromdate: year_choice.val() + "-" + month_choice.val() + "-01",
+          todate: year_choice.val() + "-" + month_choice.val() + "-31",
+          lat: location_choice.val().split("_")[0],
+          long: location_choice.val().split("_")[1],
+        },
+        dataType: "json",
+        success: function (res) {
+          var sourceList = res.map(function (item) {
+            var aqi_val = measure_choice(item, "aqi");
+            var measured_val = measure_choice(item, "measure");
+            var day = "Ngày " + item.date.day;
 
-            res.forEach(function (item) {
-              var measured_value = measure_choice(item, "measure");
-              var aqi_value = measure_choice(item, "aqi");
-              var day = "Ngày " + item.date.day;
+            return [aqi_val, measured_val, day];
+          });
 
-              fetchValues.push([measured_value, aqi_value, day]);
-            });
+          sourceList.unshift(["aqi", "measured_val", "day"]);
 
-            sourceList = [["aqi", "measured_val", "day"], ...fetchValues];
-
-            console.log(sourceList);
-            // Thay đổi
-            myBarChart.setOption({
-              dataset: {
-                source: sourceList,
-              },
-              series: [
-                {
-                  type: "bar",
-                  encode: {
-                    // Map the "Value" source column to X axis.
-                    x: "measured_val",
-                    // Map the "day" source column to Y axis
-                    y: "day",
-                  },
+          myBarChart.setOption({
+            dataset: {
+              source: sourceList,
+            },
+            series: [
+              {
+                type: "bar",
+                encode: {
+                  x: "measured_val",
+                  y: "day",
                 },
-              ],
-              ...baroption,
-            });
-          },
-        });
+              },
+            ],
+            ...baroption,
+          });
+        },
+      });
     }
 
     // Default chart when component loaded
@@ -292,12 +287,9 @@
         // Thực hiện hành động khi một thẻ select thay đổi
         var location_choice_val = location_choice.val();
         var daterange_choice_val = daterange_choice.val();
-        var month_choice_val = month_choice.val();
 
         // Gọi hàm hoặc thực hiện các hành động khác tại đây
         if (daterange_choice_val == "all_month_in_year") {
-            // rest mặc định giá trị tháng về 1
-            month_choice_val = 1;
             // ui-logic
             location_choice.parent().removeClass("col-md-4");
             location_choice.parent().addClass("col-md-6");
@@ -321,7 +313,7 @@
           if (location_choice_val == "avg_all_location_in_state") {
             barChartShow_avgAllLocationOfState_allDayInMonth();
           } else {
-            barChartShow_eachAllLocationOfState_allDayInMonth();
+            barChartShow_eachLocationOfState_allDayInMonth();
           }
         }
     });
@@ -330,7 +322,7 @@
         if (location_choice.val() == "avg_all_location_in_state") {
           barChartShow_avgAllLocationOfState_allDayInMonth();
         } else {
-          barChartShow_eachAllLocationOfState_allDayInMonth();
+          barChartShow_eachLocationOfState_allDayInMonth();
         }
     });
 
