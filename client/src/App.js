@@ -17,7 +17,9 @@ function App() {
     const formattedDate = `${year}-${month}-${day}`;
 
     function fecthAPi(dataType) {
-        if (dataType === '') { setApi({}) }
+        if (dataType === '') {
+            setApi({})
+        }
         else if (dataType === 'excel') {
             axios.get(`https://environment-admin.onrender.com/api/v1/stations/airs/`)
                 // axios.get(`http://localhost:8080/api/v1/stations/airs/`)

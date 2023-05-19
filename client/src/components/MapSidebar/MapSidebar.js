@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 function MapSidebar(props) {
   const handleDataTypeChange = (type) => {
-    props.onDataTypeChange(type);
+    if (!(type === props.selectedDataType)){
+    props.onDataTypeChange(type);}
   };
   const handleOptionChange = (event, type) => {
     props.onOptionChange(event, type);
@@ -16,7 +17,7 @@ function MapSidebar(props) {
   return (
     <div className="body-sidebar-wrapper">
       <div className="sidebar-logo">
-        <Link to="/">HUMG - IT</Link>
+        <Link to="/" onClick={() => handleDataTypeChange("")}>HUMG - IT</Link>
       </div>
       <div className="sidebar-menu-items">
         {props.selectedDataType === 'excel' && (
