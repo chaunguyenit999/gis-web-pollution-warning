@@ -2,7 +2,7 @@
  * @description
  * css_path and script_path start from "pages" folder
  */
-
+const jwt = require("jsonwebtoken");
 const description = "Gis Web Management";
 const ApiWeather = require("../../models/ApiWeatherModel");
 

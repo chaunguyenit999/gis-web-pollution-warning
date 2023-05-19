@@ -8,6 +8,7 @@ const bodyparser = require("body-parser");
 const helmet = require("helmet");
 const cors = require("cors");
 const cron = require("node-cron");
+const cookieParser = require("cookie-parser");
 
 // MODULES
 const connectDB = require("./configs/database");
@@ -24,6 +25,7 @@ dotenv.config({ path: "config.env" });
 connectDB();
 
 // USE MIDDLEWARE LIBARIES
+app.use(cookieParser());
 app.use(morgan("dev")); // log requests in terminal
 app.use(bodyparser.json()); // converts the request into an object which is called 'body.req'
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -40,7 +42,7 @@ app.use(express.static(path.resolve(__dirname, "assets"))); // load assets
 initWebRoute(app); // web routes
 initAPIRoute(app); // api routes
 // 404 route
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.render("pages/404-error.ejs", { layout: false });
 })
 
