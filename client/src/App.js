@@ -29,7 +29,7 @@ function App() {
                 .catch(error => console.error(error))
         }
         else if (dataType === 'weatherApi') {
-            axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=${formattedDate}`)
+            axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=${formattedDate}&todate=${formattedDate}`)
                 .then((response) => {
                     setApi(response.data);
                 })

@@ -18,7 +18,9 @@ function Map(props) {
 
     const handleDataTypeChange = (dataType) => {
         setSelectedDataType(dataType)
+        setPollutionState([])
         props.callApi('')
+        api = props.data
         if (dataType === 'excel') {
             setcenterLatLng([20.583520, 105.922990])
         }

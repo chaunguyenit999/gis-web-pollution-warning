@@ -1,9 +1,9 @@
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, GeoJSON } from 'react-leaflet';
 import { useRef, useEffect, useState } from 'react';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "./Mapbody.scss";
-import Legend from "./Legend";
+import Legend from 'components/Legend';
 import blueMarker from "../.././assets/images/marker-icon-2x-blue.png";
 import greenMarker from "../.././assets/images/marker-icon-2x-green.png";
 import yellowMarker from "../.././assets/images/marker-icon-2x-yellow.png";
@@ -17,6 +17,7 @@ import orangeFace from "../.././assets/images/ic-face-orange.svg";
 import greyFace from "../.././assets/images/ic-face-grey.svg";
 import redFace from "../.././assets/images/ic-face-red.svg";
 import violetFace from "../.././assets/images/ic-face-purple.svg";
+import test from "../../data/gadm41_VNM_4";
 
 
 import recommendationGreenSport from "../.././assets/images/recommendationGreenSport.svg";
@@ -567,7 +568,8 @@ function Mapbody(props) {
           />
           {markersDisplay}
           {/* <LocationMarker /> */}
-          <Legend />
+          <Legend/>
+        <GeoJSON data={test}  pathOptions={{ color: 'green'}}></GeoJSON>
         </MapContainer>
         <Modal show={show} onHide={handleClose} size="lg" centered >
           <Modal.Header closeButton style={{ backgroundColor: modalColor[0], color: modalColor[1] }}>
