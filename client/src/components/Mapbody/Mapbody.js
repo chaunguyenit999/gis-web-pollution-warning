@@ -555,11 +555,25 @@ function Mapbody(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.center]);
   // end handle select tỉnh thành
-  function test1(listGeojson) {
+  function filetrGeoJson(listGeojson) {
+    let listReturn = [];
+    for (let index = 0; index < listGeojson.features.length; index++) {
+      const element = listGeojson.features[index];
+      if (element.properties.VARNAME_3 ==="AnDo") {
+        listReturn.push(
+          <GeoJSON data={element.geometry} pathOptions={{ color: 'red'}}></GeoJSON>
 
+        )
+      }
+      else {
+        listReturn.push(
+          <GeoJSON data={element.geometry} pathOptions={{ color: 'green'}}></GeoJSON>
+        )
+      }
+    }
+    return listReturn
   }
-  let test = test1(banDoHanhChinhHanam)
-
+  let geoJsonBanDoHanhChinhHanam = filetrGeoJson(banDoHanhChinhHanam)
   if (props.selectedDataType==='excel') {
     const markers = marker(props.data,props.selectedDataType, props.listOfYear, props.listOfMonth);
      const markersDisplay  = markers[props.selectedYear][props.selectedMonth]
@@ -571,9 +585,9 @@ function Mapbody(props) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {markersDisplay}
+          {geoJsonBanDoHanhChinhHanam}
           {/* <LocationMarker /> */}
           <Legend/>
-        <GeoJSON data={banDoHanhChinhHanam} pathOptions={{ color: 'green'}}></GeoJSON>
         </MapContainer>
         <Modal show={show} onHide={handleClose} size="lg" centered >
           <Modal.Header closeButton style={{ backgroundColor: modalColor[0], color: modalColor[1] }}>
