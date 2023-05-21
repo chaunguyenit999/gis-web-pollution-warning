@@ -17,7 +17,7 @@ import orangeFace from "../.././assets/images/ic-face-orange.svg";
 import greyFace from "../.././assets/images/ic-face-grey.svg";
 import redFace from "../.././assets/images/ic-face-red.svg";
 import violetFace from "../.././assets/images/ic-face-purple.svg";
-import test from "../../data/gadm41_VNM_4";
+import banDoHanhChinhHanam from "../../data/gadm41_VNM_4.json";
 
 
 import recommendationGreenSport from "../.././assets/images/recommendationGreenSport.svg";
@@ -555,6 +555,10 @@ function Mapbody(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.center]);
   // end handle select tỉnh thành
+  function test1(listGeojson) {
+
+  }
+  let test = test1(banDoHanhChinhHanam)
 
   if (props.selectedDataType==='excel') {
     const markers = marker(props.data,props.selectedDataType, props.listOfYear, props.listOfMonth);
@@ -569,7 +573,7 @@ function Mapbody(props) {
           {markersDisplay}
           {/* <LocationMarker /> */}
           <Legend/>
-        <GeoJSON data={test}  pathOptions={{ color: 'green'}}></GeoJSON>
+        <GeoJSON data={banDoHanhChinhHanam} pathOptions={{ color: 'green'}}></GeoJSON>
         </MapContainer>
         <Modal show={show} onHide={handleClose} size="lg" centered >
           <Modal.Header closeButton style={{ backgroundColor: modalColor[0], color: modalColor[1] }}>

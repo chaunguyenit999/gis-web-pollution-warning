@@ -1,12 +1,28 @@
 import "./MapSidebar.scss";
 import { Accordion, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 
 
 function MapSidebar(props) {
+  const [status, setStatus] = useState(true);
+
   const handleDataTypeChange = (type) => {
-    if (!(type === props.selectedDataType)){
-    props.onDataTypeChange(type);}
+    if (!(type === props.selectedDataType)) {
+      props.onDataTypeChange(type)
+      setStatus(false)
+
+      let seconds = 5;
+      const timer = setInterval(() => {
+        alert("thử lại sau ", {seconds}," giây");
+        seconds--;
+
+        if (seconds < 0) {
+      setStatus(true)
+          clearInterval(timer);
+        }
+      }, 1000);
+    }
   };
   const handleOptionChange = (event, type) => {
     props.onOptionChange(event, type);
@@ -47,7 +63,7 @@ function MapSidebar(props) {
         <div className="menu-items-header">DỮ LIỆU QUAN TRẮC</div>
         <Accordion>
           <Accordion.Item eventKey="0" className="accordion-item-toggle">
-            <Accordion.Header onClick={() => handleDataTypeChange("excel")}>Chất lượng không khí</Accordion.Header>
+            <Accordion.Header onClick={() => status ? handleDataTypeChange("excel"): null}>Chất lượng không khí</Accordion.Header>
             <Accordion.Body className="accordion-item-toggle-body">
               <p>dữ liệu hiện thị cho:<br /> tháng {props.selectedMonth} năm {props.selectedYear}<br /> {Object.keys(props.typeOfPollutions).filter(key => props.typeOfPollutions[key].state === "1").map(key => key.toUpperCase()).join(", ")} </p>
               <Form.Select onChange={(event) => handleOptionChange(event, "year")}>
@@ -87,7 +103,7 @@ function MapSidebar(props) {
         <div className="menu-items-header">DỮ LIỆU API TÍCH HỢP</div>
         <Accordion>
           <Accordion.Item eventKey="2" className="accordion-item-toggle">
-            <Accordion.Header onClick={() => handleDataTypeChange("weatherApi")}>Dữ liệu từ weather api</Accordion.Header>
+            <Accordion.Header onClick={() => status ? handleDataTypeChange("weatherApi"): null}>Dữ liệu từ weather api</Accordion.Header>
             {/* <Accordion.Body>
               <p>Dữ liệu từ weather api</p>
             </Accordion.Body> */}

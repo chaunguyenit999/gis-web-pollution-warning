@@ -16,25 +16,29 @@ function App() {
 
     const formattedDate = `${year}-${month}-${day}`;
 
-    function fecthAPi(dataType) {
+    const fecthAPi = (dataType) => {
         if (dataType === '') {
             setApi({})
+            return;
         }
-        else if (dataType === 'excel') {
+        if (dataType === 'weatherApi') {
+            axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=${formattedDate}&todate=${formattedDate}`)
+                .then((response) => {
+                    setApi(response.data);
+                })
+                .catch(error => console.error(error))
+            return;
+
+        }if (dataType === 'excel') {
             axios.get(`https://environment-admin.onrender.com/api/v1/stations/airs/`)
                 // axios.get(`http://localhost:8080/api/v1/stations/airs/`)
                 .then((response) => {
                     setApi(response.data);
                 })
                 .catch(error => console.error(error))
+            return;
         }
-        else if (dataType === 'weatherApi') {
-            axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=${formattedDate}&todate=${formattedDate}`)
-                .then((response) => {
-                    setApi(response.data);
-                })
-                .catch(error => console.error(error))
-        }
+
     }
     return (
         <Router>
