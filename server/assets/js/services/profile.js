@@ -11,18 +11,24 @@
       password: password,
     };
 
-    console.log(data);
-
     $.ajax({
-      url: "/admin/login/auth", 
-      type: "POST",
+      url: "/admin/config/profile-update",
+      type: "PUT",
       data: data,
       success: function (data) {
-
+        Swal.fire(
+          "Cập nhật thành công!",
+          "Tài khoản của bạn đã được cập nhật",
+          "success"
+        );
       },
-      error: function () {
-        // Xử lý khi xác thực thất bại
-        alert("Cập nhật thất bại!");
+      error: function (xhr, status, error) {
+        Swal.fire({
+          icon: "error",
+          title: status,
+          text: error,
+          footer: '<a href="">Hãy nhập lại thông tin chính xác!</a>',
+        });
       },
     });
   });

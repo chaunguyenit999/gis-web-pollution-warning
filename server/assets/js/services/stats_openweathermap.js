@@ -17,7 +17,7 @@
         return item.o3.value;
       }
       if (measured_choice.val() == "pm2_5") {
-        return item.o3.value;
+        return item.pm2_5.value;
       }
       if (measured_choice.val() == "pm10") {
         return item.pm10.value;
@@ -37,7 +37,7 @@
         return item.o3.aqi;
       }
       if (measured_choice.val() == "pm2_5") {
-        return item.o3.aqi;
+        return item.pm2_5.aqi;
       }
       if (measured_choice.val() == "pm10") {
         return item.pm10.aqi;

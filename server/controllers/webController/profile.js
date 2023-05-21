@@ -2,6 +2,7 @@
  * @description
  * css_path and script_path start from "pages" folder
  */
+const User = require("../../models/UserModel");
 
 const description = "Gis Web Management";
 
@@ -38,8 +39,23 @@ const profileRender = {
   },
 
   updateProfile: async (req, res) => {
-    
-  }
-};
+    try {
+      const _id = req.currentUser._id;
+      const { fullname, email, password } = req.body;
+      const updateData = {
+        fullname,
+        email,
+        password,
+      };
+      const user = await User.findById(_id);
+      await user.updateOne({ $set: updateData }); // $set make unique value
+      res.status(200).json("sucessfully");
+    } catch {
+      res.status(500).json(err);
+    }
+}
+
+
+}
 
 module.exports = profileRender;

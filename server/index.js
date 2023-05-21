@@ -65,7 +65,20 @@ app.listen(PORT, () => {
 //   }
 // );
 
-// ME
+// CHẠY SAU 12H
+// cron.schedule(
+//   "0 */12 * * *",
+//   () => {
+//     console.log("running every 12 hours");
+//     getWeather();
+//   },
+//   {
+//     scheduled: true,
+//     timezone: "Asia/Ho_Chi_Minh",
+//   }
+// );
+
+// CHẠY SAU 1 PHÚT
 // cron.schedule(
 //   "1 * * * * *",
 //   () => {

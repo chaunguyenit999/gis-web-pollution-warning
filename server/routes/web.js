@@ -63,8 +63,8 @@ const initAPIRoute = (app) => {
    * @description CONFIG ROUTES
    */
   router.get("/config/profile", userAuth.requireAuth, profileRender.getProfilePage);
-  router.post(
-    "/profile-update",
+  router.put(
+    "/config/profile-update",
     userAuth.requireAuth,
     profileRender.updateProfile
   );
