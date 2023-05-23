@@ -201,7 +201,7 @@ function Mapbody(props) {
                 data={elementGeojson.geometry}
                 color='black'
                 fillColor="blue"
-                fillOpacity={0.15} />
+                fillOpacity={0.1} />
             )
           }
         }
