@@ -17,7 +17,7 @@ import orangeFace from "../.././assets/images/ic-face-orange.svg";
 import greyFace from "../.././assets/images/ic-face-grey.svg";
 import redFace from "../.././assets/images/ic-face-red.svg";
 import violetFace from "../.././assets/images/ic-face-purple.svg";
-import banDoHanhChinhHanam from "../../data/gadm41_VNM_4.json";
+import banDoHanhChinhHanam from "../../data/gadm41_VNM_HaNam.json";
 
 
 import recommendationGreenSport from "../.././assets/images/recommendationGreenSport.svg";
