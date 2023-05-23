@@ -27,7 +27,7 @@ const airController = {
   getAllAirInfor: async (req, res) => {
     try {
       Air.find()
-        .sort({ date: -1 })
+        .sort({ "date.date_type": -1 })
         .exec(function (err, data) {
           if (err) {
             console.error(err);
