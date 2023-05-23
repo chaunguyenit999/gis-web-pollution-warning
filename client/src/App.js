@@ -22,8 +22,8 @@ function App() {
             return;
         }
         if (dataType === 'weatherApi') {
-            // axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=${formattedDate}&todate=${formattedDate}`)
-            axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=2023-5-21&todate=2023-5-21`)
+            axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=${formattedDate}&todate=${formattedDate}`)
+            // axios.get(`https://environment-admin.onrender.com/api/v1/open-api/openweathermap/airs/filter?fromdate=2023-5-21&todate=2023-5-21`)
             .then((response) => {
                     setApi(response.data);
                 })
