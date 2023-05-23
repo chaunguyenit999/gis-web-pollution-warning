@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, GeoJSON } from 'react-leaflet';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "./Mapbody.scss";
@@ -93,7 +93,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), '#4cb84c', greenFace, "#000000", 'Chất lượng ko khí ở mức tốt']
+        }), '#4cb84c', greenFace, "#000000", 'Chất lượng ko khí ở mức tốt', maxValue]
       }
       else if (maxValue === 2) {
         return [L.icon({
@@ -103,7 +103,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28]
-        }), 'yellow', yellowFace, "#000000", 'Chất lượng ko khí ở mức trung bình']
+        }), 'yellow', yellowFace, "#000000", 'Chất lượng ko khí ở mức trung bình', maxValue]
       }
       else if (maxValue === 3) {
         return [L.icon({
@@ -113,7 +113,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), 'orange', orangeFace, "#000000", 'Không lành mạnh cho các nhóm nhạy cảm']
+        }), 'orange', orangeFace, "#000000", 'Không lành mạnh cho các nhóm nhạy cảm', maxValue]
       }
       else if (maxValue === 4) {
         return [L.icon({
@@ -123,7 +123,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), 'grey', greyFace, "#ffffff", 'Chất lượng ko khí không lành mạnh']
+        }), 'grey', greyFace, "#ffffff", 'Chất lượng ko khí không lành mạnh', maxValue]
       }
       else if (maxValue === 5) {
         return [L.icon({
@@ -133,7 +133,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), '#d81e1e', redFace, "#ffffff", 'Ô nhiễm không khí ở mức nguy hiểm']
+        }), '#d81e1e', redFace, "#ffffff", 'Ô nhiễm không khí ở mức nguy hiểm', maxValue]
       }
       else if (maxValue === 6) {
         return [L.icon({
@@ -143,7 +143,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), '#ab19ab', violetFace, "#ffffff", 'chất lượng ko khí ở mức tốt']
+        }), '#ab19ab', violetFace, "#ffffff", 'chất lượng ko khí ở mức tốt', maxValue]
       }
     }
 
@@ -172,21 +172,99 @@ function Mapbody(props) {
   //   )
   // }
 
+
+  function datamap(fileGeoJSON, marker) {
+    let key = []
+    let geojsonReturn = []
+    for (let index = 0; index < fileGeoJSON.features.length; index++) {
+      const elementGeojson = fileGeoJSON.features[index];
+      key.push(
+        elementGeojson.properties.NAME_3
+      )
+      geojsonReturn.push(
+        <GeoJSON
+          id={index}
+          level={0}
+          name={elementGeojson.properties.NAME_3}
+          data={elementGeojson.geometry}
+          color='black'
+          fillColor="blue"
+          fillOpacity={0.1} />
+      )
+    }
+
+    for (let index = 0; index < marker.length; index++) {
+      const element = marker[index];
+      const town = element.props.commune.replace(/\s/g, "");
+      const id = key.indexOf(town)
+      if (key.includes(town) && element.props.level > geojsonReturn[id]?.props?.level)
+        geojsonReturn[id] =
+          <GeoJSON
+            id={id}
+            level={element.props.level}
+            name={town}
+            data={fileGeoJSON.features[id]}
+            color='black'
+            fillColor={element.props.color}
+            fillOpacity={0.65} />
+    }
+
+    return geojsonReturn
+  }
+
   // tạo marker
-  function marker(points, type, listOfYears=[], listOfMonths=[]) {
-    if (type ==='excel') {
+  function marker(points, type, typeOfPollutions, fileGeoJSON, listOfYears = [], listOfMonths = []) {
+    if (type === 'excel') {
       let markers = {}
+      let dataMap = {}
+      let key = []
+      for (let index = 0; index < fileGeoJSON.features.length; index++) {
+        const elementGeojson = fileGeoJSON.features[index];
+        key.push(
+          elementGeojson.properties.NAME_3
+        )
+      }
       for (let year of listOfYears) {
         markers[year] = {};
+        dataMap[year] = {};
         for (let month of listOfMonths) {
           markers[year][month] = [];
+          dataMap[year][month] = [];
+          for (let index = 0; index < fileGeoJSON.features.length; index++) {
+            const elementGeojson = fileGeoJSON.features[index];
+            dataMap[year][month].push(
+              <GeoJSON
+                key = {`${year},${month},${index},''`}
+                index={index}
+                level={0}
+                name={elementGeojson.properties.NAME_3}
+                data={elementGeojson.geometry}
+                color='black'
+                fillColor="blue"
+                fillOpacity={0.15} />
+            )
+          }
         }
       }
       for (let i = 0; i < points.length; i++) {
-        const mainPollutant = typeOfPollution(props.typeOfPollutions, points[i])
+        const mainPollutant = typeOfPollution(typeOfPollutions, points[i])
         const color = classPoint(points[i], mainPollutant)
+        const indexDataMap = key.indexOf(points[i].location.commune.replace(/\s/g, ""))
+
+        if (color[5] > dataMap[points[i].date.year][points[i].date.month][indexDataMap]?.props?.level) {
+          dataMap[points[i].date.year][points[i].date.month][indexDataMap] =
+            <GeoJSON
+              key = {`${points[i].date.year},${points[i].date.month},${indexDataMap},${mainPollutant[1]}`}
+              index={indexDataMap}
+              level={color[5]}
+              name={points[i].location.commune.replace(/\s/g, "")}
+              data={fileGeoJSON.features[indexDataMap].geometry}
+              color='black'
+              fillColor={color[1]}
+              fillOpacity={0.65} />
+        }
         markers[points[i].date.year][points[i].date.month].push(
-          <Marker id={i} position={[points[i].location.latitude, points[i].location.longitude]} icon={color[0]}
+          <Marker commune={points[i].location.commune} level={color[5]} color={color[1]} id={i} position={[points[i].location.latitude, points[i].location.longitude]} icon={color[0]}
             eventHandlers={{
               click: () => {
                 handleMarkerClick(i)
@@ -195,13 +273,21 @@ function Mapbody(props) {
           </Marker>
         );
       }
-      return markers
+      for (let index = 0; index < Object.keys(markers).length; index++) {
+        const element = markers[Object.keys(markers)[index]];
+        Object.keys(element).forEach(key => {
+          if (element[key].length === 0) {
+            delete element[key];
+          }
+        });
+      }
+      return [markers, dataMap]
     }
-    else if (type ==='weatherApi') {
+    else if (type === 'weatherApi') {
       let markers = []
       for (let i = 0; i < points.length; i++) {
-      const mainPollutant = typeOfPollution(props.typeOfPollutions, points[i])
-      const color = classPoint(points[i], mainPollutant)
+        const mainPollutant = typeOfPollution(typeOfPollutions, points[i])
+        const color = classPoint(points[i], mainPollutant)
         markers.push(
           <Marker id={i} position={[points[i].location.latitude, points[i].location.longitude]} icon={color[0]}
             eventHandlers={{
@@ -383,10 +469,10 @@ function Mapbody(props) {
     let keys = Object.keys(props.data[id]);
     if (props.selectedDataType === 'excel') {
       setModalTitle(`${props.data[id].location.address}`)
-  }
-  else if (props.selectedDataType === 'weatherApi') {
-    setModalTitle(`dữ liệu từ tỉnh ${props.data[id].location.district_city}`)
-  }
+    }
+    else if (props.selectedDataType === 'weatherApi') {
+      setModalTitle(`dữ liệu từ tỉnh ${props.data[id].location.district_city}`)
+    }
 
     setModalBody(
       <div dangerouslySetInnerHTML={{
@@ -446,7 +532,7 @@ function Mapbody(props) {
             return result;
           }
           else if (color[1] === "yellow") {
-             result += `
+            result += `
           <tr>
             <td class = "rcmColumn1"><img src = ${recommendationYellowMask}/></td>
             <td class = "rcmColumn2">Các nhóm nhạy cảm nên đeo mặt nạ khi ra ngoài</td>
@@ -463,7 +549,7 @@ function Mapbody(props) {
             return result;
           }
           else if (color[1] === "orange") {
-             result += `
+            result += `
           <tr>
             <td class = "rcmColumn1"><img src = ${recommendationOrangeMask}/></td>
             <td class = "rcmColumn2">Các nhóm nhạy cảm nên đeo mặt nạ khi ra ngoài</td>
@@ -480,7 +566,7 @@ function Mapbody(props) {
             return result;
           }
           else if (color[1] === "grey") {
-             result += `
+            result += `
           <tr>
             <td class = "rcmColumn1"><img src = ${recommendationGreyMask}/></td>
             <td class = "rcmColumn2">Đeo mặt nạ khi ra ngoài</td>
@@ -497,7 +583,7 @@ function Mapbody(props) {
             return result;
           }
           else if (color[1] === "#d81e1e") {
-             result += `
+            result += `
           <tr>
             <td class = "rcmColumn1"><img src = ${recommendationRedMask}/></td>
             <td class = "rcmColumn2">Đeo mặt nạ khi ra ngoài</td>
@@ -555,29 +641,19 @@ function Mapbody(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.center]);
   // end handle select tỉnh thành
-  function filetrGeoJson(listGeojson) {
-    let listReturn = [];
-    for (let index = 0; index < listGeojson.features.length; index++) {
-      const element = listGeojson.features[index];
-      if (element.properties.VARNAME_3 ==="AnDo") {
-        listReturn.push(
-          <GeoJSON data={element.geometry} pathOptions={{ color: 'red'}}></GeoJSON>
 
-        )
-      }
-      else {
-        listReturn.push(
-          <GeoJSON data={element.geometry} pathOptions={{ color: 'green'}}></GeoJSON>
-        )
-      }
-    }
-    return listReturn
-  }
-  let geoJsonBanDoHanhChinhHanam = filetrGeoJson(banDoHanhChinhHanam)
-  if (props.selectedDataType==='excel') {
-    const markers = marker(props.data,props.selectedDataType, props.listOfYear, props.listOfMonth);
-     const markersDisplay  = markers[props.selectedYear][props.selectedMonth]
-     return (
+  useEffect(() => {
+    handleClick();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.selectedYear, props.selectedMonth]);
+  if (props.selectedDataType === 'excel') {
+    const markers = marker(props.data, props.selectedDataType, props.typeOfPollutions, banDoHanhChinhHanam, props.listOfYear, props.listOfMonth);
+    const markersDisplay = markers[0][props.selectedYear][props.selectedMonth]
+
+    // console.log(props.selectedYear,props.selectedMonth,markers[1][props.selectedYear][props.selectedMonth])
+    // {datamap(banDoHanhChinhHanam, markers,props.selectedYear,props.selectedMonth)}
+    console.log(markers[1][props.selectedYear][props.selectedMonth])
+    return (
       <div className="body-content-wrapper">
         <MapContainer attributionControl={false} ref={mapRef} center={center} zoom={12} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }} >
           <TileLayer
@@ -585,9 +661,8 @@ function Mapbody(props) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {markersDisplay}
-          {geoJsonBanDoHanhChinhHanam}
-          {/* <LocationMarker /> */}
-          <Legend/>
+          {markers[1][props.selectedYear][props.selectedMonth]}
+          <Legend />
         </MapContainer>
         <Modal show={show} onHide={handleClose} size="lg" centered >
           <Modal.Header closeButton style={{ backgroundColor: modalColor[0], color: modalColor[1] }}>
@@ -604,35 +679,35 @@ function Mapbody(props) {
       </div>
     );
   }
-else if (props.selectedDataType==='weatherApi'){
-  const markersDisplay = marker(props.data,props.selectedDataType);
+  else if (props.selectedDataType === 'weatherApi') {
+    const markersDisplay = marker(props.data, props.selectedDataType, props.typeOfPollutions);
 
-  return (
-    <div className="body-content-wrapper">
-      <MapContainer attributionControl={false} ref={mapRef} center={center} zoom={12} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }} >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {markersDisplay}
-        {/* <LocationMarker /> */}
-        <Legend />
-      </MapContainer>
-      <Modal show={show} onHide={handleClose} size="lg" centered >
-        <Modal.Header closeButton style={{ backgroundColor: modalColor[0], color: modalColor[1] }}>
-          <img src={modalImg} style={{ height: "100px", width: "100px", backgroundColor: modalColor[0] }} alt="" />
-          <table className='aqi-value'>
-            <tr>US AQI</tr>
-            <tr></tr>
-            <tr id='valueAqi'>{modalAqi}</tr>
-          </table>
-          <Modal.Title style={{ color: modalColor[1] }}>{modalTitle}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{modalBody}{recommendation}</Modal.Body>
-      </Modal>
-    </div>
-  );
-}
+    return (
+      <div className="body-content-wrapper">
+        <MapContainer attributionControl={false} ref={mapRef} center={center} zoom={12} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }} >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {markersDisplay}
+          {/* <LocationMarker /> */}
+          <Legend />
+        </MapContainer>
+        <Modal show={show} onHide={handleClose} size="lg" centered >
+          <Modal.Header closeButton style={{ backgroundColor: modalColor[0], color: modalColor[1] }}>
+            <img src={modalImg} style={{ height: "100px", width: "100px", backgroundColor: modalColor[0] }} alt="" />
+            <table className='aqi-value'>
+              <tr>US AQI</tr>
+              <tr></tr>
+              <tr id='valueAqi'>{modalAqi}</tr>
+            </table>
+            <Modal.Title style={{ color: modalColor[1] }}>{modalTitle}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{modalBody}{recommendation}</Modal.Body>
+        </Modal>
+      </div>
+    );
+  }
 
 
 }

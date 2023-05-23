@@ -137,7 +137,7 @@ function Map(props) {
                 }
 
                 if (selectedYear !== '' && Object.keys(pollutionState).length !== 0) {
-                    return (
+                        return (
                         <div className='map-container'>
                             <MapNav />
                             <div className="body-wrapper">
