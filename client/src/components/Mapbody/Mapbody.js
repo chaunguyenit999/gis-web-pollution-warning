@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, GeoJSON } from 'react-leaflet';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import L from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "./Mapbody.scss";
@@ -171,46 +171,6 @@ function Mapbody(props) {
   //     </Marker>
   //   )
   // }
-
-
-  function datamap(fileGeoJSON, marker) {
-    let key = []
-    let geojsonReturn = []
-    for (let index = 0; index < fileGeoJSON.features.length; index++) {
-      const elementGeojson = fileGeoJSON.features[index];
-      key.push(
-        elementGeojson.properties.NAME_3
-      )
-      geojsonReturn.push(
-        <GeoJSON
-          id={index}
-          level={0}
-          name={elementGeojson.properties.NAME_3}
-          data={elementGeojson.geometry}
-          color='black'
-          fillColor="blue"
-          fillOpacity={0.1} />
-      )
-    }
-
-    for (let index = 0; index < marker.length; index++) {
-      const element = marker[index];
-      const town = element.props.commune.replace(/\s/g, "");
-      const id = key.indexOf(town)
-      if (key.includes(town) && element.props.level > geojsonReturn[id]?.props?.level)
-        geojsonReturn[id] =
-          <GeoJSON
-            id={id}
-            level={element.props.level}
-            name={town}
-            data={fileGeoJSON.features[id]}
-            color='black'
-            fillColor={element.props.color}
-            fillOpacity={0.65} />
-    }
-
-    return geojsonReturn
-  }
 
   // tạo marker
   function marker(points, type, typeOfPollutions, fileGeoJSON, listOfYears = [], listOfMonths = []) {
@@ -642,17 +602,9 @@ function Mapbody(props) {
   }, [props.center]);
   // end handle select tỉnh thành
 
-  useEffect(() => {
-    handleClick();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.selectedYear, props.selectedMonth]);
   if (props.selectedDataType === 'excel') {
     const markers = marker(props.data, props.selectedDataType, props.typeOfPollutions, banDoHanhChinhHanam, props.listOfYear, props.listOfMonth);
-    const markersDisplay = markers[0][props.selectedYear][props.selectedMonth]
 
-    // console.log(props.selectedYear,props.selectedMonth,markers[1][props.selectedYear][props.selectedMonth])
-    // {datamap(banDoHanhChinhHanam, markers,props.selectedYear,props.selectedMonth)}
-    console.log(markers[1][props.selectedYear][props.selectedMonth])
     return (
       <div className="body-content-wrapper">
         <MapContainer attributionControl={false} ref={mapRef} center={center} zoom={12} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }} >
@@ -660,7 +612,7 @@ function Mapbody(props) {
             attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {markersDisplay}
+          {markers[0][props.selectedYear][props.selectedMonth]}
           {markers[1][props.selectedYear][props.selectedMonth]}
           <Legend />
         </MapContainer>
