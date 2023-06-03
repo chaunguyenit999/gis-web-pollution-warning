@@ -2,8 +2,20 @@ import "./MapSidebar.scss";
 import { Accordion, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { Modal } from "react-bootstrap";
 
 function MapSidebar(props) {
+
+  // modal bootstrap
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setShow(true)
+    console.log(props.data)
+    // tương tự bên mapbody
+  };
+  // end modal bootstrap
 
   const [status, setStatus] = useState();
   const [timer, countdown] = useState();
@@ -104,7 +116,7 @@ function MapSidebar(props) {
                 </Form.Select>
                 <Accordion style={{ marginTop: '5px' }}>
                   <Accordion.Item eventKey="0" className="accordion-item-toggle1">
-                    <Accordion.Header className="cus">chọn kiểu dữ liệu</Accordion.Header>
+                    <Accordion.Header className="cus">Chọn kiểu dữ liệu</Accordion.Header>
                     <Accordion.Body className="accordion-item-toggle-body1">
                       {Object.entries(props.typeOfPollutions).map(([key, value]) => (
                         <div className="form-check form-switch">
@@ -120,7 +132,17 @@ function MapSidebar(props) {
 
                   </Accordion.Item>
                 </Accordion>
-
+                <Accordion style={{ marginTop: '5px' }}>
+                  <Accordion.Item eventKey="0" className="accordion-item-toggle1">
+                    <Accordion.Header className="cus" onClick={() => handleShow()}>Bộ lọc nâng cao</Accordion.Header>
+                    <Modal show={show} onHide={handleClose} size="lg" centered >
+                      <Modal.Header closeButton >
+                        <Modal.Title>Modal</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>Việt</Modal.Body>
+                    </Modal>
+                  </Accordion.Item>
+                </Accordion>
               </Accordion.Body>
             )}
           </Accordion.Item>
