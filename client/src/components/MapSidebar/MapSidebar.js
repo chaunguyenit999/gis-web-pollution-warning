@@ -3,24 +3,98 @@ import { Accordion, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Modal } from "react-bootstrap";
+import { Bar } from 'react-chartjs-2';
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function MapSidebar(props) {
-
-  // modal bootstrap
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => {
-    setShow(true)
-    console.log(props.data)
-    // tương tự bên mapbody
-  };
-  // end modal bootstrap
 
   const [status, setStatus] = useState();
   const [timer, countdown] = useState();
   const [isStatusUpdated, setIsStatusUpdated] = useState(false);
   const [showLink, setShowLink] = useState(false);
+
+  // modal bootstrap and chart
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const [showModal, setShowModal] = useState("");
+  const [options, setOptions] = useState({});
+  const [labels, setLabels] = useState([]);
+  const [data, setData] = useState({});
+
+  const handleShow = () => {
+
+    setOptions(
+      {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Chart.js Bar Chart - Stacked',
+          },
+        },
+        responsive: true,
+        scales: {
+          x: {
+            stacked: true,
+          },
+          y: {
+            stacked: true,
+          },
+        },
+      }
+    )
+    setLabels(['January', 'February', 'March', 'April', 'May', 'June', 'July'])
+    setData({
+      labels,
+      datasets: [
+        {
+          label: 'Dataset 1',
+          data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+          backgroundColor: 'rgb(255, 99, 132)',
+        },
+        {
+          label: 'Dataset 2',
+          data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+          backgroundColor: 'rgb(75, 192, 192)',
+        },
+        {
+          label: 'Dataset 3',
+          data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+          backgroundColor: 'rgb(53, 162, 235)',
+        },
+      ],
+    })
+    setShowModal(
+      <div
+        dangerouslySetInnerHTML={{
+          __html: (() => {
+            let result = `làm giống mapbody tạo một list các danh sách và tạo time line`;
+            return result;
+          })(),
+        }}
+      />
+    );
+    setShow(true)
+
+  };
+  // end modal bootstrap and chart
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -60,6 +134,10 @@ function MapSidebar(props) {
   const handleTypeChange = (event) => {
     props.onTypeChange(event);
   };
+
+
+
+
   return (
     <div className="body-sidebar-wrapper">
       <div className="sidebar-logo">
@@ -139,7 +217,10 @@ function MapSidebar(props) {
                       <Modal.Header closeButton >
                         <Modal.Title>Modal</Modal.Title>
                       </Modal.Header>
-                      <Modal.Body>Việt</Modal.Body>
+                      <Modal.Body>
+                        {showModal}
+                        <Bar data={data} options={options} />
+                      </Modal.Body>
                     </Modal>
                   </Accordion.Item>
                 </Accordion>
