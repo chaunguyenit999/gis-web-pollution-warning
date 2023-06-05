@@ -172,9 +172,11 @@ function Mapbody(props) {
   //   )
   // }
 
-  // tạo marker
+  // tạo marker, geojson, obj data year month
   function marker(points, type, typeOfPollutions, fileGeoJSON, listOfYears = [], listOfMonths = []) {
     if (type === 'excel') {
+      // let dataObject = {}
+      let dataObject = {}
       let markers = {}
       let dataMap = {}
       let key = []
@@ -185,16 +187,18 @@ function Mapbody(props) {
         )
       }
       for (let year of listOfYears) {
+        // dataObject[year] = {};
         markers[year] = {};
         dataMap[year] = {};
         for (let month of listOfMonths) {
+          // dataObject[year][month] = {};
           markers[year][month] = [];
           dataMap[year][month] = [];
           for (let index = 0; index < fileGeoJSON.features.length; index++) {
             const elementGeojson = fileGeoJSON.features[index];
             dataMap[year][month].push(
               <GeoJSON
-                key = {`${year},${month},${index},''`}
+                key={`${year},${month},${index},''`}
                 index={index}
                 level={0}
                 name={elementGeojson.properties.NAME_3}
@@ -210,11 +214,36 @@ function Mapbody(props) {
         const mainPollutant = typeOfPollution(typeOfPollutions, points[i])
         const color = classPoint(points[i], mainPollutant)
         const indexDataMap = key.indexOf(points[i].location.commune.replace(/\s/g, ""))
+        // dataObject[points[i].date.year][points[i].date.month].detail = {
+        //   address: points[i].location.address,
+        //   state: "Tỉnh Hà Nam",
+        //   commune: "Hoàng Đông",
+        //   latitude: 20.6327677089597,
+        //   longitude: 105.912741366696,
+        //   "tsp": {
+        //     "value": 165,
+        //     "aqi": 215,
+        //     "result": 5,
+        //     "color": 5
+        //   },
+        //   "so2": {
+        //     "value": 165,
+        //     "aqi": 215,
+        //     "result": 5,
+        //     "color": 5
+        //   },
+        //   "no2": {
+        //     "value": 165,
+        //     "aqi": 215,
+        //     "result": 5,
+        //     "color": 5
+        //   },
+        // };
 
         if (color[5] > dataMap[points[i].date.year][points[i].date.month][indexDataMap]?.props?.level) {
           dataMap[points[i].date.year][points[i].date.month][indexDataMap] =
             <GeoJSON
-              key = {`${points[i].date.year},${points[i].date.month},${indexDataMap},${mainPollutant[1]}`}
+              key={`${points[i].date.year},${points[i].date.month},${indexDataMap},${mainPollutant[1]}`}
               index={indexDataMap}
               level={color[5]}
               name={points[i].location.commune.replace(/\s/g, "")}

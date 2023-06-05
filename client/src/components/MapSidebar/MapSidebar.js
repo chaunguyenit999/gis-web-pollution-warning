@@ -2,7 +2,7 @@ import "./MapSidebar.scss";
 import { Accordion, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { Modal } from "react-bootstrap";
+import { Modal,Container,Row,Col } from "react-bootstrap";
 import { Bar } from 'react-chartjs-2';
 
 import {
@@ -36,7 +36,7 @@ function MapSidebar(props) {
   const [showModal, setShowModal] = useState("");
   const [options, setOptions] = useState({});
   const [labels, setLabels] = useState([]);
-  const [data, setData] = useState({});
+  const [dataChart, setDataChart] = useState({});
 
   const handleShow = () => {
 
@@ -45,7 +45,7 @@ function MapSidebar(props) {
         plugins: {
           title: {
             display: true,
-            text: 'Chart.js Bar Chart - Stacked',
+            text: 'chất lượng ko khí 12 tháng qua',
           },
         },
         responsive: true,
@@ -60,7 +60,7 @@ function MapSidebar(props) {
       }
     )
     setLabels(['January', 'February', 'March', 'April', 'May', 'June', 'July'])
-    setData({
+    setDataChart({
       labels,
       datasets: [
         {
@@ -84,7 +84,20 @@ function MapSidebar(props) {
       <div
         dangerouslySetInnerHTML={{
           __html: (() => {
-            let result = `làm giống mapbody tạo một list các danh sách và tạo time line`;
+            let result = `<div>`
+            for (let index = 0; index < props.data.length; index++) {
+              const element = props.data[index];
+              // let listOfAddresses = []
+              if (// eslint-disable-next-line
+                element.date.year == props.selectedYear
+                // eslint-disable-next-line
+                && element.date.month == props.selectedMonth
+              ) {
+                result += `${element.location.address}</br>`;
+              }
+
+            }
+            result += `</div>`;
             return result;
           })(),
         }}
@@ -213,13 +226,25 @@ function MapSidebar(props) {
                 <Accordion style={{ marginTop: '5px' }}>
                   <Accordion.Item eventKey="0" className="accordion-item-toggle1">
                     <Accordion.Header className="cus" onClick={() => handleShow()}>Bộ lọc nâng cao</Accordion.Header>
-                    <Modal show={show} onHide={handleClose} size="lg" centered >
+                    <Modal show={show} onHide={handleClose} size="lg" centered>
                       <Modal.Header closeButton >
                         <Modal.Title>Modal</Modal.Title>
                       </Modal.Header>
-                      <Modal.Body>
-                        {showModal}
-                        <Bar data={data} options={options} />
+                      <Modal.Body >
+                      {/* <Modal.Body className="show-grid"> */}
+                        <Container >
+                        <Row className="custom-modal-body">
+                            <Col className="col-1" xs={7} md={8}>
+                              {showModal}
+                            </Col>
+                            <Col className="col-2" xs={5} md={4}>
+                            overview
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Bar data={dataChart} options={options} />
+                          </Row>
+                        </Container>
                       </Modal.Body>
                     </Modal>
                   </Accordion.Item>

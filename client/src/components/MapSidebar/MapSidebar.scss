@@ -23,6 +23,17 @@
 h2.cus button.accordion-button.collapsed{
   background-color: rgb(238, 233, 233);
 }
+.custom-modal-body{
+  .col-1{
+  background-color: rgb(233, 121, 121);
+  height: 200px;
+  overflow-y: scroll;
+  font-size: 76%;
+  }
+  .col-2{
+  background-color: rgb(195, 185, 185);
+  }
+}
 .accordion-item-toggle-body1{
   margin-bottom: -10%;
 }
