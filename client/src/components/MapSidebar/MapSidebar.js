@@ -46,9 +46,44 @@ function MapSidebar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [showModal, setShowModal] = useState("");
-  const [options, setOptions] = useState({});
-  const [labels, setLabels] = useState([]);
-  const [dataChart, setDataChart] = useState({});
+  const [options, setOptions] = useState({
+    plugins: {
+      title: {
+        display: true,
+        text: 'chất lượng ko khí 12 tháng qua',
+      },
+    },
+    responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  });
+  const [labels, setLabels] = useState(['January', 'February', 'March', 'April', 'May', 'June', 'July']);
+  const [dataChart, setDataChart] = useState({
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+        backgroundColor: 'rgb(255, 99, 132)',
+      },
+      {
+        label: 'Dataset 2',
+        data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+        backgroundColor: 'rgb(75, 192, 192)',
+      },
+      {
+        label: 'Dataset 3',
+        data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+        backgroundColor: 'rgb(53, 162, 235)',
+      },
+    ],
+  });
 
   const handleShow = () => {
 
