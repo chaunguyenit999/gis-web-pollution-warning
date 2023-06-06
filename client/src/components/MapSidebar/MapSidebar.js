@@ -3,10 +3,11 @@ import { Accordion, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Modal, Container, Row, Col } from "react-bootstrap";
-import { Bar } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
 
 import {
   Chart as ChartJS,
+  ArcElement,
   CategoryScale,
   LinearScale,
   BarElement,
@@ -15,6 +16,7 @@ import {
   Legend,
 } from 'chart.js';
 ChartJS.register(
+  ArcElement,
   CategoryScale,
   LinearScale,
   BarElement,
@@ -46,7 +48,8 @@ function MapSidebar(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [showModal, setShowModal] = useState("");
-  const [options, setOptions] = useState({
+
+  const [optionsBarChart, setOptionsBarChart] = useState({
     plugins: {
       title: {
         display: true,
@@ -63,31 +66,43 @@ function MapSidebar(props) {
       },
     },
   });
-  const [labels, setLabels] = useState(['January', 'February', 'March', 'April', 'May', 'June', 'July']);
-  const [dataChart, setDataChart] = useState({
-    labels,
+  const [labelsBarChart, setLabelsBarChart] = useState(['January', 'February', 'March', 'April', 'May', 'June', 'July']);
+  const [dataChartBarChart, setDataChartBarChart] = useState({
+    labels:labelsBarChart,
     datasets: [
       {
         label: 'Dataset 1',
-        data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+        data: labelsBarChart.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
         backgroundColor: 'rgb(255, 99, 132)',
       },
       {
         label: 'Dataset 2',
-        data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+        data: labelsBarChart.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
         backgroundColor: 'rgb(75, 192, 192)',
       },
       {
         label: 'Dataset 3',
-        data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+        data: labelsBarChart.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
         backgroundColor: 'rgb(53, 162, 235)',
       },
     ],
   });
 
+  const [dataDoughnutChart, setDataDoughnutChart] = useState({
+    labels: ['yes', 'no'],
+    datasets: [{
+      label: 'Poole',
+      data: [3, 6],
+      backgroundColor: ['black', 'red'],
+      borderColor: ['black', 'red'],
+      circumference: 180,
+      rotation: 270
+    }]
+  });
+
   const handleShow = () => {
 
-    setOptions(
+    setOptionsBarChart(
       {
         plugins: {
           title: {
@@ -106,26 +121,37 @@ function MapSidebar(props) {
         },
       }
     )
-    setLabels(['January', 'February', 'March', 'April', 'May', 'June', 'July'])
-    setDataChart({
-      labels,
+    setLabelsBarChart(['January', 'February', 'March', 'April', 'May', 'June', 'July'])
+    setDataChartBarChart({
+      labels:labelsBarChart,
       datasets: [
         {
           label: 'Dataset 1',
-          data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+          data: labelsBarChart.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
           backgroundColor: 'rgb(255, 99, 132)',
         },
         {
           label: 'Dataset 2',
-          data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+          data: labelsBarChart.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
           backgroundColor: 'rgb(75, 192, 192)',
         },
         {
           label: 'Dataset 3',
-          data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+          data: labelsBarChart.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
           backgroundColor: 'rgb(53, 162, 235)',
         },
       ],
+    })
+    setDataDoughnutChart({
+      labels: ['yes', 'no'],
+      datasets: [{
+        label: 'Poole',
+        data: [3, 6],
+        backgroundColor: ['black', 'red'],
+        borderColor: ['black', 'red'],
+        circumference: 180,
+        rotation: 270
+      }]
     })
     function myFunction() {
       console.log(1)
@@ -347,16 +373,11 @@ function MapSidebar(props) {
                               {showModal}
                             </Col>
                             <Col className="col-2" xs={5} md={4}>
-                              <div class="ring">
-                                <div class="value">
-                                  <div class="number">21</div>
-                                  <div class="units">aqi</div>
-                                </div>
-                              </div>
+                            <Doughnut data={dataDoughnutChart}></Doughnut>
                             </Col>
                           </Row>
                           <Row>
-                            <Bar data={dataChart} options={options} />
+                            <Bar data={dataChartBarChart} options={optionsBarChart} />
                           </Row>
                         </Container>
                       </Modal.Body>
