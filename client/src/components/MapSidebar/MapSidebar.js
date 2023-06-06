@@ -2,7 +2,7 @@ import "./MapSidebar.scss";
 import { Accordion, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { Modal,Container,Row,Col } from "react-bootstrap";
+import { Modal, Container, Row, Col } from "react-bootstrap";
 import { Bar } from 'react-chartjs-2';
 
 import {
@@ -24,6 +24,18 @@ ChartJS.register(
 );
 
 function MapSidebar(props) {
+  // const handleClick = () => {
+  //   console.log(1)
+  // }
+  // useEffect(() => {
+  //   const element = document.getElementById("demo");
+  //   element.addEventListener("click", handleClick);
+
+  //   return () => {
+  //     element.removeEventListener("click", handleClick);
+  //   };
+  // }, []);
+
 
   const [status, setStatus] = useState();
   const [timer, countdown] = useState();
@@ -80,28 +92,90 @@ function MapSidebar(props) {
         },
       ],
     })
+    function myFunction() {
+      console.log(1)
+    }
+    function typeOfPollution(maxValue) {
+      if (maxValue === 1) {
+        return ['#4cb84c', "#000000", 'tốt']
+      }
+      else if (maxValue === 2) {
+        return ['yellow', "#000000", 'trung bình']
+      }
+      else if (maxValue === 3) {
+        return ['orange', "#000000", 'klm cho các nhóm nhạy cảm']
+      }
+      else if (maxValue === 4) {
+        return ['grey', "#ffffff", 'không lành mạnh']
+      }
+      else if (maxValue === 5) {
+        return ['#d81e1e', "#ffffff", 'rất không lành mạnh']
+      }
+      else if (maxValue === 6) {
+        return ['#ab19ab', "#ffffff", 'nguy hiểm']
+      }
+    }
     setShowModal(
-      <div
-        dangerouslySetInnerHTML={{
-          __html: (() => {
-            let result = `<div>`
-            for (let index = 0; index < props.data.length; index++) {
-              const element = props.data[index];
-              // let listOfAddresses = []
-              if (// eslint-disable-next-line
-                element.date.year == props.selectedYear
+      <div>
+        <table style={{ borderCollapse: 'separate', borderSpacing: 0, width: "100%" }}>
+          <colgroup>
+            <col style={{ width: "7%" }} />
+            <col style={{ width: "63%" }} />
+            <col style={{ width: "10%" }} />
+            <col style={{ width: "20%" }} />
+          </colgroup>
+          <thead>
+            <tr>
+              <th colSpan={2} style={{ position: 'sticky', top: 0, borderBottom: 'solid 1px black', backgroundColor: '#C1BABA' }}>Name</th>
+              <th style={{ position: 'sticky', top: 0, borderBottom: 'solid 1px black', backgroundColor: '#C1BABA' }}>AQI</th>
+              <th style={{ position: 'sticky', top: 0, borderBottom: 'solid 1px black', backgroundColor: '#C1BABA' }}>chất lượng</th>
+            </tr>
+          </thead>
+          <tbody>
+            {props.data.map((element, index) => {
+              if (
                 // eslint-disable-next-line
-                && element.date.month == props.selectedMonth
+                element.date.year == props.selectedYear &&
+                // eslint-disable-next-line
+                element.date.month == props.selectedMonth
               ) {
-                result += `${element.location.address}</br>`;
-              }
+                var mainPollutant = ''
+                var valueMainPollutant = 0
+                for (let index = 3; index < 5; index++) {
+                  const key = Object.keys(element)[index];
+                  if (mainPollutant === '') {
+                    mainPollutant = key
+                    valueMainPollutant = element[key].result
+                  }
+                  else {
+                    if (valueMainPollutant < element[key].result) {
+                      valueMainPollutant = element[key].result
+                    }
+                  }
+                }
+                return (
+                  <div style={{ display: "table-row" }}>
+                    <div style={{ display: "table-cell", paddingTop: "3px", paddingBottom: "3px", verticalAlign: "middle" }}>
+                      <td onClick={myFunction}><div style={{ borderRadius: "50%", width: "100%", height: "100%", backgroundColor: typeOfPollution(valueMainPollutant)[0], color: typeOfPollution(valueMainPollutant)[0] }}>.....</div></td>
+                    </div>
+                    <div style={{ display: "table-cell", paddingTop: "3px", paddingBottom: "3px", verticalAlign: "middle"}}>
+                      <td onClick={myFunction}>{element.location.address}</td>
+                    </div>
+                    <div style={{ display: "table-cell", paddingTop: "3px", paddingBottom: "3px", verticalAlign: "middle" }}>
+                      <td onClick={myFunction}>{element[mainPollutant].aqi}</td>
+                    </div>
+                    <div style={{ display: "table-cell", paddingTop: "3px", paddingBottom: "3px", verticalAlign: "middle" }}>
+                      <td onClick={myFunction}>{typeOfPollution(valueMainPollutant)[2]}</td>
+                    </div>
+                  </div>
 
-            }
-            result += `</div>`;
-            return result;
-          })(),
-        }}
-      />
+                );
+              }
+              return null;
+            })}
+          </tbody>
+        </table>
+      </div>
     );
     setShow(true)
 
@@ -231,14 +305,19 @@ function MapSidebar(props) {
                         <Modal.Title>Modal</Modal.Title>
                       </Modal.Header>
                       <Modal.Body >
-                      {/* <Modal.Body className="show-grid"> */}
+                        {/* <Modal.Body className="show-grid"> */}
                         <Container >
-                        <Row className="custom-modal-body">
+                          <Row className="custom-modal-body">
                             <Col className="col-1" xs={7} md={8}>
                               {showModal}
                             </Col>
                             <Col className="col-2" xs={5} md={4}>
-                            overview
+                              <div class="ring">
+                                <div class="value">
+                                  <div class="number">21</div>
+                                  <div class="units">aqi</div>
+                                </div>
+                              </div>
                             </Col>
                           </Row>
                           <Row>
