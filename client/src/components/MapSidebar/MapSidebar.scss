@@ -8,110 +8,102 @@
 .sidebar-logo {
   padding: 0.3vw;
   text-align: center;
+
   a {
     font-size: 2rem;
     display: block;
     color: #1565c0;
   }
+
   border-bottom: 1px solid #ddd;
+
   &:hover {
     a {
       color: #1565c0;
     }
   }
 }
-.ring {
-  position: relative;
-  --pointerleft: 11%;
-  --pointertop: 11%;
-  --pointerdeg: -45deg;
-  width: 90%;
-  height: 100%;
-  background-image: radial-gradient(red 0, red 50%, transparent 50%, transparent 100%), radial-gradient(green 0, green 50%, transparent 50%, transparent 100%), radial-gradient(white 0, white 60%, transparent 60%), conic-gradient(orange 0, green 130deg, white 130deg, white 230deg, red 230deg, orange 360deg);
-  background-size: 11% 11%, 11% 11%, 100% 100%, 100% 100%;
-  background-repeat: no-repeat;
-  background-position: 9.2% 82.3%, 90.8% 82.3%, center center, center center;
-  border-radius: 50%;
-  border-style: none;
-}
 
-.ring::after {
+.pointer {
   position: absolute;
-  content: '';
-  width: 5%;
-  height: 15%;
-  left: var(--pointerleft);
-  top: var(--pointertop);
-  transform: rotate(var(--pointerdeg));
-  border-style: solid;
-  border-width: 0.5vmin;
-  border-radius: 2vmin;
-  background-color: white;
+  transform: translate(-50%, -50%) rotate(180deg); // Điều chỉnh góc quay của cây kim
+  width: 2px;
+  height: 40%; // Chiều dài của cây kim
+  background-color: black;
 }
 
-.value {
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  text-align: center;
-  color: gray;
-}
-
-.value .number {
-  font-size: 6vw;
-}
-
-.value .units {
-  font-size: 3vw;
-}
-h2.cus button.accordion-button.collapsed{
+h2.cus button.accordion-button.collapsed {
   background-color: rgb(238, 233, 233);
 }
-.custom-modal-body{
-  .col-1{
-  background-color: #C1BABA;
-  height: 200px;
-  overflow-y: scroll;
-  font-size: 76%;
+
+.custom-modal-body {
+  display: grid !important;
+  grid-template-columns: 60% 40%;
+  background-color: #eae3e3;
+
+  .col-1 {
+    height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+    font-size: 76%;
+
+    .table-row {
+      height: 75px;
+    }
+
+
+    .table-row:hover {
+      background-color: rgb(173, 173, 135);
+    }
   }
-  .col-2{
-  background-color: rgb(195, 185, 185);
+
+  .col-2 {
+    height: 80%;
+    width: 100%;
   }
 }
-.accordion-item-toggle-body1{
+
+.accordion-item-toggle-body1 {
   margin-bottom: -10%;
 }
-.sidebar-menu-items .accordion-item-toggle .accordion-item-toggle-body select.form-select{
+
+.sidebar-menu-items .accordion-item-toggle .accordion-item-toggle-body select.form-select {
   border: 1px solid rgb(219, 214, 214);
 }
+
 .sidebar-menu-items {
   box-sizing: border-box;
+
   .menu-items-header {
     padding: 0.8rem;
     background-color: #f5f5f5;
     color: rgba(51, 51, 51, 0.5) !important;
     font-size: 0.9rem;
   }
+
   .accordion-item-toggle {
     border-right: none;
+
     .accordion-button {
       border-right: none !important;
+
       &:hover {
         background: #f5f5f5;
       }
+
       background-color: #f5f5f5;
       color: rgba(51, 51, 51, 0.85) !important;
       font-weight: 500 !important;
       font-size: 0.9rem;
       border-radius: 0 !important;
+
       &:focus {
         border: none !important;
         background: #f5f5f5 !important;
         box-shadow: none;
       }
     }
+
     .accordion-button::after {
       display: none;
     }
@@ -131,6 +123,7 @@ h2.cus button.accordion-button.collapsed{
         border-bottom: 1px solid rgba(51, 51, 51, 0.5);
         outline: 0px;
       }
+
       option {
         color: #333333;
       }

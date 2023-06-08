@@ -113,7 +113,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), 'orange', orangeFace, "#000000", 'Không lành mạnh cho các nhóm nhạy cảm', maxValue]
+        }), 'orange', orangeFace, "#000000", 'Chất lượng ko khí ở mức kém', maxValue]
       }
       else if (maxValue === 4) {
         return [L.icon({
@@ -123,7 +123,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), 'grey', greyFace, "#ffffff", 'Chất lượng ko khí không lành mạnh', maxValue]
+        }), 'grey', greyFace, "#ffffff", 'Chất lượng ko khí xấu', maxValue]
       }
       else if (maxValue === 5) {
         return [L.icon({
@@ -133,7 +133,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), '#d81e1e', redFace, "#ffffff", 'Ô nhiễm không khí ở mức nguy hiểm', maxValue]
+        }), '#d81e1e', redFace, "#ffffff", 'Ô nhiễm không khí ở mức rất xấu', maxValue]
       }
       else if (maxValue === 6) {
         return [L.icon({
@@ -143,7 +143,7 @@ function Mapbody(props) {
           iconAnchor: [12, 41],
           popupAnchor: [1, -34],
           tooltipAnchor: [16, -28],
-        }), '#ab19ab', violetFace, "#ffffff", 'chất lượng ko khí ở mức tốt', maxValue]
+        }), '#ab19ab', violetFace, "#ffffff", 'chất lượng ko khí ở nguy hiểm', maxValue]
       }
     }
 
@@ -175,8 +175,6 @@ function Mapbody(props) {
   // tạo marker, geojson, obj data year month
   function marker(points, type, typeOfPollutions, fileGeoJSON, listOfYears = [], listOfMonths = []) {
     if (type === 'excel') {
-      // let dataObject = {}
-      let dataObject = {}
       let markers = {}
       let dataMap = {}
       let key = []
@@ -187,11 +185,9 @@ function Mapbody(props) {
         )
       }
       for (let year of listOfYears) {
-        // dataObject[year] = {};
         markers[year] = {};
         dataMap[year] = {};
         for (let month of listOfMonths) {
-          // dataObject[year][month] = {};
           markers[year][month] = [];
           dataMap[year][month] = [];
           for (let index = 0; index < fileGeoJSON.features.length; index++) {
@@ -214,31 +210,7 @@ function Mapbody(props) {
         const mainPollutant = typeOfPollution(typeOfPollutions, points[i])
         const color = classPoint(points[i], mainPollutant)
         const indexDataMap = key.indexOf(points[i].location.commune.replace(/\s/g, ""))
-        // dataObject[points[i].date.year][points[i].date.month].detail = {
-        //   address: points[i].location.address,
-        //   state: "Tỉnh Hà Nam",
-        //   commune: "Hoàng Đông",
-        //   latitude: 20.6327677089597,
-        //   longitude: 105.912741366696,
-        //   "tsp": {
-        //     "value": 165,
-        //     "aqi": 215,
-        //     "result": 5,
-        //     "color": 5
-        //   },
-        //   "so2": {
-        //     "value": 165,
-        //     "aqi": 215,
-        //     "result": 5,
-        //     "color": 5
-        //   },
-        //   "no2": {
-        //     "value": 165,
-        //     "aqi": 215,
-        //     "result": 5,
-        //     "color": 5
-        //   },
-        // };
+
 
         if (color[5] > dataMap[points[i].date.year][points[i].date.month][indexDataMap]?.props?.level) {
           dataMap[points[i].date.year][points[i].date.month][indexDataMap] =
