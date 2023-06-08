@@ -14,6 +14,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  scales,
 } from 'chart.js';
 ChartJS.register(
   ArcElement,
@@ -196,7 +197,7 @@ function MapSidebar(props) {
               },
               title: {
                 display: true,
-                text: `Biểu đồ Theo dõi Chỉ số AQI Hà Nội trong năm ${event.target.value}`,
+                text: `Biểu đồ Theo dõi Chỉ số AQI ${currentAddress} trong năm ${event.target.value}`,
               }
             }
           })
@@ -391,7 +392,16 @@ function MapSidebar(props) {
           },
           title: {
             display: true,
-            text: `chất lượng không khí trong vòng 12 tháng năm ${year} của ${name}`,
+            text: `Biểu đồ Theo dõi Chỉ số AQI ${name} trong năm ${year}`,
+          }
+        },
+        scales:{
+          y:{
+            beginAtZero: true,
+            max: 500,
+            ticks:{
+              stepSize:50,
+            }
           }
         }
       }
@@ -473,7 +483,16 @@ function MapSidebar(props) {
         title: {
           display: false,
         }
-      }
+      },
+        scales:{
+          y:{
+            beginAtZero: true,
+            max: 500,
+            ticks:{
+              stepSize:50,
+            }
+          }
+        }
     })
   };
 
