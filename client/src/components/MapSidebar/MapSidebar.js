@@ -52,6 +52,29 @@ function MapSidebar(props) {
   };
   const userActive = (event, type) => {
     if (type === 'search') {
+      setSearchInput("")
+      setCurrentYear(props.selectedYear)
+      setCurrentMonth(props.selectedMonth)
+      setCurrentAddress('')
+      setOptionsBarChart({
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: false,
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 500,
+            ticks: {
+              stepSize: 50,
+            }
+          }
+        }
+      })
       event.preventDefault();
       setSearchInput(event.target.value)
       setShowModal(
@@ -121,6 +144,29 @@ function MapSidebar(props) {
       );
     }
     if (type === 'year') {
+      setSearchInput("")
+      setCurrentYear(props.selectedYear)
+      setCurrentMonth(props.selectedMonth)
+      setCurrentAddress('')
+      setOptionsBarChart({
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: false,
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 500,
+            ticks: {
+              stepSize: 50,
+            }
+          }
+        }
+      })
       setCurrentYear(event.target.value)
       document.getElementById("month")
       setShowModal(
@@ -196,13 +242,37 @@ function MapSidebar(props) {
               },
               title: {
                 display: true,
-                text: `Biểu đồ Theo dõi Chỉ số AQI ${currentAddress} trong năm ${event.target.value}`,
+                text: `Biểu đồ Theo dõi Chỉ số AQI ${currentAddress}`,
+                fontSize: 20
               }
             }
           })
       }
     }
     else if (type === 'month') {
+      setSearchInput("")
+      setCurrentYear(props.selectedYear)
+      setCurrentMonth(props.selectedMonth)
+      setCurrentAddress('')
+      setOptionsBarChart({
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: false,
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 500,
+            ticks: {
+              stepSize: 50,
+            }
+          }
+        }
+      })
       setCurrentMonth(event.target.value)
       setShowModal(
         <div>
@@ -294,13 +364,14 @@ function MapSidebar(props) {
         }
       });
       dataNew.forEach(element => {
+        console.log(element)
         for (let i = 0; i < 12; i++) {
           if (element.date.month === i + 1) {
-            dataNew_no2[i] = element.no2.value
+            dataNew_no2[i] = element.no2.aqi
             dataNew_no2_aqi[i] = element.no2.result
-            dataNew_so2[i] = element.so2.value
+            dataNew_so2[i] = element.so2.aqi
             dataNew_so2_aqi[i] = element.so2.result
-            dataNew_tsp[i] = element.tsp.value
+            dataNew_tsp[i] = element.tsp.aqi
             dataNew_tsp_aqi[i] = element.tsp.result
           }
         }
@@ -391,15 +462,16 @@ function MapSidebar(props) {
           },
           title: {
             display: true,
-            text: `Biểu đồ Theo dõi Chỉ số AQI ${name} trong năm ${year}`,
+            text: `Biểu đồ Theo dõi Chỉ số AQI ${name}`,
+            fontSize: 20
           }
         },
-        scales:{
-          y:{
+        scales: {
+          y: {
             beginAtZero: true,
             max: 500,
-            ticks:{
-              stepSize:50,
+            ticks: {
+              stepSize: 50,
             }
           }
         }
@@ -433,22 +505,22 @@ function MapSidebar(props) {
 
   function typeOfPollution(maxValue) {
     if (maxValue === 1) {
-      return ['#4cb84c', "#000000", 'tốt']
+      return ['#4cb84c', "#000000", 'Tốt']
     }
     else if (maxValue === 2) {
-      return ['yellow', "#000000", 'trung bình']
+      return ['yellow', "#000000", 'Trung bình']
     }
     else if (maxValue === 3) {
-      return ['orange', "#000000", 'kém']
+      return ['orange', "#000000", 'Kém']
     }
     else if (maxValue === 4) {
-      return ['grey', "#ffffff", 'xấu']
+      return ['grey', "#ffffff", 'Xấu']
     }
     else if (maxValue === 5) {
-      return ['#d81e1e', "#ffffff", 'rất xấu']
+      return ['#d81e1e', "#ffffff", 'Rất xấu']
     }
     else if (maxValue === 6) {
-      return ['#ab19ab', "#ffffff", 'nguy hiểm']
+      return ['#ab19ab', "#ffffff", 'Nguy hiểm']
     }
   }
 
@@ -483,15 +555,15 @@ function MapSidebar(props) {
           display: false,
         }
       },
-        scales:{
-          y:{
-            beginAtZero: true,
-            max: 500,
-            ticks:{
-              stepSize:50,
-            }
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 500,
+          ticks: {
+            stepSize: 50,
           }
         }
+      }
     })
   };
 
@@ -533,22 +605,22 @@ function MapSidebar(props) {
         tooltip: {
           callbacks: {
             label: function (content) {
-              if (content.label === "tốt") {
+              if (content.label === "Tốt") {
                 return 'AQI: 0-50';
               }
-              else if (content.label === "trung bình") {
+              else if (content.label === "Trung bình") {
                 return 'AQI: 51-100';
               }
-              else if (content.label === "kém") {
+              else if (content.label === "Kém") {
                 return 'AQI: 101-150';
               }
-              else if (content.label === "xấu") {
+              else if (content.label === "Xấu") {
                 return 'AQI: 151-200';
               }
-              else if (content.label === "rất xấu") {
+              else if (content.label === "Rất xấu") {
                 return 'AQI: 201-300';
               }
-              else if (content.label === "nguy hiểm") {
+              else if (content.label === "Nguy hiểm") {
                 return 'AQI: 301-500';
               }
             }
@@ -558,7 +630,7 @@ function MapSidebar(props) {
     })
 
     setDataDoughnutChart({
-      labels: ['tốt', 'trung bình', 'kém', 'xấu', 'rất xấu', 'nguy hiểm'],
+      labels: ['Tốt', 'Trung bình', 'Kém', 'Xấu', 'Rất xấu', 'Nguy hiểm'],
       datasets: [{
         label: 'aaaaaaaaaaaaaaaaaaaaa',
         data: [50, 50, 50, 50, 100, 200],
@@ -576,7 +648,7 @@ function MapSidebar(props) {
     setPluginDoughnutChart({
       id: 'gaugeNeedle',
       afterDatasetsDraw(chart, args, options) {
-        const { ctx, data, chartArea: { top, bottom, left, right, width, height } } = chart;
+        const { ctx, data, chartArea: { width, height } } = chart;
         ctx.save();
         const needleValue = data.datasets[0].needleValue;
         const dataTotal = data.datasets[0].data.reduce((a, b) => a + b, 0);
@@ -749,7 +821,7 @@ function MapSidebar(props) {
                 </Accordion>
                 <Accordion style={{ marginTop: '5px' }}>
                   <Accordion.Item eventKey="0" className="accordion-item-toggle1">
-                    <Accordion.Header className="cus" onClick={() => handleShow()}>Bộ lọc nâng cao</Accordion.Header>
+                    <Accordion.Header className="cus" onClick={() => handleShow()}>Thống kê</Accordion.Header>
                     <Modal show={show} onHide={handleClose} size="lg" centered>
                       <Modal.Header closeButton >
                         <Modal.Title>Modal</Modal.Title>
@@ -757,22 +829,21 @@ function MapSidebar(props) {
                       <Modal.Body >
                         {/* <Modal.Body className="show-grid"> */}
                         <Container >
-                          <Row>
-                            <div>
+                          <Row className="custom-select">
+                            <div className="search">
 
                               <input
                                 type="text"
                                 placeholder="Search here"
+                                style={{ width: '100%' }}
                                 onChange={(event) => {
                                   userActive(event, 'search')
                                   handleSelectChange('')
                                 }}
                                 value={searchInput} />
 
-
-
                             </div>
-                            <select id="year" onChange={(event) => {
+                            <select className="year" id="year" onChange={(event) => {
                               userActive(event, "year");
                               handleSelectChange(currentAddress, event.target.value, currentMonth)
                             }}>
@@ -783,7 +854,7 @@ function MapSidebar(props) {
                                 </option>
                               ))}
                             </select>
-                            <select id="month" onChange={(event) => {
+                            <select className="month" id="month" onChange={(event) => {
                               userActive(event, "month");
                               handleSelectChange(currentAddress, currentYear, event.target.value)
                             }}>
@@ -795,12 +866,12 @@ function MapSidebar(props) {
                               ))}
                             </select>
                           </Row>
-                          <Row className="custom-modal-body">
+                          <Row style={{ display: "grid" }} className="custom-modal-body">
                             <Col className="col-1" xs={7} md={8}>
                               {showModal}
                             </Col>
                             <Col className="col-2" xs={5} md={4}>
-                              <div style={{ display: 'flex' }}>
+                              <div>
                                 <Doughnut
                                   ref={canvasRef}
                                   data={dataDoughnutChart}
@@ -810,20 +881,20 @@ function MapSidebar(props) {
                               </div>
                             </Col>
                           </Row>
-                          <Row>
-                            <div>
+                          <Row className="chart-container">
+                            <div className="chart-data">
                               {activeDiv === 'NO2' && (
-                                <div>
+                                <div className="chart">
                                   <Bar data={chartData1} options={optionsBarChart} />
                                 </div>
                               )}
                               {activeDiv === 'SO2' && (
-                                <div>
+                                <div className="chart">
                                   <Bar data={chartData2} options={optionsBarChart} />
                                 </div>
                               )}
                               {activeDiv === 'TSP' && (
-                                <div>
+                                <div className="chart">
                                   <Bar data={chartData3} options={optionsBarChart} />
                                 </div>
                               )}
